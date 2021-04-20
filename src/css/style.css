@@ -1,1 +1,78 @@
 /* Otiosum css file */
+
+/* FONTS */
+/*Cabin Sketch*/
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap');
+/*Indie Flower*/
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+/*Dancing Script*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+
+/* Variables */
+:root {
+    --link-color: #1b9bff;
+    --link-hover: #0082e7;
+
+    --navigation-bg: #2b2626;
+
+    --text-color: #353535;
+    --bg-color: #fafafa;
+
+    --green-color: #2bff1b;
+    --green-color-darker: #0EE700;
+    
+    --nav-color: #aeaeae;
+
+    --dropdown-bg: #cecece;
+}
+
+/* HEADER */
+.navbar {
+    background-color: var(--navigation-bg) !important;
+}
+
+.navbar-brand {
+    font-family: 'Cabin Sketch';
+    font-size: 48px;
+    background: -webkit-linear-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
+    background: -moz-radial-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
+    background: radial-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar-nav {
+    font-family: 'Indie Flower';
+    font-size: 24px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--nav-color);
+}
+.navbar-nav .active > .nav-link {
+    color: var(--green-color-darker);
+    border-bottom: 2px solid var(--link-color);
+}
+
+.navbar-nav .nav-link:hover{
+    color: var(--link-color);
+}
+
+    /* dropdown */
+.navbar-nav .dropdown-menu {
+    background-color: var(--dropdown-bg);
+    font-size: 20px;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    font-weight: 700;
+
+}
+
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    color: var(--link-color);
+    background-color: transparent;
+}
+
+/*FOOTER*/
