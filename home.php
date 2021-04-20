@@ -1,3 +1,6 @@
 <?php
-    echo "This is home page";
+    
+    for ($i=0; $i <1000 ; $i++) { 
+        echo "This is home page message: " . $i . "\n";
+    }
 ?>
