@@ -25,11 +25,46 @@
     --nav-color: #aeaeae;
 
     --dropdown-bg: #cecece;
+
+    --facebook-color: #4267B2;
+    --twitter-color: #1DA1F2;
+    --google-color: #DB4437;
+    --instagram-color: #c13584;
+    --linkedin-color: #2867b2;
+    --github-color: #333333;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--link-color);
+}
+a:hover {
+    color: var(--link-hover);
+}
+
+html, body {
+    height: 100%;
 }
 
 /* HEADER */
 .navbar {
-    background-color: var(--navigation-bg) !important;
+    background-color: var(--navigation-bg);
 }
 
 .navbar-brand {
@@ -75,4 +110,114 @@
     background-color: transparent;
 }
 
+.navbar .navbar-toggler {
+    color: var(--link-hover);
+    border-color: var(--nav-color);
+}
+
+.navbar .navbar-toggler:hover {
+    border-width: 2px;
+    /* border-color: var(--green-color); */
+}
+
+.navbar .navbar-toggler .navbar-toggler-icon {
+    background-image:  
+    url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(27, 155, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+
+}
+
+
 /*FOOTER*/
+
+footer {
+    background: var(--navigation-bg);
+    color: var(--nav-color);
+    height: auto;
+    margin-top: auto;
+}
+
+/*copyright section*/
+.copyright a{
+    color: var(--nav-color);
+    transition-duration: 0.2s;
+}
+
+.copyright a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.copyright {
+    border-top: 1px solid var(--nav-color);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/*social network icons*/
+.social-network a.icoFacebook:hover {
+    background-color: var(--facebook-color);
+}
+.social-network a.icoTwitter:hover {
+    background-color: var(--twitter-color);
+}
+.social-network a.icoGoogle:hover {
+    background-color: var(--google-color);
+}
+.social-network a.icoInstagram:hover {
+    background-color: var(--instagram-color);
+}
+.social-network a.icoLinkedin:hover {
+    background-color: var(--linkedin-color);
+}
+.social-network a.icoGithub:hover {
+    background-color: var(--github-color);
+}
+
+.social-network a.icoFacebook:hover i,
+.social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i,
+.social-network a.icoInstagram:hover i,
+.social-network a.icoLinkedin:hover i,
+.social-network a.icoGithub:hover i {
+    color: #fff;
+}
+
+.social-network a {
+    display: inline-block;
+    margin: 0 auto 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 38px;
+    height: 38px;
+    font-size: 24px;
+
+    /* return transition for background */
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    -ms-transition: all 1s;
+    transition: all 1s;
+}
+
+/* transition and rotation for the icon */
+.social-network a:hover {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    -ms-transition: all 1s;
+    transition: all 1s;
+    color: #fff;
+}
+
+ /* social icon color transition */
+.social-network i {
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    transition: all 0.8s;
+}
