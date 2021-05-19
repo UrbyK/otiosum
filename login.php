@@ -1,5 +1,5 @@
 
-<div class="container h-100"> <!-- container -->
+<div class="container max-vh-100"> <!-- container -->
     <div class="row justify-content-center align-items-center h-100"> <!-- row -->
         <div class="col-lg-8"> <!-- col-lg-8 -->
             <div class="card user-form"> <!-- card -->
@@ -18,7 +18,7 @@
                         <!-- Password -->
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:</label>
-                            <input type="text" class="form-control col-md-6" name="password" id="password" placeholder="geslo">
+                            <input type="text" class="form-control col-md-6" name="password" id="password" placeholder="Geslo">
                         </div>
 
                         <div class="form-group">
@@ -29,7 +29,7 @@
 
                 </div> <!-- card-body -->
                 <div class="card-footer"> <!-- card-footer -->
-                    Nimate računa? Ustvarite račun: <a href="#">Registracija</a>
+                    Nimate računa? Ustvarite račun: <a href="./index.php?page=register">Registracija</a>
                 </div> <!-- card-footer -->
             </div> <!-- card -->
         </div> <!-- col-lg-8 -->
