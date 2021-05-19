@@ -38,4 +38,13 @@
         return $result["nc"];
     }
 
+    /* Return all countries */
+    function countries(){
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->prepare("SELECT * FROM country");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 ?>
