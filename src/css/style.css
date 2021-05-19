@@ -42,13 +42,10 @@
 
 html, body {
     margin: 0;
-    height: 100%;
 }
 
 body {
     color: var(--text-color);
-    display: flex;
-    flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -227,7 +224,7 @@ footer {
     transition: all 0.8s;
 }
 
-/*Login/Register Form*/
+/*LOGIN/REGISTER FORM*/
 
 .user-form {
 background-color:#cccccc33;

@@ -25,7 +25,7 @@
 
         <title>Otiosum</title>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <!-- <header>
             <div class="banner"><img src="https://via.placeholder.com/1900x250" alt="banner"></div>
         </header> -->
