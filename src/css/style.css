@@ -235,3 +235,8 @@ background-color:#cccccc33;
     color: var(--nav-color);
 }
 
+.step {
+    display: none;
+    margin-top: 25px;
+}
+

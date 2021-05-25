@@ -1,16 +1,26 @@
 <?php
     include './src/inc/dbh.inc.php';
-
+    include './src/inc/xss_cleaner.inc.php';
 
     /* Template header */
-    function template_header($title){
-        include_once('./header.php');
+    // function template_header($title){
+    //     include_once('./header.php');
+    // }
+
+    // /* Template footer */
+    // function template_footer(){
+    //     include_once('./footer.php');
+    // }
+
+
+    function user_login_status() {
+        if(isset($_SESSION['login']) && !empty($_SESSION['login']) 
+                && isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+            return true;
+        }
+        return false;
     }
 
-    /* Template footer */
-    function template_footer(){
-        include_once('./footer.php');
-    }
     /* Get all main menu navigation items */
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();

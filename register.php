@@ -1,3 +1,6 @@
+<?php 
+    include_once './header.php';
+?>
 
 <div class="container max-vh-100"> <!-- container -->
     <div class="row justify-content-center align-items-center h-100"> <!-- row -->
@@ -9,80 +12,113 @@
                 
                 <div class="card-body"> <!-- card-body -->
 
-                    <form method="post" action="#">
-                        
-                        <!-- Email/password -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="email">Elektronska pošta:</label>
-                            <input type="email" class="form-control col-md-6" name="email" id="email" placeholder="Elektronska pošta...">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:</label>
-                            <input type="password" class="form-control col-md-6" name="password" id="password" placeholder="Geslo...">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="confirm_password">Potrdite geslo:</label>
-                            <input type="password" class="form-control col-md-6" name="confirm_password" id="confirm_password" placeholder="Potrdite geslo...">
-                        </div>
+                    <div class="progress">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%"></div>
+                    </div>
 
-                        <!-- Firstname/Lastname -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="firstName">Ime:</label>
-                            <input type="text" class="form-control col-md-6" name="firstName" id="firstName" placeholder="Ime...">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="lastName">Priimek:</label>
-                            <input type="text" class="form-control col-md-6" name="lastName" id="lastName" placeholder="Priimek...">
-                        </div>
+                    <div id="qbox-container">
+                        <form method="post" action="./src/inc/register.inc.php">
+                            <div id="steps-container">
 
-                        <!-- Phone number -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="phoneNumber">Telefon:</label>
-                            <input type="text" class="form-control col-md-6" name="phoneNumber" id="phoneNumber" placeholder="Telefonska stevilka...">
-                        </div>
+                                <div class="step">
+                                    <!-- Credentils information -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="username">Uporabniško ime:*</label>
+                                        <input type="text" class="form-control col-md-6" name="username" id="username" placeholder="Uporabniško ime..."  autocomplete="off">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="email">Elektronska pošta:*</label>
+                                        <input type="email" class="form-control col-md-6" name="email" id="email" placeholder="Elektronska pošta..." >
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:*</label>
+                                        <input type="password" class="form-control col-md-6" name="password" id="password" placeholder="Geslo..."  autocomplete="off">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="confirmPassword">Potrdite geslo:*</label>
+                                        <input type="password" class="form-control col-md-6" name="confirmPassword" id="confirmPassword" placeholder="Potrdite geslo..."  autocomplete="off">
+                                    </div>
+                                </div> <!-- step -->
 
-                        <!-- Address -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="addres_one">Naslov 1:</label>
-                            <input type="text" class="form-control col-md-6" name="addres_one" id="addres_one" placeholder="Naslov...">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="address_two">Naslov 2:</label>
-                            <input type="text" class="form-control col-md-6" name="address_two" id="address_two" placeholder="Naslov...">
-                        </div>
-                        <!-- Postal code -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="postalCode">Poštna številka:</label>
-                            <input type="text" class="form-control col-md-6" name="address_two" id="address_two" placeholder="Naslov...">
-                        </div>
-                        <!-- City -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="city">Mesto:</label>
-                            <input type="text" class="form-control col-md-6" name="city" id="city" placeholder="Mesto...">
-                        </div>
-                        <!-- Country -->
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" for="country">Država:</label>
-                                <select name="country" id="country" class="form-control col-md-6" required>
-                                    <option hidden disabled selected value>--N/A--</option>
-                                    <?php foreach(countries() as $item): ?>
-                                        <option value="<?=$item['id']?>"><?=$item['country']?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                        </div>
+                                <div class="step">
+                                    <!-- Firstname/Lastname -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="firstName">Ime:*</label>
+                                        <input type="text" class="form-control col-md-6" name="firstName" id="firstName" placeholder="Ime..."  autocomplete="off">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="lastName">Priimek:*</label>
+                                        <input type="text" class="form-control col-md-6" name="lastName" id="lastName" placeholder="Priimek..."  autocomplete="off">
+                                    </div>
+                                
+                                    <!-- Phone number -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="phoneNumber">Telefon:</label>
+                                        <input type="text" class="form-control col-md-6" name="phoneNumber" id="phoneNumber" placeholder="Telefonska stevilka..." autocomplete="off">
+                                    </div>
+                                </div> <!-- step -->
 
-                        <!-- Register button -->
-                        <div class="form-group">
-                            <button type="submit" name="Submit" class="btn btn-primary float-right btn-login col-sm-6" value="Registracija">Registracija</button>
-                        </div>
+                                <div class="step">
+                                    <!-- Address -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="addressOne">Naslov 1:*</label>
+                                        <input type="text" class="form-control col-md-6" name="addressOne" id="addressOne" placeholder="Naslov..."  autocomplete="off">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="addressTwo">Naslov 2:</label>
+                                        <input type="text" class="form-control col-md-6" name="addressTwo" id="addressTwo" placeholder="Naslov..." autocomplete="off">
+                                    </div>
+                                    <!-- Postal code -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="postalCode">Poštna številka:*</label>
+                                        <input type="text" class="form-control col-md-6" name="postalCode" id="postalCode" placeholder="Postna stevilka..." autocomplete="off">
+                                    </div>
+                                    <!-- City -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="city">Mesto:*</label>
+                                        <input type="text" class="form-control col-md-6" name="city" id="city" placeholder="Mesto..."  autocomplete="off">
+                                    </div>
+                                    <!-- Country -->
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label text-md-right" for="country">Država:*</label>
+                                            <select name="country" id="country" class="form-control col-md-6" >
+                                                <option hidden disabled selected value>--N/A--</option>
+                                                <?php foreach(countries() as $item): ?>
+                                                    <option value="<?=$item['id']?>"><?=$item['country']?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                    </div>
+                                </div> <!-- step -->
 
-                    </form>
+                            </div> <!-- step-container -->
+
+                            <!-- Nav buttons, submit button -->
+                            <div id="q-box__buttons">
+                                <button id="prev-btn" type="button" class="btn btn-secondary" >Nazaj</button> 
+                                <button id="next-btn" type="button" class="btn btn-secondary">Naprej</button> 
+
+                            </div>
+                            <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right btn-login col-sm-6">Registracija</button>                            
+                        </form>
+                    </div><!-- qbox-container -->
                 </div> <!-- card-body -->
                 <div class="card-footer"> <!-- card-footer -->
-                    Že imate račun? Prijavite se: <a href="./index.php?page=login">Prijava</a>
+                    Že imate račun? Prijavite se: <a href="./login.php">Prijava</a>
                 </div> <!-- card-footer -->
 
             </div> <!-- card -->
         </div> <!-- col-lg-8 -->
     </div> <!-- row -->
 </div> <!-- container -->
+
+<div id="preloader-wrapper">
+    <div id="preloader"></div>
+    <div class="preloader-section section-left"></div>
+    <div class="preloader-section section-right"></div>
+</div>
+
+<script src="./src/js/multistep-form.js" crossorigin="anonymous"></script>
+
+<?php 
+    include_once './footer.php';
+?>

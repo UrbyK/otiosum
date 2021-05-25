@@ -1,5 +1,6 @@
 <?php
 
+    // check if user is already loged in and redirect them to front page (index)
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         header("Location: ./index.php");
         exit();
@@ -15,7 +16,7 @@
             $stmt->execute([$user]);
 
             if($acc['active'] != 1) {
-                header("Location: ./index.php?page=login&status=varify-email");
+                header("Location: ./login.php?status=varify-email");
                 exit();
             } else {
                 if(password_verify($pass, $acc['password'])) {

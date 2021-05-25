@@ -1,3 +1,6 @@
+<?php
+    include_once './header.php';
+?>
 
 <div class="container max-vh-100"> <!-- container -->
     <div class="row justify-content-center align-items-center h-100"> <!-- row -->
@@ -29,10 +32,14 @@
 
                 </div> <!-- card-body -->
                 <div class="card-footer"> <!-- card-footer -->
-                    Nimate računa? Ustvarite račun: <a href="./index.php?page=register">Registracija</a>
+                    Nimate računa? Ustvarite račun: <a href="./register.php">Registracija</a>
                 </div> <!-- card-footer -->
             </div> <!-- card -->
         </div> <!-- col-lg-8 -->
     </div> <!-- row -->
 </div> <!-- container -->
+
+<?php
+    include_once './footer.php';
+ ?>
 
