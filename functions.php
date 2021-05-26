@@ -42,7 +42,7 @@
     /* Checks if an item has children */
     function has_children($table, $parent){
         $pdo = pdo_connect_mysql();
-        $stmt = $pdo->prepare("SELECT count(id) as nc FROM $table WHERE parent_id = $parent");
+        $stmt = $pdo->prepare("SELECT count(id) as nc FROM $table WHERE parent_id = $parent"); // nc -> Number of Children
         $stmt->execute();
         $result = $stmt->fetch();
         return $result["nc"];
@@ -56,5 +56,14 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    
+    /* Return country name, insert ID */
+    // function get_country_name($id){
+    //     $pdo = pdo_connect_mysql();
+    //     $stmt = $pdo -> prepare("SELECT country FROM country WHERE id = ?");
+    //     $stmt->execute([$id]);
+    //     $result = $stmt->fetch();
+    //     return $result['country'];
+    // }
 
 ?>
