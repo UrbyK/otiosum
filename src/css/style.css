@@ -42,13 +42,14 @@
 
 html, body {
     margin: 0;
-    height: 100%;
 }
 
 body {
     color: var(--text-color);
-    display: flex;
-    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Dancing Script';
 }
 
 a {
@@ -73,6 +74,7 @@ html, body {
     background: -webkit-linear-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
     background: -moz-radial-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
     background: radial-gradient(circle farthest-corner at bottom left, var(--link-hover) 25%, var(--green-color-darker));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -221,3 +223,20 @@ footer {
     -ms-transition: all 0.8s;
     transition: all 0.8s;
 }
+
+/*LOGIN/REGISTER FORM*/
+
+.user-form {
+background-color:#cccccc33;
+}
+
+.user-form .card-header, .user-form .card-footer {
+    background-color: var(--navigation-bg);
+    color: var(--nav-color);
+}
+
+.step {
+    display: none;
+    margin-top: 25px;
+}
+

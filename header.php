@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    include_once './functions.php';
+    $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+ ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,13 +32,13 @@
 
         <title>Otiosum</title>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <!-- <header>
             <div class="banner"><img src="https://via.placeholder.com/1900x250" alt="banner"></div>
         </header> -->
 
         <nav class="navbar navbar-expand-lg sticky-top">
-            <a class="navbar-brand" href="#">Otiosum</a>
+            <a class="navbar-brand" href=".index.php">Otiosum</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,18 +51,18 @@
                     <?php foreach(main_menu_navigation("category") as $main_nav): ?>
                         <?php if(has_children('category', $main_nav['id'])>=1): ?>                 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="./index.php?page=products?category=<?=$main_nav['id']?>" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$main_nav['category']?></a>
+                                <a class="nav-link dropdown-toggle" href="./products.php?category=<?=$main_nav['id']?>" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$main_nav['category']?></a>
                                 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <?php foreach(main_menu_navigation_sub("category", $main_nav['id']) as $sub_nav): ?>
-                                        <a class="dropdown-item" href="./index.php?page=products?category=<?=$sub_nav['id']?>"><?=$sub_nav['category']?></a>
+                                        <a class="dropdown-item" href="./products.php?category=<?=$sub_nav['id']?>"><?=$sub_nav['category']?></a>
                                     <?php endforeach; ?>
                                 </div>
 
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="./index.php?page=products?category=<?=$main_nav['id']?>"><?=$main_nav['category']?></a>
+                                <a class="nav-link" href="./products.php?category=<?=$main_nav['id']?>"><?=$main_nav['category']?></a>
                             </li>
                         <?php endif; ?>
                     <?php endforeach; ?>

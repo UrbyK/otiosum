@@ -1,18 +1,15 @@
 <?php
-    
-    session_start();
-    include './functions.php';
+    include_once './header.php';
 
-    $pdo = pdo_connect_mysql();
+    $token = md5("beseda");
+    echo "<p>$token</p>";
 
-    $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    template_header("Otiosum");
+    for ($i=0; $i <1000 ; $i++) { 
+        $token = bin2hex(random_bytes(30));
+        echo "<p>$token</p>";
+    }
 
-    $page = isset($_GET['page']) && file_exists($_GET['page']. '.php') ? $_GET['page'] : 'home';
-    include $page . '.php';
-
-    template_footer();
+    include_once './footer.php';
 
 ?>
