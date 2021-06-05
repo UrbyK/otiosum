@@ -23,10 +23,12 @@
                     $email = $_GET['email'];
                     $token = $_GET['token'];
 
+                    // check if account with given email and token exists
                     $stmt = $pdo->prepare("SELECT * FROM account WHERE UPPER(email) LIKE UPPER(?) and token = ?");
                     $stmt->execute([$email, $token]);
                     if ($stmt->rowCount() == 1){
                         $user = $stmt->fetch();
+                        // check if account has already been verified
                         if ($user['active'] != 1) {
                             $userID=$user['id'];
                             $stmt = $pdo->prepare("UPDATE account SET active = 1 WHERE id=$userID");
