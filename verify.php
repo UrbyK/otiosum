@@ -35,8 +35,9 @@
                             // updates the value in account
                             if($stmt->execute()) {
                                 $datetime = date("Y-m-d H:i:s");
-                                $stmt = $pdo->prepare("INSERT INTO security(date_registered, account_id) VALUES(?, ?)");
                                 
+                                // statement to insert account activation in securtiy 
+                                $stmt = $pdo->prepare("INSERT INTO security(date_registered, account_id) VALUES(?, ?)");
                                 if($stmt->execute([$datetime, $userID])){
                                     exit("<script>window.location.href='verify?status=success'</script>");
                                 } else {
@@ -57,7 +58,7 @@
 
                 <?php if (isset($_GET['status']) && $_GET['status'] == "error"): ?> 
                     <h2 class="alert alert-danger">Zgodila se je napaka, pri validaciji računa prosimo, da poskusite kasneje ali pa kontakirajte podporo!</h2>
-                <?php elseif (isset($_GET['status']) && $_GET['status'] == "check"): ?>
+                <?php elseif (isset($_GET['status']) && $_GET['status'] == "verify-email"): ?>
                     <h2 class="alert alert-primary">Na vaš elektronski naslov smo poslali pošto za potrditev računa!</h2>
                 <!-- Check if verification is successful and redirect to login after 'X' amount of time -->
                 <?php elseif(isset($_GET['status']) && $_GET['status'] == "success"): ?>

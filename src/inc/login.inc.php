@@ -16,7 +16,7 @@
             $stmt->execute([$user]);
 
             if($acc['active'] != 1) {
-                header("Location: ./login.php?status=varify-email");
+                header("Location: ./verify?status=varify-email");
                 exit();
             } else {
                 if(password_verify($pass, $acc['password'])) {
