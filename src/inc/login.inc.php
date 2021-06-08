@@ -19,6 +19,13 @@
             $stmt->execute([$email]);
             // check if an account exists
             if ($stmt->rowCount() == 0) {
+                header("Location: ../../login?error=user");
+                exit();
+            // check if there are more then 1 accounts with the same email
+            } elseif ($stmt->rowCount() > 1) {
+                header("Location: ../../login?error=err");
+                exit();
+            } else {
                 if ($stmt->rowCount() == 1) {
                     $acc = $stmt->fetch();
                     // check if account has been activated
@@ -68,10 +75,6 @@
                     header("Location: ../../login?error=err&email=$email");
                     exit();
                 }
-            // return error if account doesn't exist
-            } else {
-                header("Location: ../../login?error=user");
-                exit();
             }
         // return error if form wasn't submited properly
         } else {
