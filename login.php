@@ -11,7 +11,7 @@
                 </div> <!-- card-header -->
                 <div class="card-body"> <!-- card-body -->
 
-                    <form method="post" action="#">
+                    <form method="post" action="./src/inc/login.inc.php">
                         <!-- Email -->
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right" for="email">Elektronska pošta:</label>
@@ -21,7 +21,7 @@
                         <!-- Password -->
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:</label>
-                            <input type="text" class="form-control col-md-6" name="password" id="password" placeholder="Geslo">
+                            <input type="password" class="form-control col-md-6" name="password" id="password" placeholder="Geslo">
                         </div>
 
                         <div class="form-group">
