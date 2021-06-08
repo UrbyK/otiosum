@@ -31,7 +31,7 @@
         <body>
         <div class="wrapper">
             <p>Hvala, da ste se ustvarili račun na naši strani. Pritisnite na spodnjo povezavo, da potrdite uporabniški rančun:</p>
-            <a href="'.$host.'/otiosum/verify.php?status=verify-email&token='.$token.'&email='. $to_email .'">Potrditev računa!</a>
+            <a href="'.$host.'/otiosum/verify.php?status=verify&token='.$token.'&email='. $to_email .'">Potrditev računa!</a>
             <p>Če povezava ne deluje prosim kopirajte povezavo v naslovno vrstico.</p>
         </div>
         </body>

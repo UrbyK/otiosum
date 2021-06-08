@@ -90,7 +90,7 @@
                                                     send_validation_email($email, $token, $_SERVER['HTTP_HOST']);
 
                                                     echo "So far so good!";
-                                                    header("Location: ../../verify.php?status=verify");
+                                                    header("Location: ../../verify.php?status=verify-email");
                                                     exit();
 
                                                 // return an error if passwords do not match
