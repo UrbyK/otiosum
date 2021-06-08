@@ -1,26 +1,27 @@
 <?php
 
     // check if user is already logged in and redirect to home page
-    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         header("Location: ./index.php");
         exit();
     } else {
 
         include_once './dbh.inc.php';
+        include_once './xss_cleaner.inc.php';
         $pdo = pdo_connect_mysql();
 
         // save values from html form to new variables
-        $username = $_POST['username'];
+        $username = xss_cleaner($_POST['username']);
         $email = htmlspecialchars($_POST['email']);
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPassword'];
-        $fname = $_POST['firstName'];
-        $lname = $_POST['lastName'];
-        $phone = $_POST['phoneNumber'];
-        $address = $_POST['addressOne'];
-        $addressTwo = $_POST['addressTwo'];
-        $postalCode = $_POST['postalCode'];
-        $city = $_POST['city'];
+        $password = xss_cleaner($_POST['password']);
+        $confirmPassword = xss_cleaner($_POST['confirmPassword']);
+        $fname = xss_cleaner($_POST['firstName']);
+        $lname = xss_cleaner($_POST['lastName']);
+        $phone = xss_cleaner($_POST['phoneNumber']);
+        $address = xss_cleaner($_POST['addressOne']);
+        $addressTwo = xss_cleaner($_POST['addressTwo']);
+        $postalCode = xss_cleaner($_POST['postalCode']);
+        $city = xss_cleaner($_POST['city']);
         $countryID = $_POST['country'];
         $cityID = null;
 
@@ -84,9 +85,12 @@
                                                     $stmt = $pdo->prepare($query);
                                                     $stmt->execute([$username, $email, $password, $fname, $lname, $address, $addressTwo, $phone, $token, $cityID]);
                                                     
+                                                    // Send an email validation for account
+                                                    include_once 'verify_email.inc.php';
+                                                    send_validation_email($email, $token, $_SERVER['HTTP_HOST']);
 
                                                     echo "So far so good!";
-                                                    header("refresh:10; url=../../register.php?error=empty");
+                                                    header("Location: ../../verify.php?status=verify-email");
                                                     exit();
 
                                                 // return an error if passwords do not match

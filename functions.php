@@ -14,7 +14,7 @@
 
 
     function user_login_status() {
-        if(isset($_SESSION['login']) && !empty($_SESSION['login']) 
+        if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin']) 
                 && isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
             return true;
         }
