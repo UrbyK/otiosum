@@ -21,10 +21,24 @@
         return false;
     }
 
+    function isAdmin() {
+        if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+            return true;
+        }
+        return false;
+    }
+
+    function isMod() {
+        if (isset($_SESSION['moderator']) && !empty($_SESSION['moderator'])) {
+            return true;
+        }
+        return false;
+    }
+
     /* Get all main menu navigation items */
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();
-        $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id IS NULL");
+        $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id = 0");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -65,5 +79,17 @@
     //     $result = $stmt->fetch();
     //     return $result['country'];
     // }
+
+    function categoryTree($parent_id = 0, $sub_mark = '') {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY category ASC");
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($row as $item) {
+                echo "<option value=".$item['id'].">".$sub_mark.$item['category']."</option>";
+                categoryTree($item['id'], $sub_mark.'-');
+            }
+        }
+    }    
 
 ?>
