@@ -3,7 +3,7 @@
     if (!isset($_POST['submit'])) {
         header("Location: ../../product-add.php");
     } else {
-        // impoprt DB conenction
+        // impoprt DB connection
         include_once "./dbh.inc.php";
         $pdo = pdo_connect_mysql();
 
@@ -17,6 +17,7 @@
         $quantity = xss_cleaner($_POST['quantity']);
         $price = xss_cleaner($_POST['price']);
         $data = "";
+
         // check if categories were selected and save to new array
         if (isset($_POST['category'])) {
             $data = xss_cleaner($_POST['category']);
@@ -29,6 +30,7 @@
             $product_id = $pdo->lastInsertId();
             echo "uspeh ".$product_id."<br>";
             
+            // create releationship between product and category
             foreach ($data as $category_id) {
                 $stmt = $pdo->prepare("INSERT INTO product_category (product_id, category_id) VALUES(?,?)");
                    if ($stmt->execute([$product_id,$category_id])) {
