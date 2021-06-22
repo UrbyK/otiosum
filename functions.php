@@ -38,7 +38,7 @@
     /* Get all main menu navigation items */
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();
-        $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id = 0");
+        $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id IS NULL");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -82,7 +82,11 @@
 
     function categoryTree($parent_id = 0, $sub_mark = '') {
         $pdo = pdo_connect_mysql();
-        $stmt = $pdo->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY category ASC");
+        if ($parent_id != 0) {
+            $stmt = $pdo->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY category ASC");
+        } else {
+            $stmt = $pdo->query("SELECT * FROM category WHERE parent_id IS NULL ORDER BY category ASC");
+        }
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($row as $item) {
