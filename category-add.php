@@ -5,6 +5,22 @@
 ?>
 
 <div class="container">
+
+<?php 
+    if(isset($_GET['status'])):
+        if ($_GET['status'] == "error"): ?>
+            <div class="error w-100 text-center alert-danger">
+                <p>Zgodila se je napaka pri vnosu podatkov. Prosim poskusite kasneje!</p>
+            </div>
+        
+        <?php elseif ($_GET['status'] == "success"): ?>
+            <div class="error w-100 text-center alert-success">
+                <p>Kategorije so bile uspešno vnesene!</p>
+            </div>
+        <?php endif;
+    endif;
+?>
+
     <!-- add button -->
     <div class="d-flex justify-content-end m-2">
         <button class="add_form_field btn btn-success float-right"><i class="fa fa-plus"></i></button>
