@@ -6,48 +6,55 @@
 
 <div class="container">
 
-<?php 
-    if(isset($_GET['status'])):
-        if ($_GET['status'] == "error"): ?>
-            <div class="error w-100 text-center alert-danger">
-                <p>Zgodila se je napaka pri vnosu podatkov. Prosim poskusite kasneje!</p>
-            </div>
-        
-        <?php elseif ($_GET['status'] == "success"): ?>
-            <div class="error w-100 text-center alert-success">
-                <p>Kategorije so bile uspešno vnesene!</p>
-            </div>
-        <?php endif;
-    endif;
-?>
+        <!-- Notice for success/fail on insert -->
+        <?php 
+            if(isset($_GET['status'])):
+                if ($_GET['status'] == "error"): ?>
+                    <div class="error w-100 text-center alert-danger mt-3 rounded">
+                        <p>Zgodila se je napaka pri vnosu podatkov. Prosimo poskusite kasneje!</p>
+                    </div>
+                
+                <?php elseif ($_GET['status'] == "success"): ?>
+                    <div class="error w-100 text-center alert-success mt-3 rounded">
+                        <p>Kategorije so bile uspešno vnesene!</p>
+                    </div>
+                <?php endif;
+            endif;
+        ?>
 
-    <!-- add button -->
-    <div class="d-flex justify-content-end m-2">
-        <button class="add_form_field btn btn-success float-right"><i class="fa fa-plus"></i></button>
-    </div>
-    <form id="ins-cat" method="post" enctype="multipart/form-data" action="./src/inc/category-insert.inc.php" >
-
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label class="col-form-label" for="category">Kategorija:</label>
-                <input type="text" class="form-control" name="category[]" id=category placeholder="Kategorija..." required>
+    <div class="card mt-3">
+        <div class="card-body">
+            <!-- add button -->
+            <div class="d-flex justify-content-end mt-2">
+                <button class="add_form_field btn btn-success float-right"><i class="fa fa-plus"></i></button>
             </div>
-            <div class="form-group col-md-5">            
-                <label class="col-form-label" for="parent_category">Nad kategorija</label>
-                <select class="form-control" id="parent_category" name="parent_category[]">
-                    <option selected value=""> ---N/A--- </option>
-                    <?=categoryTree()?>
-                </select>
+
+            <form id="ins-cat" method="post" enctype="multipart/form-data" action="./src/inc/category-insert.inc.php" >
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label class="col-form-label" for="category">Kategorija:</label>
+                        <input type="text" class="form-control" name="category[]" id=category placeholder="Kategorija..." required>
+                    </div>
+                    <div class="form-group col-md-5">            
+                        <label class="col-form-label" for="parent_category">Nad kategorija</label>
+                        <select class="form-control" id="parent_category" name="parent_category[]">
+                            <option selected value=""> ---N/A--- </option>
+                            <?=categoryTree()?>
+                        </select>
+                    </div>
+                </div> <!-- form-row -->
+
+            </form> <!-- form -->
+
+            <!-- submit form button -->
+            <div class="d-flex justify-content-end mt-2">
+                <button form="ins-cat" id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Shrani</button>
             </div>
-        </div>
 
-    </form>
-
-    <!-- submit form button -->
-    <div class="d-flex justify-content-end m-2">
-        <button form="ins-cat" id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Shrani</button>
-    </div>
-</div>
+        </div><!-- card-body -->
+    </div> <!-- card -->
+</div> <!-- container -->
 
 <?php
     include_once "./footer.php";
