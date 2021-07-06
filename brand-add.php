@@ -1,5 +1,10 @@
 <?php
     include_once './header.php';
+
+    if (!isLogin() || !isAdmin()) {
+        exit("<script>window.location.href='index'</script>");
+    }
+
 ?>
 
 <!-- <div class="container">
@@ -22,24 +27,49 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header text-center">
-                <h2 class="card-title">Vnesi znamko</h2>
+                    <h2 class="card-title">Vnesi znamko</h2>
                 </div>
-                <div class="col-sm">
-                        <form method="post" id="image-form" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="col-form-label" for="brand">Znamka:</label>
-                                <input type="text" class="form-control" name="brand" id=brand placeholder="Znamka..." required>
-                            </div>
+                <div class="card-body">
 
-                            <input type="file" name="img" class="file" accept="image/*" style="visibility: hidden;">
-                            <div class="input-group my-1">
-                                <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
-                                <div class="input-group-append">
-                                    <button type="button" class="browse btn btn-primary">Išči...</button>
-                                </div>
+                    <?php if (isset($_GET['error'])):
+                        include_once './src/inc/error.inc.php'; 
+                        if (array_key_exists($_GET['error'], $errorList)): ?>
+                            <div class="error w-100 text-center alert-danger">
+                                <h3></h3><?=$errorList[$_GET['error']]?></h3>
                             </div>
-                        </form>
+                        <?php else: ?>
+                            <div class="error w-100 text-center alert-danger">
+                                <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif;
+                    if (isset($_GET['status']) && isset($_GET['status']) == "ok"):?>
+                        <div class="error alert-success error w-100 text-center">
+                            <h3>Znamka uspešno vnesena!</h3>
+                        </div>
+                    <?php endif; ?>
+
+                    <form method="post" id="image-form" enctype="multipart/form-data" action="./src/inc/brand-insert.inc.php">
+                        <div class="form-group">
+                            <label class="col-form-label" for="brand">Znamka:</label>
+                            <input type="text" class="form-control" name="brand" id=brand placeholder="Znamka..." required>
+                        </div>
+
+                        <input type="file" name="img" class="file" accept="image/*" style="visibility: hidden;" required>
+                        <div class="input-group my-1">
+                            <input type="text" class="form-control" disabled placeholder="Upload File" id="file" required>
+                            <div class="input-group-append">
+                                <button type="button" class="browse btn btn-secondary">Išči...</button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-2">
+                            <button form="image-form" id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Shrani</button>
+                        </div>
+
+                    </form>
                 </div>
+
                 <div class="col-sm">
                     <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="max-width:250px; max-height:250px;">
                 </div>

@@ -1,12 +1,11 @@
-<?php
-    session_start();
-    include_once './functions.php';
-    $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
- ?>
-
 <!DOCTYPE html>
 <html>
+    <?php
+        require './src/inc/session.php';
+        require './functions.php';
+        $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    ?>
     <head>
         <meta charset="utf-8" content="text/html"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,6 +65,21 @@
                             </li>
                         <?php endif; ?>
                     <?php endforeach; ?>
+
+                    <!-- check login status, and change login/logout buttons -->
+                    <?php if (!isLogin()): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./login">Prijava</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./register">Registracija</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./logout">Izpis</a>
+                        </li>
+                    <?php endif; ?>
+
                 </ul>
             </div>
         </nav>

@@ -13,7 +13,7 @@
                 <div class="card-body"> <!-- card-body -->
                     
                     <?php if (isset($_GET['error'])):
-                        include_once './src/inc/register-err.inc.php'; 
+                        include_once './src/inc/error.inc.php'; 
                         if (array_key_exists($_GET['error'], $errorList)): ?>
                             <div class="error w-100 text-center alert-danger">
                                 <p><?=$errorList[$_GET['error']]?></p>

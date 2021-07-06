@@ -1,8 +1,9 @@
 <?php
-    session_start();
+    require_once './session.php';
     // check if user is already loged in and redirect them to front page (index)
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-        header("Location: ./index");
+    // if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    if (isLogin()){
+        header("Location: ../../index");
         exit();
     } else {
         // check if form was submited
@@ -54,7 +55,7 @@
 
                             $userID = $acc['id'];
                             $nowDate = date("Y-m-d H:i:s");
-                            $sec = $pdo->prepare("UPDATE security SET last_login = '$nowDate' WHERE account_id = $userID");
+                            $sec = $pdo->prepare("UPDATE security SET last_loggin = '$nowDate' WHERE account_id = $userID");
                             $sec->execute();
 
                             header("Location: ../../index");

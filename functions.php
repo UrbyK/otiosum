@@ -11,30 +11,7 @@
     // function template_footer(){
     //     include_once('./footer.php');
     // }
-
-
-    function user_login_status() {
-        if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin']) 
-                && isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-            return true;
-        }
-        return false;
-    }
-
-    function isAdmin() {
-        if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
-            return true;
-        }
-        return false;
-    }
-
-    function isMod() {
-        if (isset($_SESSION['moderator']) && !empty($_SESSION['moderator'])) {
-            return true;
-        }
-        return false;
-    }
-
+    
     /* Get all main menu navigation items */
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();
