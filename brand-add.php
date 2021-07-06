@@ -1,7 +1,7 @@
 <?php
     include_once './header.php';
 
-    if (!isLogin() || !isAdmin()) {
+    if (!isLogin() && !isAdmin() && !isMod()) {
         exit("<script>window.location.href='index'</script>");
     }
 
@@ -35,7 +35,7 @@
                         include_once './src/inc/error.inc.php'; 
                         if (array_key_exists($_GET['error'], $errorList)): ?>
                             <div class="error w-100 text-center alert-danger">
-                                <h3></h3><?=$errorList[$_GET['error']]?></h3>
+                                <h3><?=$errorList[$_GET['error']]?></h3>
                             </div>
                         <?php else: ?>
                             <div class="error w-100 text-center alert-danger">
@@ -44,7 +44,7 @@
                         <?php endif; ?>
                     <?php endif;
                     if (isset($_GET['status']) && isset($_GET['status']) == "ok"):?>
-                        <div class="error alert-success error w-100 text-center">
+                        <div class="error w-100 text-center alert-success ">
                             <h3>Znamka uspešno vnesena!</h3>
                         </div>
                     <?php endif; ?>

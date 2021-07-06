@@ -4,14 +4,16 @@
     include_once './dbh.inc.php';
 
     if (!isLogin()) {
-        echo "Login " . isLogin();
-    } elseif (!isAdmin() || !isMod()) {
-        echo " Admin " . isAdmin() . " Mod " . isMod();
+        header("Location: ../../login");
+        exit();
+    } elseif (!isAdmin() && !isMod()) {
+        header("Location: ../../index");
+        exit();
     }
 
     if (!isset($_POST['submit'])) {
-        header("Location: ../../brand-add");
-        exit();
+        // header("Location: ../../brand-add");
+        // exit();
     } else {
         $brand = $_POST['brand'];
         $img = $_FILES['img'];
@@ -25,21 +27,21 @@
             // create directory in case it doesn't exist
             mkdir("$root/$year/$month", 0777, true);
         }
-        //fopen("$root/$year/$month/test-$year-$month-$time.txt", "w");
 
         // determine save location
         $target_dir = "$root/$year/$month/";
-        $relative_dir = "$root/$year/$month/";
+        $relative_dir = "./uploads/$year/$month/";
+        
+        // get file extention (.txt, .jpg, .png, .php, .html, ...)
+        $imageFileType = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
         // rename saved image/file
         $change_name = "$brand-$year-$month";
         
-        $target_file = $target_dir . $change_name;
-        $relative_file = $relative_dir . $change_name;
+        $target_file = $target_dir . $change_name.".".$imageFileType;
+        $relative_file = $relative_dir . $change_name.".".$imageFileType;
 
         $uploadOK = 1;
-        // get file extention (.txt, .jpg, .png, .php, .html, ...)
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // check if selected file is image
         $check = getimagesize($_FILES["img"]["tmp_name"]);
@@ -50,9 +52,9 @@
         }
 
         // check for valid image extensions
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "webp") {
             $uploadOk = 0;
-            header("Location: ../../brand-add?error=image-type");
+            header("Location: ../../brand-add?error=img-type");
             exit();
         }
 
@@ -67,12 +69,10 @@
         // check if upload conditions are OK
         if ($uploadOK == 1) {
             if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-                // $pdo = pdo_connect_mysql();
-                // $query = "INSERT INTO brand (title, image) VALUES (?,?)";
-                // $stmt = $pdo->prepare($query);
-                // $stmt->execute([$brand, $relative_file]);
-                // echo " File: $relative_file";
-                // echo $_FILES['img']['tmp_name'];
+                $pdo = pdo_connect_mysql();
+                $query = "INSERT INTO brand (title, image) VALUES (?,?)";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([$brand, $relative_file]);
                 header("Location: ../../brand-add?status=ok");
                 exit();
             }
