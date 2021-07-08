@@ -28,11 +28,35 @@
             </div>
                 
             <div class="card-body">
-                <form method="post" action="./src/inc/product-insert.inc.php">
+                <form method="post" enctype="multipart/form-data" action="./src/inc/product-insert.inc.php">
 
+                    <!-- product table -->
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="title">Naslov izdelka:</label>
                         <input type="text" class="form-control" name="title" id="title" placeholder="Izdelek..." maxlenght="150" required>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <input type="file" id="img" name="img[]" class="file" accept="image/*" style="visibility: hidden;" multiple>
+                        <div class="input-group my-1">
+                            <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                            <div class="input-group-append">
+                                <button type="button" class="browse btn btn-secondary">Išči...</button>
+                            </div>
+                        </div>
+                        <div class="preview">
+                        </div>
+                    </div>
+                     -->
+                    <div class="form-group">
+                        <input type="file" id="img" name="img[]" class="file" accept="image/*" style="visibility: hidden;" multiple>
+                        <div class="input-group my-1">
+                            <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                            <div class="input-group-append">
+                                <button type="button" class="browse btn btn-secondary">Išči...</button>
+                            </div>
+                        </div>
+                        <div id="preview"></div>
                     </div>
 
                     <div class="form-group">
@@ -52,21 +76,86 @@
 
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="quantity">Količina:</label>
-                        <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Količina..." min="0" value="0">
+                        <input type="number" class="form-control hide-arrow" name="quantity" id="quantity" placeholder="Količina..." min="0" value="0">
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="price">Cena:</label>
-                        <input type="number" class="form-control" name="price" id="price" placeholder="Cena..." step="0.01" min="0" value="0">
+                        <div class="input-group">
+                            <input type="number" class="form-control hide-arrow" name="price" id="price" placeholder="Cena..." step="0.01" min="0" value="0">
+                            <div class="input-group-append">
+                                <div class="input-group-text">€</div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <select class="form-select" id="category" name="category[]" multiple size="10" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                        <label class="col" for="publishDate">Dan objave izdelka:</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <!-- measurement -->
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-3 col-form-label text-left">
+                            <label class="col" for="height">Višina:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control text-center hide-arrow" name="height" id="height" min=0 step="0.01" placeholder="Višina...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">cm</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3 col-form-label text-left">
+                            <label class="col" for="lenght">Dolžina:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control text-center hide-arrow" name="lenght" id="lenght" min=0 step="0.01" placeholder="Dolžina...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">cm</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 col-form-label text-left">
+                            <label class="col" for="width">Širina:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control text-center hide-arrow" name="width" id="width" min=0 step="0.01" placeholder="Širina...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">cm</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 col-form-label text-left">
+                            <label class="col" for="weight">Teža:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control text-center hide-arrow" name="weight" id="weight" min=0 step="0.01" placeholder="Teža...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">kg</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- category -->
+                    <div class="form-group">
+                        <label class="col-md-4 col-form-label text-left" for="category[]">Kategorije:</label>
+                        <select class="form-select custom-select" id="category" name="category[]" multiple size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
                             <?php categoryTree(); ?>
                         </select>
+                        <!-- select all / unselect all buttons -->
                         <div class="form-group">
-                            <button id="select-all" name="select-all" class="btn btn-secondary">Izberi vse</button>
-                            <button id="deselect-all" name="deselect-all" class="btn btn-secondary">Prekliči izbiro</button>
-                         </div>
+                            <button type="button" id="selectAll" name="selectAll" class="btn btn-secondary" >Izberi vse</button>
+                            <button type="button" id="unselectAll" name="deselectAll" class="btn btn-secondary">Prekliči izbiro</button>
+                            </div>
+                    </div>
+
+                    <!-- brand -->
+                    <div class="form-group">
+                        <label class="col-md-4 col-form-label text-left" for="Brand">Znamka:</label>
+                        <select class="form-select" id="brand" name="brand" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                            <?php foreach(brands() as $brand):?>
+                                <option value="<?=$brand['id']?>"><?=$brand['title']?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <button id="submit-btn" type="submit" name="submit" class="btn btn-primary">Dodaj</button>
@@ -92,6 +181,43 @@
         e.preventDefault();
         $(this).prop('selected', !$(this).prop('selected'));
     });
+</script>
 
+<script>
+    $('#selectAll').click(function() {
+    $('#category option').prop('selected', true);
+    });
 
+    $('#unselectAll').click(function() {
+    $('#category option').prop('selected', false);
+    });
+</script>
+
+<script>
+    $(document).on("click", ".browse", function() {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+    });
+    $('#img').change(function(e) {
+        // on a new insert reset "Upload here" text
+        $("#file").val("");
+        // empty preview div
+        $("#preview").empty();
+        // move through all the selected files
+        for (let i = 0; i < e.target.files.length; i++) {
+
+            var fileName = e.target.files[i].name;
+            $("#file").val($("#file").val() + fileName + " ");
+
+            var reader = new FileReader();
+            reader.addEventListener("load", function() {
+                var image = new Image();
+                image.height = 150;
+                image.title = fileName;
+                image.src = this.result;
+                preview.appendChild(image);
+            });
+            reader.readAsDataURL(e.target.files[i]);
+        }
+    });
 </script>
