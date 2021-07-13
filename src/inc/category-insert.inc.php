@@ -50,7 +50,7 @@
         } catch (PDOException $e) {
             // rollback all inserts if any insert fails
             $pdo->rollBack();
-            header("Location: ../../category-add?status=error");
+            header("Location: ../../category-add?error=err");
             exit();
         }
         $pdo = null;
