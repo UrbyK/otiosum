@@ -21,13 +21,32 @@
 
 <div class="container">
     <div class="row justify-content-center h-100">
-        <div class="col-12 card">
-
+        <div class="col-12">
+        <div class="card">
             <div class="card-header">
                 <h1>Vnesi nov izdelek</h1>
             </div>
                 
             <div class="card-body">
+
+                <?php if (isset($_GET['error'])):
+                    include_once './src/inc/error.inc.php'; 
+                    if (array_key_exists($_GET['error'], $errorList)): ?>
+                        <div class="error w-100 text-center alert-danger">
+                            <h3><?=$errorList[$_GET['error']]?></h3>
+                        </div>
+                    <?php else: ?>
+                        <div class="error w-100 text-center alert-danger">
+                            <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
+                        </div>
+                    <?php endif; ?>
+                <?php endif;
+                if (isset($_GET['status']) && isset($_GET['status']) == "ok"):?>
+                    <div class="error w-100 text-center alert-success ">
+                        <h3>Izdelek uspešno vnesen!</h3>
+                    </div>
+                <?php endif; ?>
+
                 <form method="post" enctype="multipart/form-data" action="./src/inc/product-insert.inc.php">
 
                     <!-- product table -->
@@ -71,18 +90,18 @@
 
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="sku">SKU:</label>
-                        <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[a-Z0-9]{8}">
+                        <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{8}" required>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="quantity">Količina:</label>
-                        <input type="number" class="form-control hide-arrow" name="quantity" id="quantity" placeholder="Količina..." min="0" value="0">
+                        <input type="number" class="form-control hide-arrow" name="quantity" id="quantity" placeholder="Količina..." min="0" required>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="price">Cena:</label>
                         <div class="input-group">
-                            <input type="number" class="form-control hide-arrow" name="price" id="price" placeholder="Cena..." step="0.01" min="0" value="0">
+                            <input type="number" class="form-control hide-arrow" name="price" id="price" placeholder="Cena..." step="0.01" min="0" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">€</div>
                             </div>
@@ -91,7 +110,7 @@
 
                     <div class="form-group">
                         <label class="col" for="publishDate">Dan objave izdelka:</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" name="publishDate" id="publishDate">
                     </div>
                     <!-- measurement -->
                     <div class="form-row">
@@ -158,7 +177,7 @@
                         </select>
                     </div>
 
-                    <button id="submit-btn" type="submit" name="submit" class="btn btn-primary">Dodaj</button>
+                    <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Dodaj</button>
                     
                 </form>
             </div>
@@ -166,7 +185,7 @@
             <div class="card-footer">
                 <p>FOOTER</p>
             </div>
-
+        </div>
         </div>
     </div>
 </div>
