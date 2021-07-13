@@ -55,12 +55,24 @@
                             <input type="text" class="form-control" name="brand" id=brand placeholder="Znamka..." required>
                         </div>
 
-                        <input type="file" name="img" class="file" accept="image/*" style="visibility: hidden;" required>
+                        <!-- <input type="file" name="img" class="file" accept="image/*" style="visibility: hidden;" required>
                         <div class="input-group my-1">
                             <input type="text" class="form-control" disabled placeholder="Upload File" id="file" required>
                             <div class="input-group-append">
                                 <button type="button" class="browse btn btn-secondary">Išči...</button>
                             </div>
+                        </div>
+                        <div class="preview"></div> -->
+
+                        <div class="form-group">
+                            <input type="file" id="img" name="img" class="file" accept="image/*" style="visibility: hidden;" required>
+                            <div class="input-group my-1">
+                                <input type="text" class="form-control" disabled placeholder="Upload File" id="file" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="browse btn btn-secondary">Išči...</button>
+                                </div>
+                            </div>
+                            <div id="preview"></div>
                         </div>
 
                         <div class="d-flex justify-content-end mt-2">
@@ -70,9 +82,9 @@
                     </form>
                 </div>
 
-                <div class="col-sm">
+                <!-- <div class="col-sm">
                     <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" style="max-width:250px; max-height:250px;">
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -100,7 +112,7 @@
     }
 </script> -->
 
-<script>
+<!-- <script>
     $(document).on("click", ".browse", function() {
         var file = $(this).parents().find(".file");
         file.trigger("click");
@@ -116,5 +128,34 @@
         };
         // read the image file as a data URL.
         reader.readAsDataURL(this.files[0]);
+    });
+</script> -->
+
+<script>
+    $(document).on("click", ".browse", function() {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+    });
+    $('#img').change(function(e) {
+        // on a new insert reset "Upload here" text
+        $("#file").val("");
+        // empty preview div
+        $("#preview").empty();
+        // move through all the selected files
+        for (let i = 0; i < e.target.files.length; i++) {
+
+            var fileName = e.target.files[i].name;
+            $("#file").val($("#file").val() + fileName + " ");
+
+            var reader = new FileReader();
+            reader.addEventListener("load", function() {
+                var image = new Image();
+                image.height = 150;
+                image.title = fileName;
+                image.src = this.result;
+                preview.appendChild(image);
+            });
+            reader.readAsDataURL(e.target.files[i]);
+        }
     });
 </script>

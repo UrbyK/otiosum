@@ -73,4 +73,11 @@
         }
     }    
 
+    function brands() {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM brand");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 ?>

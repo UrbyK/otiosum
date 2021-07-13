@@ -20,5 +20,22 @@
     "file-type" => "Izbrani file ni slika!",
     "img-type" => "Slika ni shranjena v pravem formatu!",
     "size" => "Velikost slike/datoteke je prevelika!",
+    
+    // product error
+        // main
+    "prd-title" => "Izdelek mora imeti ime!",
+    "sku-empty" => "SKU širfa mora biti podanan!",
+    "sku-duplicate" => "Izdelek z podano šifro že obstaja!",
+    "quantity-empty" => "Količina mora biti podana!",
+    "quantity-type" => "Količina ni pozitivno celo število!",
+    "price-empty" => "Cena mora biti podana!",
+    "price-type" => "Cena ni pozitivno deciamlno število!",
+    
+        // inserts
+    "prd-ins" => "Napaka pri vnosu izdelka!",
+    "measure-ins" => "Napaka pri vnosu meril!",
+    "prd-cat" => "Napaka pri povezavi izdelka s kategorijami!",
+    
     ];
+
 ?>
