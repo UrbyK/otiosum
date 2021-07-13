@@ -8,7 +8,7 @@
         <!-- Notice for success/fail on insert -->
         <?php 
             if(isset($_GET['status'])):
-                if ($_GET['status'] == "error"): ?>
+                if ($_GET['error'] == "err"): ?>
                     <div class="error w-100 text-center alert-danger mt-3 rounded">
                         <p>Zgodila se je napaka pri vnosu podatkov. Prosimo poskusite kasneje!</p>
                     </div>
