@@ -24,8 +24,8 @@
     // product error
         // main
     "prd-title" => "Izdelek mora imeti ime!",
-    "sku-empty" => "SKU širfa mora biti podanan!",
-    "sku-duplicate" => "Izdelek z podano šifro že obstaja!",
+    "sku-empty" => "SKU širfa mora biti podana!",
+    "sku-exists" => "Izdelek z podano šifro že obstaja!",
     "quantity-empty" => "Količina mora biti podana!",
     "quantity-type" => "Količina ni pozitivno celo število!",
     "price-empty" => "Cena mora biti podana!",
@@ -36,6 +36,11 @@
     "measure-ins" => "Napaka pri vnosu meril!",
     "prd-cat" => "Napaka pri povezavi izdelka s kategorijami!",
     
+
+    // brand
+    "brand-empty" => "Znamka mora imeti podano ime!",
+    "image-empty" => "Slika mora biti podana!",
+    "brand-exists" => "Znamka s tem imenom že obstaja",
     ];
 
 ?>
