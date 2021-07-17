@@ -25,30 +25,34 @@
 <div class="container">
     <div class="row align-items-center h-100">
         <div class="col-12">
+        
+        <!-- check if error is set in URL -->
+            <?php if (isset($_GET['error'])):
+                include_once './src/inc/error.inc.php';
+                // check if given error exists as key in error array
+                if (array_key_exists($_GET['error'], $errorList)): ?>
+                    <div class="error w-100 mt-2 text-center alert-danger rounded">
+                        <h3><?=$errorList[$_GET['error']]?></h3>
+                    </div>
+                <!-- if error key does not exist in error array display uknown erro -->
+                <?php else: ?>
+                    <div class="error w-100 mt-2 text-center alert-danger rounded">
+                        <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
+                    </div>
+                <?php endif; ?>
+            <?php endif;
+            // check if status is set and contains
+            if (isset($_GET['status']) && isset($_GET['status']) == "success"):?>
+                <div class="error w-100 mt-2 text-center alert-success rounded">
+                    <h3>Znamka uspešno vnesena!</h3>
+                </div>
+            <?php endif; ?>
+        
             <div class="card">
                 <div class="card-header text-center">
                     <h2 class="card-title">Vnesi znamko</h2>
                 </div>
                 <div class="card-body">
-
-                    <?php if (isset($_GET['error'])):
-                        include_once './src/inc/error.inc.php'; 
-                        if (array_key_exists($_GET['error'], $errorList)): ?>
-                            <div class="error w-100 text-center alert-danger">
-                                <h3><?=$errorList[$_GET['error']]?></h3>
-                            </div>
-                        <?php else: ?>
-                            <div class="error w-100 text-center alert-danger">
-                                <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif;
-                    if (isset($_GET['status']) && isset($_GET['status']) == "ok"):?>
-                        <div class="error w-100 text-center alert-success ">
-                            <h3>Znamka uspešno vnesena!</h3>
-                        </div>
-                    <?php endif; ?>
-
                     <form method="post" id="image-form" enctype="multipart/form-data" action="./src/inc/brand-insert.inc.php">
                         <div class="form-group">
                             <label class="col-form-label" for="brand">Znamka:</label>

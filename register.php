@@ -15,11 +15,11 @@
                     <?php if (isset($_GET['error'])):
                         include_once './src/inc/error.inc.php'; 
                         if (array_key_exists($_GET['error'], $errorList)): ?>
-                            <div class="error w-100 text-center alert-danger">
+                            <div class="error w-100 text-center alert-danger rounded">
                                 <p><?=$errorList[$_GET['error']]?></p>
                             </div>
                         <?php else: ?>
-                            <div class="error w-100 text-center alert-danger">
+                            <div class="error w-100 text-center alert-danger rounded">
                                 <p>Zgodila se je neznana napaka. Prosim poskusite kasneje!</p>
                             </div>
                         <?php endif; ?>

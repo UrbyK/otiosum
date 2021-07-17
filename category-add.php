@@ -5,23 +5,35 @@
 
 <div class="container">
 
-        <!-- Notice for success/fail on insert -->
-        <?php 
-            if(isset($_GET['status'])):
-                if ($_GET['error'] == "err"): ?>
-                    <div class="error w-100 text-center alert-danger mt-3 rounded">
-                        <p>Zgodila se je napaka pri vnosu podatkov. Prosimo poskusite kasneje!</p>
-                    </div>
-                
-                <?php elseif ($_GET['status'] == "success"): ?>
-                    <div class="error w-100 text-center alert-success mt-3 rounded">
-                        <p>Kategorije so bile uspešno vnesene!</p>
-                    </div>
-                <?php endif;
-            endif;
-        ?>
+    <!-- Notice for success/fail on insert -->
+    <!-- check if error is set in url -->
+    <?php if (isset($_GET['error'])):
+        include_once './src/inc/error.inc.php';
+        // check if given error exists in the error array 
+        if (array_key_exists($_GET['error'], $errorList)): ?>
+            <div class="error w-100 mt-2 text-center alert-danger">
+                <h3><?=$errorList[$_GET['error']]?></h3>
+            </div>
+    
+            <!-- if given error does not exist in the error array  -->
+        <?php else: ?>
+            <div class="error w-100 mt-2 text-center alert-danger">
+                <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
+            </div>
+        <?php endif; ?>
+    <?php endif;
+
+    // check if status is given in URL and if the status is success
+    if (isset($_GET['status']) && isset($_GET['status']) == "success"):?>
+        <div class="error w-100 mt-2 text-center alert-success">
+            <h3>Kategorije uspešno vnesene!</h3>
+        </div>
+    <?php endif; ?>
 
     <div class="card mt-3">
+        <div class="card-header">
+            <h2>Dodaj kategorije</h2>
+        </div>
         <div class="card-body">
             <!-- add button -->
             <div class="d-flex justify-content-end mt-2">
@@ -67,7 +79,7 @@
 
         $(add_button).click(function(e) {
             e.preventDefault();
-            $(wrapper).append('<div class="form-row">\
+            $(wrapper).append('<div class="form-row align-items-center">\
                                     <div class="form-group col-md-5">\
                                         <label class="col-form-label" for="category">Kategorija:</label>\
                                         <input type="text" class="form-control" name="category[]" id=category placeholder="Kategorija..." required>\
