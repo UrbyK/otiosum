@@ -16,8 +16,8 @@
         $summary = xss_cleaner($_POST['summary']);
         $description = xss_cleaner($_POST['description']);
         $sku = xss_cleaner($_POST['sku']);
-        $quantity = xss_cleaner($_POST['quantity']);
-        $price = xss_cleaner($_POST['price']);
+        $quantity = (int)$_POST['quantity'];
+        $price = (float)$_POST['price'];
 
         // set date from input, if empty set current date
         $publishDate = date('Y-m-d', strtotime($_POST['publishDate']));
@@ -25,10 +25,10 @@
             $publishDate = date('Y-m-d');
         }
 
-        $height = $_POST['height'];
-        $length = $_POST['lenght'];
-        $width = $_POST['width'];
-        $weight = $_POST['weight'];
+        $height = (float)$_POST['height'];
+        $length = (float)$_POST['length'];
+        $width = (float)$_POST['width'];
+        $weight = (float)$_POST['weight'];
         $categories = "";
         $brand = null;
 
@@ -81,7 +81,7 @@
 
                                         if (!empty($height) || !empty($width) || !empty($length) || !empty($weight)) {
                                             // insert into product measurment
-                                            $stmt = $pdo->prepare("INSERT INTO `measurement` (`product_id`, `height`, `width`, `lenght`, `weight`) VALUES (?,?,?,?,?)");
+                                            $stmt = $pdo->prepare("INSERT INTO `measurement` (`product_id`, `height`, `width`, `length`, `weight`) VALUES (?,?,?,?,?)");
                                             $stmt->execute([$product_id, $height, $width, $length, $weight]);
                                             $stmtErr = $stmt->errorInfo();
                                             if ($stmtErr[0] != 0) {
@@ -121,54 +121,54 @@
                                                 $caption=$title."-".$i;
                                                 $query = "INSERT INTO product_image (product_id, caption, image) VALUES(?,?,?)";
                                                 $stmt = $pdo->prepare($query);
-                                                $status = upload_image($caption, $img);
+                                                $image = upload_image($caption, $img);
                             
-                                                if (explode("=", $status)[0] != "error") {
-                                                    $stmt->execute([$product_id, $caption, $status]); 
+                                                if (explode("=", $image)[0] != "error") {
+                                                    $stmt->execute([$product_id, $caption, $image]); 
                                                 }
                                                 $i++;
                                             }
                                         }
                                         
                                         $pdo->commit();
-                                        header("Location: ../../product-add?status=ok");
+                                        header("Location: ../../product-add?status=success");
                                         exit();
                                     } catch (Exception $e) {
                                         $pdo->rollBack();
                                         $error = $e->getMessage();
-                                        header("Location: ../../product-add?$error");
+                                        header("Location: ../../product-add?$error&title=$title&sku=$sku&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                                         exit();
                                     }
 
                                 } else {
-                                    header("Location: ../../product-add?error=price-type");
+                                    header("Location: ../../product-add?error=price-type&title=$title&sku=$sku&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                                     exit();
                                 }
                                 
                             } else {
-                                header("Location: ../../product-add?error=price-empty");
+                                header("Location: ../../product-add?error=price-empty&title=$title&sku=$sku&quantity=$quantity&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                                 exit();
                             }
 
                         } else {
-                            header("Location: ../../product-add?error=quantity-type");
+                            header("Location: ../../product-add?error=quantity-type&title=$title&sku=$sku&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                             exit();
                         }
 
                     } else {
-                        header("Location: ../../product-add?error=quantity-empty");
+                        header("Location: ../../product-add?error=quantity-empty&title=$title&sku=$sku&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                         exit();
                     }
                 } else {
-                    header("Location: ../../product-add?error=sku-duplicate");
+                    header("Location: ../../product-add?error=sku-exists&title=$title&sku=$sku&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                     exit();
                 }
             } else {
-                header("Location: ../../product-add?error=sku-empty");
+                header("Location: ../../product-add?error=sku-empty&title=$title&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
                 exit();
             }
         } else {
-            header("Location: ../../product-add?error=prd-title");
+            header("Location: ../../product-add?error=prd-title&sku=$sku&quantity=$quantity&price=$price&date=$publishDate&height=$height&length=$length&width=$width&weight=$weight");
             exit();
         }
 
