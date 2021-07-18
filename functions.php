@@ -79,5 +79,14 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function sales() {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM sale ORDER BY date_start ASC, date_end ASC, discount ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function format_date($date) {
+        return date("d.m.Y", strtotime($date));
+    }
 
 ?>

@@ -129,7 +129,6 @@
                     <hr>
                     <!-- measurement -->
                     <div class="form-row">
-                        
                         <div class="form-group col-md-3 col-form-label text-left">
                             <label class="col" for="height">Višina:</label>
                             <div class="input-group">
@@ -167,30 +166,45 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- form-row -->
 
                     <!-- category -->
-                    <div class="form-group">
-                        <label class="col-md-4 col-form-label text-left" for="category[]">Kategorije:</label>
-                        <select class="form-select custom-select" id="category" name="category[]" multiple size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
-                            <?php categoryTree(); ?>
-                        </select>
-                        <!-- select all / unselect all buttons -->
+                    <div class="form-row">
                         <div class="form-group">
-                            <button type="button" id="selectAll" name="selectAll" class="btn btn-secondary" >Izberi vse</button>
-                            <button type="button" id="unselectAll" name="deselectAll" class="btn btn-secondary">Prekliči izbiro</button>
+                            <label class="col-md-4 col-form-label text-left" for="category[]">Kategorije:</label>
+                            <select class="form-select custom-select" id="category" name="category[]" multiple size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                                <?php categoryTree(); ?>
+                            </select>
+                            <!-- select all / unselect all buttons -->
+                            <div class="form-group">
+                                <button type="button" id="selectAll" name="selectAll" class="btn btn-secondary" >Izberi vse</button>
+                                <button type="button" id="unselectAll" name="deselectAll" class="btn btn-secondary">Prekliči izbiro</button>
                             </div>
+                        </div>
                     </div>
 
                     <!-- brand -->
-                    <div class="form-group">
-                        <label class="col-md-4 col-form-label text-left" for="Brand">Znamka:</label>
-                        <select class="form-select" id="brand" name="brand" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
-                            <?php foreach(brands() as $brand):?>
-                                <option value="<?=$brand['id']?>"><?=$brand['title']?></option>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="col-md-4 col-form-label text-left" for="brand">Znamka:</label>
+                            <select class="form-select" id="brand" name="brand" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                                <?php foreach(brands() as $brand):?>
+                                    <option value="<?=$brand['id']?>"><?=$brand['title']?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label class="col-12 col-form-label text-left" for="sale">Popusti:</label>
+                        <select class="form-select" id="sale" name="sale[]" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;" multiple>
+                            <?php foreach(sales() as $sale):?>
+                                <option value="<?=$sale['id']?>"><?=format_date($sale['date_start'])?> / <?=format_date($sale['date_end'])?> | <?=$sale['discount']?>%</option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+                </div> <!-- form-row -->
 
                     <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Dodaj</button>
                     

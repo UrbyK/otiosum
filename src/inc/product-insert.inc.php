@@ -31,9 +31,10 @@
         $weight = (float)$_POST['weight'];
         $categories = "";
         $brand = null;
+        $sales = "";
 
         //last inserted product id
-        $product_id="";
+        $product_id = "";
 
         // return status/error of insert;
         $status = "";
@@ -45,6 +46,11 @@
         // check if brand was selected and is not empty, save value to brand
         if (isset($_POST['brand']) && !empty($_POST['brand'])) {
             $brand = $_POST['brand'];
+        }
+
+        // check if any sales have been selected 
+        if (isset($_POST['sale']) && !empty($_POST['sale'])) {
+            $sales = $_POST['sale'];
         }
 
         // check if product title is not empty
@@ -90,13 +96,25 @@
                                         }
                                         
                                         // create releationship between product and category
-                                        if(!empty($categories)){
+                                        if (!empty($categories)){
                                             foreach ($categories as $category_id) {
                                                 $stmt = $pdo->prepare("INSERT INTO product_category (product_id, category_id) VALUES(?,?)");
                                                 $stmt->execute([$product_id,$category_id]);
                                                 $stmtErr = $stmt->errorInfo();
                                                 if ($stmtErr[0] != 0) {
                                                     throw new Exception("error=prd-cat");
+                                                }
+                                            }
+                                        }
+
+                                        //create releationship between product and sale
+                                        if (!empty($sales)) {
+                                            foreach ($sales as $sale_id) {
+                                                $stmt = $pdo->prepare("INSERT INTO product_sale (product_id, sale_id) VALUES(?,?)");
+                                                $stmt->execute([$product_id, $sale_id]);
+                                                $stmtErr = $stmt->errorInfo();
+                                                if ($stmtErr[0] != 0) {
+                                                    throw new Exception("error=prd-sale");
                                                 }
                                             }
                                         }

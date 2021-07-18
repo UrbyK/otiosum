@@ -35,7 +35,7 @@
     "prd-ins" => "Napaka pri vnosu izdelka!",
     "measure-ins" => "Napaka pri vnosu meril!",
     "prd-cat" => "Napaka pri povezavi izdelka s kategorijami!",
-    
+    "prd-sale" => "Napaka pri povezavi izdelka s popustom!",
 
     // brand
     "brand-empty" => "Znamka mora imeti podano ime!",
