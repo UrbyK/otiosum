@@ -1,20 +1,3 @@
-<?php
-
-// function categoryTree($parent_id = 0, $sub_mark = '') {
-//     $pdo = pdo_connect_mysql();
-//     $stmt = $pdo->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY category ASC");
-//     if ($stmt->rowCount() > 0) {
-//         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//         foreach ($row as $item) {
-//             echo "<option value=".$item['id'].">".$sub_mark.$item['category']."</option>";
-//             categoryTree($item['id'], $sub_mark.'-');
-//         }
-//     }
-
-// }
-
-?>
-
 <?php 
     include_once './header.php';
 ?>
@@ -65,18 +48,6 @@
                         <input type="text" class="form-control" name="title" id="title" placeholder="Izdelek..." maxlength="150" required <?php if (isset($_GET['error'], $_GET['title']) && !empty($_GET['title'])): ?> value="<?=$_GET['title']?>" <?php endif; ?>>
                     </div>
 
-                    <!-- <div class="form-group">
-                        <input type="file" id="img" name="img[]" class="file" accept="image/*" style="visibility: hidden;" multiple>
-                        <div class="input-group my-1">
-                            <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
-                            <div class="input-group-append">
-                                <button type="button" class="browse btn btn-secondary">Išči...</button>
-                            </div>
-                        </div>
-                        <div class="preview">
-                        </div>
-                    </div>
-                     -->
                     <div class="form-group">
                         <input type="file" id="img" name="img[]" class="file" accept="image/*" style="visibility: hidden;" multiple>
                         <div class="input-group my-1">
@@ -241,31 +212,5 @@
     });
 </script>
 
-<script>
-    $(document).on("click", ".browse", function() {
-        var file = $(this).parents().find(".file");
-        file.trigger("click");
-    });
-    $('#img').change(function(e) {
-        // on a new insert reset "Upload here" text
-        $("#file").val("");
-        // empty preview div
-        $("#preview").empty();
-        // move through all the selected files
-        for (let i = 0; i < e.target.files.length; i++) {
-
-            var fileName = e.target.files[i].name;
-            $("#file").val($("#file").val() + fileName + " ");
-
-            var reader = new FileReader();
-            reader.addEventListener("load", function() {
-                var image = new Image();
-                image.height = 150;
-                image.title = fileName;
-                image.src = this.result;
-                preview.appendChild(image);
-            });
-            reader.readAsDataURL(e.target.files[i]);
-        }
-    });
-</script>
+<!-- image preview script -->
+<script src="./src/js/image-upload-preview.js" crossorigin="anonymous"></script>
