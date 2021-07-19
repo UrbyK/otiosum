@@ -1,18 +1,8 @@
 <?php
     include './src/inc/dbh.inc.php';
     include './src/inc/xss_cleaner.inc.php';
-
-    /* Template header */
-    // function template_header($title){
-    //     include_once('./header.php');
-    // }
-
-    // /* Template footer */
-    // function template_footer(){
-    //     include_once('./footer.php');
-    // }
     
-    /* Get all main menu navigation items */
+    // Get all main menu navigation items 
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id IS NULL");
@@ -21,7 +11,7 @@
         return $result;
     }
 
-    /* Get all children of the navigation */
+    // Get all children of the navigation 
     function main_menu_navigation_sub($table, $parent){
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare("SELECT * FROM $table WHERE parent_id = ?");
@@ -30,7 +20,7 @@
         return $result;
     }
 
-    /* Checks if an item has children */
+    // Checks if an item has children
     function has_children($table, $parent){
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare("SELECT count(id) as nc FROM $table WHERE parent_id = $parent"); // nc -> Number of Children
@@ -39,7 +29,7 @@
         return $result["nc"];
     }
 
-    /* Return all countries */
+    // Return all countries
     function countries(){
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare("SELECT * FROM country");
@@ -47,16 +37,8 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    
-    /* Return country name, insert ID */
-    // function get_country_name($id){
-    //     $pdo = pdo_connect_mysql();
-    //     $stmt = $pdo -> prepare("SELECT country FROM country WHERE id = ?");
-    //     $stmt->execute([$id]);
-    //     $result = $stmt->fetch();
-    //     return $result['country'];
-    // }
 
+    // create a category tree 
     function categoryTree($parent_id = 0, $sub_mark = '') {
         $pdo = pdo_connect_mysql();
         if ($parent_id != 0) {
@@ -73,11 +55,38 @@
         }
     }    
 
+    // select all data from brands
     function brands() {
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->query("SELECT * FROM brand");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // select all data from sales
+    function sales() {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM sale ORDER BY date_start ASC, date_end ASC, discount ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // convert DB save date format to more user frendly output
+    function format_date($date) {
+        return date("d.m.Y", strtotime($date));
+    }
+
+    //get all data from products
+
+    function products() {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM product");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // get all images by given product id
+    function productImages($pid) {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM product_image WHERE product_id = $pid");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 ?>
