@@ -83,7 +83,7 @@
     }
 
     // get all images by given product id
-    function images($pid) {
+    function productImages($pid) {
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->query("SELECT * FROM product_image WHERE product_id = $pid");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
