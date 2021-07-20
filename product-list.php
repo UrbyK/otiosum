@@ -12,13 +12,9 @@
                         <li class="d-flex justify-content-between border rounded mt-2">
                             <div class="d-flex flex-row align-items-center">
                                 <div class="ml-2">
-                                    <h6 class="mb-0"><?=$product['title']?></h6>
+                                    <h5 class="mb-0"><?=$product['title']?></h5>
+                                    <h6 class="ml-3">SKU: <?=$product['sku']?></h6>
                                 </div>
-                                <div class="d-flex flex-column">
-                                        <div class="p-2">Flex item 1</div>
-                                        <div class="p-2">Flex item 2</div>
-                                        <div class="p-2">Flex item 3</div>
-                                    </div>
                             </div>
                             <div class="d-flex flex-row align-items-center">
                                 <?php foreach(productImages($product['id']) as $image): ?>
@@ -45,11 +41,9 @@
                                                 <i class="fas fa-wrench"></i>
                                             </button>
                                         </a>
-                                        <a href="./product-add.php?pid=<?=$product['id']?>" class="mx-1">
-                                            <button class="btn btn-danger">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                        </a>
+                                        <button id="delete" class="btn btn-danger" value="<?=$product['id']?>" name="pid ">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +55,31 @@
         </div> 
 </div>
 
-
 <?php
     include_once './footer.php';
 ?>
+
+<script>
+    $(document).on('click', '#delete', function() {
+
+        if (confirm("Želite odstraniti izdelek?")) {
+            var pid = $(this).val();
+            var ele = $(this).closest("li");
+            $.ajax({
+                type:'POST',
+                data: {'pid':pid},
+                url: './src/inc/product-delete.inc.php',
+                success: function(data) {
+                    if(data == "OK") {
+                        alert("Izdelek uspešno odstranjen!");
+                        ele.fadeOut().remove();
+                    } else {
+                        alert("Zgodila se je napaka pri odstranjevanju!");
+                    }
+                }
+            });
+        } else {
+
+        }
+    });
+</script>
