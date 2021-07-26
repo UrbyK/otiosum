@@ -3,13 +3,14 @@
     $pdo = pdo_connect_mysql();
     // save POST array to new variable
     $data = $_POST;
+
     // check if categories data is empty and set it as a empty array
-    if(empty($data['categories'])) {
-        $data['categories'] = [];
+    if(empty($data['category'])) {
+        $data['category'] = [];
     } 
     // check if sales data is empty and set is as an empty array
-    if(empty($data['sales'])) {
-        $data['sales'] = [];
+    if(empty($data['sale'])) {
+        $data['sale'] = [];
     } 
 
     try {
@@ -26,6 +27,41 @@
                         if (isset($data['price']) && !empty($data['price']) && $data['price'] > 0) {
                             if (isset($data['quantity']) && !empty($data['quantity'])) {
 
+                                // check if a new file/s were selected
+                                if(!empty($_FILES['img']['name'][0])) {
+                                    // save images to a new variable
+                                    $images = $_FILES['img'];
+
+                                    // delete old images
+                                    include_once './image-delete.inc.php';
+                                    delete_image($data['pid']);
+                            
+                                    // rearange the images array
+                                    function diverse_array($vector) {
+                                        $result = array();
+                                        foreach($vector as $key1 => $value1)
+                                            foreach($value1 as $key2 => $value2)
+                                                $result[$key2][$key1] = $value2;
+                                        return $result;
+                                    }
+                                    $images = diverse_array($images);
+
+                                    // insert new images
+                                    $i = 1;
+                                    include_once './image-upload.inc.php';
+                                    foreach($images as $img) {
+                                        $caption=$data['title']."-".$i;
+                                        $query = "INSERT INTO product_image (product_id, caption, image) VALUES(?,?,?)";
+                                        $stmt = $pdo->prepare($query);
+                                        $image = upload_image($caption, $img);
+                                        if (explode("=", $image)[0] != "error") {
+                                            $stmt->execute([$data['pid'], $caption, $image]); 
+                                        }
+                                        $i++;
+                                    }
+                                }
+                                
+
                                 // get all curent product_category connection
                                 $query = "SELECT category_id as cid FROM product_category WHERE product_id = :pid";
                                 $stmt = $pdo->prepare($query);
@@ -34,13 +70,13 @@
                                 $result = array_values(array_column($result, 'cid'));
                                 
                                 // delete all product category connection that are no longer valid
-                                foreach(array_diff($result, $data['categories']) as $PCid) {
+                                foreach(array_diff($result, $data['category']) as $PCid) {
                                     $query = "DELETE FROM product_category WHERE product_id = :pid AND category_id = :cid";
                                     $pdo->prepare($query)->execute(["pid"=>$data['pid'], "cid"=>$PCid]);
                                 }
 
                                 // insert new categories to the product_category
-                                foreach(array_diff($data['categories'], $result) as $PCid) {
+                                foreach(array_diff($data['category'], $result) as $PCid) {
                                     $query = "INSERT INTO product_category(product_id, category_id) VALUES(:pid, :cid)";
                                     $stmt = $pdo->prepare($query);
                                      if(!$stmt->execute(["pid"=>$data['pid'], "cid"=>$PCid])) {
@@ -56,13 +92,13 @@
                                 $result = array_values(array_column($result, 'sid'));
                                 
                                 // delete all product sale connection that are no longer valid
-                                foreach(array_diff($result, $data['sales']) as $PSid) {
+                                foreach(array_diff($result, $data['sale']) as $PSid) {
                                     $query = "DELETE FROM product_sale WHERE product_id = :pid AND sale_id = :sid";
                                     $pdo->prepare($query)->execute(["pid"=>$data['pid'], "sid"=>$PSid]);
                                 }
 
                                 // insert new sale to the product_sale
-                                foreach(array_diff($data['sales'], $result) as $PSid) {
+                                foreach(array_diff($data['sale'], $result) as $PSid) {
                                     $query = "INSERT INTO product_sale(product_id, sale_id) VALUES(:pid, :sid)";
                                     $stmt = $pdo->prepare($query);
                                      if(!$stmt->execute(["pid"=>$data['pid'], "sid"=>$PSid])) {
