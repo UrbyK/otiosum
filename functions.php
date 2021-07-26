@@ -39,7 +39,7 @@
     }
 
     // create a category tree 
-    function categoryTree($parent_id = 0, $sub_mark = '') {
+    function categoryTree($cid=[], $parent_id = 0, $sub_mark = '') {
         $pdo = pdo_connect_mysql();
         if ($parent_id != 0) {
             $stmt = $pdo->query("SELECT * FROM category WHERE parent_id = $parent_id ORDER BY category ASC");
@@ -49,8 +49,14 @@
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($row as $item) {
-                echo "<option value=".$item['id'].">".$sub_mark.$item['category']."</option>";
-                categoryTree($item['id'], $sub_mark.'-');
+
+                // check if given id is in arrey of active IDs and mark option as selected
+                if(in_array($item['id'], $cid)) {
+                    echo "<option value=".$item['id']." selected>".$sub_mark.$item['category']."</option>";                    
+                } else {
+                    echo "<option value=".$item['id'].">".$sub_mark.$item['category']."</option>";
+                }
+                categoryTree($cid, $item['id'], $sub_mark.'-');
             }
         }
     }    

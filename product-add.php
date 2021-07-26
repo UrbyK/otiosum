@@ -73,7 +73,7 @@
                     <hr>
                     <div class="form-group">
                         <label class="col-md-4 col-form-label text-left" for="sku">SKU:</label>
-                        <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{8}" required <?php if (isset($_GET['error'], $_GET['sku']) && !empty($_GET['sku'])): ?> value="<?=$_GET['sku']?>" <?php endif; ?>>
+                        <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{1,}" required <?php if (isset($_GET['error'], $_GET['sku']) && !empty($_GET['sku'])): ?> value="<?=$_GET['sku']?>" <?php endif; ?>>
                     </div>
 
                     <div class="form-group">

@@ -8,3 +8,5 @@ function xss_cleaner($input_str) {
         return "";
     }
 }
+
+?>

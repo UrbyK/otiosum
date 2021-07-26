@@ -36,7 +36,7 @@
                                 <div class="d-flex flex-column mr-2">
                                     <!-- put buttons in line -->
                                     <div class="btn_group edit-button">
-                                        <a href="./product-add.php?pid=<?=$product['id']?>" class="mx-1">
+                                        <a href="./product-update.php?pid=<?=$product['id']?>" class="mx-1">
                                             <button class="btn btn-info">
                                                 <i class="fas fa-wrench"></i>
                                             </button>
