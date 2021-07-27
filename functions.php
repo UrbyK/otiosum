@@ -1,6 +1,9 @@
 <?php
     include './src/inc/dbh.inc.php';
     include './src/inc/xss_cleaner.inc.php';
+
+    // pagination script
+    include './pagination.php';
     
     // Get all main menu navigation items 
     function main_menu_navigation($table){
@@ -76,8 +79,8 @@
     }
 
     // convert DB save date format to more user frendly output
-    function format_date($date) {
-        return date("d.m.Y", strtotime($date));
+    function format_date($format, $date) {
+        return date("$format", strtotime($date));
     }
 
     //get all data from products
