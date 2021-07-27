@@ -1,6 +1,10 @@
 
 <?php
     include_once "./header.php";
+
+    if (!isLogin() && !isAdmin()) {
+        exit("<script>window.location.href='index'</script>");
+    }
 ?>
 
 <div class="container">
@@ -31,7 +35,7 @@
     <?php endif; ?>
 
     <div class="card mt-3">
-        <div class="card-header">
+        <div class="card-header text-center">
             <h2>Dodaj kategorije</h2>
         </div>
         <div class="card-body">
@@ -55,7 +59,6 @@
                         </select>
                     </div>
                 </div> <!-- form-row -->
-
             </form> <!-- form -->
 
             <!-- submit form button -->

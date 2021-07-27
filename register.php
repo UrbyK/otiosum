@@ -1,5 +1,8 @@
 <?php 
     include_once './header.php';
+    if (!isLogin()) {
+        exit("<script>window.location.href='index'</script>");
+    }
 ?>
 
 <div class="container max-vh-100"> <!-- container -->

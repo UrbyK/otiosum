@@ -1,7 +1,7 @@
 <?php
     include_once './header.php';
 
-    if (!isLogin() && !isAdmin() && !isMod()) {
+    if (!isLogin() && !isAdmin()) {
         exit("<script>window.location.href='index'</script>");
     }
 

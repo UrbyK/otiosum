@@ -1,5 +1,8 @@
 <?php
     include_once './header.php';
+    if (!isLogin() && !isAdmin() && !isMod()) {
+        exit("<script>window.location.href='index'</script>");
+    }
 ?>
 
 <div class="container">
@@ -135,6 +138,9 @@
                                                 <div class="input-group-text">%</div>\
                                             </div>\
                                         </div>\
+                                    </div>\
+                                    <div class="form-group col-md-1 align-self-center">\
+                                        <a href="#" class="delete btn btn-danger"><i class="fa fa-minus"></i></a>\
                                     </div>\
                                 </div>');
         });
