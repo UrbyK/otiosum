@@ -1,5 +1,8 @@
 <?php 
     include_once './header.php';
+    if (!isLogin() && !isAdmin() && !isMod()) {
+        exit("<script>window.location.href='index'</script>");
+    }
 ?>
 
 <?php if (isset($_GET['pid']) && !empty($_GET['pid'])) {
@@ -76,7 +79,7 @@
                         <a class="p-2 btn btn-info text-center" style="width:180px;" href="./product-update?pid=<?=$next['id']?>">Naslednji izdelek <i class="fas fa-arrow-right"></i></a>
                     <?php endif; ?>
                 </div>
-            </div>
+            </div> <!-- d-flex my-2 text-center -->
             <div class="card my-2">
                 <div class="card-header">
                     <h1>Posodobi izdelek</h1>
@@ -127,13 +130,6 @@
                             <textarea class="form-control" name="description" id="description" placeholder="Opis..." rows="20"><?=$product['description']?></textarea>
                         </div>
 
-                        <h3 class="subtitle">Šifra izdelka</h6>
-                        <hr>
-                        <div class="form-group">
-                            <label class="col-md-4 col-form-label text-left" for="sku">SKU:</label>
-                            <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{1,}" required value="<?=$product['sku']?>">
-                        </div>
-
                         <div class="form-group">
                             <label class="col-md-4 col-form-label text-left" for="quantity">Količina:</label>
                             <input type="number" class="form-control hide-arrow" name="quantity" id="quantity" placeholder="Količina..." min="0" required value="<?=$product['quantity']?>">
@@ -151,7 +147,19 @@
 
                         <div class="form-group">
                             <label class="col" for="publishDate">Dan objave izdelka:</label>
-                            <input type="date" class="form-control" name="publishDate" id="publishDate" value="<?=$product['date_published']?>">
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="publishDate" id="publishDate" value="<?=$product['date_published']?>">
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="subtitle">Šifra izdelka</h6>
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-md-4 col-form-label text-left" for="sku">SKU:</label>
+                            <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{1,}" required value="<?=$product['sku']?>">
                         </div>
 
                         <h3 class="subtitle">Mere izdelka</h6>
@@ -209,23 +217,24 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="col-md-4 col-form-label text-left" for="category[]">Kategorije:</label>
-                                <select class="form-select custom-select" id="category" name="category[]" multiple size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                                <select class="form-select custom-select dropdown" id="category" name="category[]" multiple size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
                                     <?php categoryTree($cid = $categories); ?>
                                 </select>
                                 <!-- select all / unselect all buttons -->
-                                <div class="form-group">
+                                <div class="form-group text-center my-2">
                                     <button type="button" id="selectAll" name="selectAll" class="btn btn-secondary" >Izberi vse</button>
                                     <button type="button" id="unselectAll" name="deselectAll" class="btn btn-secondary">Prekliči izbiro</button>
+                                    <a type="button" class="btn btn-info" href="./category-add" target="_blank">Dodaj kategorijo</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- brand -->
-                        <div class="form-row">
+                        <div class="form-row col-4">
                             <div class="form-group">
                                 <label class="col-md-4 col-form-label text-left" for="brand">Znamka:</label>
                                 <select class="form-select" id="brand" name="brand" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
-                                    <?php foreach(brands() as $brand): 
+                                    <?php foreach(brands() as $brand):
                                         if ($brand['id'] == $product['brand_id']): ?>
                                             <option value="<?=$brand['id']?>" selected><?=$brand['title']?></option>
                                         <?php else: ?>
@@ -233,6 +242,9 @@
                                         <?php endif ?>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="form-group text-center my-2">
+                                    <a type="button" class="btn btn-info my-2" href="./brand-add" target="_blank">Dodaj znamko</a>
+                                </div>
                             </div>
                         </div>
 
@@ -244,17 +256,20 @@
                             $discounts = array_values(array_column($discounts, 'id'));
                         ?>
                         <div class="form-row">
-                            <div class="form-group col-12">
+                            <div class="form-group">
                                 <label class="col-12 col-form-label text-left" for="sale">Popusti:</label>
-                                <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="min-width:300px;width:300px;" multiple>
+                                <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="width:100%" multiple>
                                     <?php foreach(sales() as $sale): ?>
                                         <?php if(in_array($sale['id'], $discounts)): ?> 
-                                            <option value="<?=$sale['id']?>" selected><?=format_date($sale['date_start'])?> / <?=format_date($sale['date_end'])?> | <?=$sale['discount']?>%</option> 
+                                            <option value="<?=$sale['id']?>" selected><?=format_date("d.m.Y",$sale['date_start'])?> / <?=format_date("d.m.Y",$sale['date_end'])?> | <?=$sale['discount']?>%</option> 
                                         <?php else: ?>
-                                            <option value="<?=$sale['id']?>"><?=format_date($sale['date_start'])?> / <?=format_date($sale['date_end'])?> | <?=$sale['discount']?>%</option>
+                                            <option value="<?=$sale['id']?>"><?=format_date("d.m.Y",$sale['date_start'])?> / <?=format_date("d.m.Y",$sale['date_end'])?> | <?=$sale['discount']?>%</option>
                                         <?php endif; ?>                           
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="form-group text-center my-2">
+                                <a type="button" class="btn btn-info" href="./sale" target="_blank">Dodaj popuste</a>
+                                </div>
                             </div>
                         </div> <!-- form-row -->
                         <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Posodobi</button>
