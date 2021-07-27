@@ -59,7 +59,7 @@
             <h2>Dodaj obdobja razprodaje</h2>
         </div>
         <div class="card-body">
-            <form id="sales" method="post" enctype="multipart/form-data" action="./src/inc/sale-ins.inc.php" >
+            <form id="sales" method="post" enctype="multipart/form-data" action="./src/inc/sale-insert.inc.php" >
                 <!-- add more button -->
                 <div class="d-flex justify-content-end mt-2">
                     <button class="add_form_field btn btn-success float-right"><i class="fa fa-plus"></i></button>
