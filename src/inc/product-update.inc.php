@@ -11,6 +11,10 @@
     // check if sales data is empty and set is as an empty array
     if(empty($data['sale'])) {
         $data['sale'] = [];
+    }
+    // check if brand is empty and set is as an null
+    if(empty($data['brand'])) {
+        $data['brand'] = null;
     } 
 
     try {
@@ -25,7 +29,7 @@
                     if ($stmt->rowCount() == 0) {
 
                         if (isset($data['price']) && !empty($data['price']) && $data['price'] > 0) {
-                            if (isset($data['quantity']) && !empty($data['quantity'])) {
+                            if (isset($data['quantity']) && (int)$data['quantity']>=0) {
 
                                 // check if a new file/s were selected
                                 if(!empty($_FILES['img']['name'][0])) {

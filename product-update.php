@@ -328,8 +328,6 @@
                             alert(json.message);
                         } else {
                             alert("Podatki uspešno spremenjeni!");
-                            // reload page on successful update
-                            location.reload(true);
                         }
                         // move to top of page
                         window.scrollTo(0,0)
