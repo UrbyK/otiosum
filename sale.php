@@ -139,7 +139,7 @@
                                             </div>\
                                         </div>\
                                     </div>\
-                                    <div class="form-group col-md-1 align-self-center">\
+                                    <div class="form-group col-md-1 align-self-center float-right">\
                                         <a href="#" class="delete btn btn-danger"><i class="fa fa-minus"></i></a>\
                                     </div>\
                                 </div>');
