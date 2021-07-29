@@ -1,7 +1,7 @@
 <?php
     include_once './header.php';
 
-    if (!isLogin()) {
+    if (isLogin()) {
         exit("<script>window.location.href='index'</script>");
     }
 ?>

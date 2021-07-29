@@ -1,7 +1,8 @@
 let step = document.getElementsByClassName('step');
 let prevBtn = document.getElementById('prev-btn');
 let nextBtn = document.getElementById('next-btn');
-// let submitBtn = document.getElementById('submit-btn');
+
+let submitBtn = document.getElementById('submit-btn');
 let form = document.getElementsByTagName('form')[0];
 let preloader = document.getElementById('preloader-wrapper');
 let bodyElement = document.querySelector('body');
@@ -15,7 +16,7 @@ let stepCount = 2
 step[current_step].classList.add('d-block');
 if (current_step == 0) {
     prevBtn.classList.add('d-none');
-    // submitBtn.classList.add('d-none');
+    submitBtn.classList.add('d-none');
     nextBtn.classList.add('d-inline-block');
 }
 
@@ -34,8 +35,8 @@ nextBtn.addEventListener('click', () => {
         step[previous_step].classList.remove('d-block');
         step[previous_step].classList.add('d-none');
         if (current_step == stepCount) {
-            // submitBtn.classList.remove('d-none');
-            // submitBtn.classList.add('d-inline-block');
+            submitBtn.classList.remove('d-none');
+            submitBtn.classList.add('d-inline-block');
             nextBtn.classList.remove('d-inline-block');
             nextBtn.classList.add('d-none');
         }
@@ -61,8 +62,8 @@ prevBtn.addEventListener('click', () => {
         step[previous_step].classList.remove('d-block');
         step[previous_step].classList.add('d-none');
         if (current_step < stepCount) {
-            // submitBtn.classList.remove('d-inline-block');
-            // submitBtn.classList.add('d-none');
+            submitBtn.classList.remove('d-inline-block');
+            submitBtn.classList.add('d-none');
             nextBtn.classList.remove('d-none');
             nextBtn.classList.add('d-inline-block');
             prevBtn.classList.remove('d-none');

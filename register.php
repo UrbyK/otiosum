@@ -1,6 +1,6 @@
 <?php 
     include_once './header.php';
-    if (!isLogin()) {
+    if (isLogin()) {
         exit("<script>window.location.href='index'</script>");
     }
 ?>
@@ -115,12 +115,17 @@
 
                             </div> <!-- step-container -->
 
-                            <!-- Nav buttons, submit button -->
-                            <div id="q-box__buttons">
-                                <button id="prev-btn" type="button" class="btn btn-secondary" >Nazaj</button> 
-                                <button id="next-btn" type="button" class="btn btn-secondary">Naprej</button> 
 
-                            </div>
+                            <div class="d-flex my-2 text-center q-box__buttons">
+                                <!-- update next / previous product -->
+                                <div class="col-6 float-left">
+                                    <button id="prev-btn" class="p-2 btn btn-secondary text-center" style="width:180px;"><i class="fas fa-arrow-left"></i> Nazaj</button>
+                                </div>
+
+                                <div class="col-6 flaot-right">
+                                    <button id="next-btn" class="p-2 btn btn-secondary text-center" style="width:180px;">Naprej <i class="fas fa-arrow-right"></i> </button>
+                                </div>
+                            </div> <!-- d-flex my-2 text-center -->
                             <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right btn-login col-sm-6">Registracija</button>                            
                         </form>
                     </div><!-- qbox-container -->
