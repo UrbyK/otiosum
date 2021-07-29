@@ -98,4 +98,48 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // return disocunt data for a product
+    function discountData($pid) {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT s.id, s.date_start, s.date_end, s.discount FROM sale s INNER JOIN product_sale ps ON s.id = ps.sale_id WHERE ps.product_id = $pid AND CURDATE() BETWEEN date_start and date_end ORDER BY date_start ASC, date_end ASC, discount ASC";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function retailPrice($price, $discount) {
+        return round($price - ($price*($discount/100)), 2);
+    }
+
+
+    /* Returns average rating for an item */
+    function average_rating($pid) {
+        $pdo = pdo_connect_mysql();
+        $query  = "SELECT rating FROM review WHERE product_id = ?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$pid]);
+        $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $i=0;
+        $sum = 0;
+        $average = 0;
+        foreach($items as $item) {
+            if($item['rating'] > 0){
+                
+                $i++;
+                $sum += $item['rating'];
+            }        
+        }
+        if($i!=0) $average = $sum / $i;
+        return $average;
+    }
+
+    function number_of_ratings($pid) {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT id FROM review WHERE product_id = $pid";
+        $stmt = $pdo->query($query);
+        return $stmt->rowCount();
+    }
+
 ?>

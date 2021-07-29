@@ -62,7 +62,7 @@
             // check if SKU is unique
                 if ($stmt->rowCount() == 0) {
                     // check if quantity is given
-                    if (!empty($quantity)) {
+                    if (isset($quantity)) {
                         // check if quantity value is a whole number
                         if (is_int($quantity) && $quantity >= 0) {
                             // check if price is given

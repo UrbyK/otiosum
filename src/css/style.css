@@ -8,7 +8,7 @@
 
 /* Variables */
 :root {
-    --link-color: #1b9bff;
+    --link-color: #0b61a4;
     --link-hover: #0082e7;
 
     --navigation-bg: #2b2626;
@@ -16,8 +16,9 @@
     --text-color: #353535;
     --bg-color: #fafafa;
 
-    --green-color: #2bff1b;
-    --green-color-darker: #0EE700;
+    --green-color: #00cc00;
+    --green-color-darker: #009e00;
+    --green-color-darker-dark: #007c00;
     
     --nav-color: #aeaeae;
 
@@ -63,6 +64,7 @@ html, body {
 /* HEADER */
 .navbar {
     background-color: var(--navigation-bg);
+    z-index: 99000;
 }
 
 .navbar-brand {
@@ -257,4 +259,194 @@ background-color:#cccccc33;
     z-index: 10000;
     background-color:rgba(0, 0, 0, 0.75);
     color: var(--green-color-darker)
-  }
+}
+
+  /*======== HOVERBOX ==============*/
+/* displays text when you hover over the image */
+.hvrbox,
+.hvrbox * {
+    box-sizing: border-box;
+}
+
+.hvrbox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    /* max-height: 300px; */
+    height: 100%;
+    width: auto;
+    /* margin-top: 5%; */
+    /* padding-bottom: 10px; */
+    border-bottom: 2px dashed rgb(230, 230, 230);
+}
+
+.hvrbox img {
+    max-width: 100%;
+    margin: auto;
+}
+
+.hvrbox .hvrbox-layer_bottom {
+    display: block;
+}
+
+.hvrbox .hvrbox-layer_top {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 15px;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -ms-transition: all 0.5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.hvrbox:hover .hvrbox-layer_top,
+.hvrbox.active .hvrbox-layer_top {
+    opacity: 1;
+    height: 100%;
+}
+
+.hvrbox .hvrbox-text {
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.hvrbox .hvrbox-text_mobile {
+    font-size: 15px;
+    border-top: 1px solid rgb(179, 179, 179); /* for old browsers */
+    border-top: 1px solid rgba(179, 179, 179, 0.7);
+    margin-top: 5px;
+    padding-top: 2px;
+    display: none;
+}
+
+.hvrbox.active .hvrbox-text_mobile {
+    display: block;
+}
+
+.hvrbox .hvrbox-layer_slideup {
+    -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+.hvrbox:hover .hvrbox-layer_slideup,
+.hvrbox.active .hvrbox-layer_slideup {
+    -moz-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+/* PRODUCTS */
+.product-item {
+    height: 600px;
+    min-width: 220px;
+    max-width: 300px;
+    width: 100%;
+
+    background-color: white;
+    -webkit-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.product-item:hover {
+    -webkit-transform: scale(1.015, 1.015);
+    transform: scale(1.015, 1.015);
+}
+
+.cp-img {
+    height: 250px;
+}
+
+.cp-img .discount-tag {
+    z-index: 90000;
+    float:right;
+    font-weight: 700;
+}
+
+.cp-img .hvrbox {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-img img {
+    height: auto;
+    max-height: 248px;
+    width: auto;
+    max-width: 100%;
+    margin: auto;
+}
+
+.cp-img .img-thumbnail {
+    border: none;
+}
+
+.cp-details {
+    height: 265px;
+}
+
+.cp-title{
+    height: 125px;
+}
+
+.cp-title h5 a {
+    color: var(--link-color);
+    font-family: sans-serif;
+}
+
+.cp-price {
+    height: 50px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.cp-price .old-price {
+    text-decoration: line-through 2px;
+    text-align: center;
+    margin: auto;
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+.cp-price .new-price {
+    text-align: center;
+    margin: auto;
+}
+
+.cp-details .sale-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: black;
+    height: 20px;
+    color: var(--green-color-darker);
+}
+
+.cp-details .availability {
+    height: 50px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* product rating displayed on the product card */
+.rating {
+    height: 25px;
+}

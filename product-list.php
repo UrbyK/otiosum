@@ -29,7 +29,13 @@
 
 
 <div class="container">
-    <div class="card my-3">
+    <div class="d-flex my-2 text-center">
+        <!-- update next / previous product -->
+        <div class="col-4 float-left">
+            <a class="p-2 btn btn-info text-center" style="width:180px;" href="./product-add"><i class="fas fa-plus"></i> Dodaj izdelek</a>
+        </div>
+    </div> <!-- d-flex my-2 text-center -->
+    <div class="card mb-3">
         <div class="card-header text-center">
             <h2 class="subtitle">List izdelkov</h2>
         </div>
@@ -50,7 +56,7 @@
                             </div>
                             <div class="d-flex flex-row align-items-center col-5">
                                 <?php foreach(productImages($product['id']) as $image): ?>
-                                    <img src="<?=$image['image']?>" alt="<?=$image['caption']?>" class="rounded-circle" style="height:75px;">
+                                    <img src="<?=$image['image']?>" alt="<?=$image['caption']?>" class="col-3" style="height:75px;">
                                 <?php endforeach;?>
                             </div>
                             <div class="d-flex flex-row align-items-center col-2">
