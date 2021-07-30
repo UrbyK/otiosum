@@ -375,10 +375,12 @@ background-color:#cccccc33;
     height: 250px;
 }
 
-.cp-img .discount-tag {
+.discount-tag {
     z-index: 90000;
-    float:right;
+    float: right;
     font-weight: 700;
+    font-size: 18px;
+    color:white;
 }
 
 .cp-img .hvrbox {
@@ -432,7 +434,7 @@ background-color:#cccccc33;
     margin: auto;
 }
 
-.cp-details .sale-date {
+.sale-date {
     font-size: 13px;
     font-weight: 600;
     color: black;
@@ -440,7 +442,7 @@ background-color:#cccccc33;
     color: var(--green-color-darker);
 }
 
-.cp-details .availability {
+.availability {
     height: 50px;
     font-size: 16px;
     font-weight: 600;
@@ -449,4 +451,75 @@ background-color:#cccccc33;
 /* product rating displayed on the product card */
 .rating {
     height: 25px;
+}
+
+
+/* PRODUCT */
+.p-image-window {
+    height: 500px;
+}
+
+.p-img {
+    height: 450px;
+    max-height: 450px;
+    width: auto;
+}
+
+.p-img img {
+    height: 400px;
+    width: auto;
+}
+
+.p-card {
+    height: 600px;
+    box-shadow: 7px 4px 10px #212529;
+}
+.p-header {
+    height: auto;
+    min-height: 50px;
+    border-bottom: 2px solid var(--link-hover);
+    color:#212529;
+    font-weight: 500;
+}
+
+.p-header .discount-tag {
+    right: 0;
+    top: 25px;
+}
+
+.p-price {
+    font-size: 24px;
+    font-weight: 600;
+}
+.p-price .old-price {
+    text-decoration: line-through 2px;
+    font-size: 20px;
+    opacity: 0.8;
+}
+ 
+.summary {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.p-card .summary {
+    padding: 0 2px 0 2px;
+}
+
+@media (max-width: 576px) {
+    .p-card{
+        height:auto;
+    }
+ }
+
+@media (max-width: 768px) and (min-width: 576px) {
+    .p-card{
+        height:550px;
+    }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+    .p-card{
+        height:750px;
+    }
 }
