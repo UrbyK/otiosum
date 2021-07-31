@@ -14,7 +14,7 @@
         $title = xss_cleaner($_POST['title']);
         $images = $_FILES['img'];
         $summary = xss_cleaner($_POST['summary']);
-        $description = xss_cleaner($_POST['description']);
+        $description = $_POST['description'];
         $sku = xss_cleaner($_POST['sku']);
         $quantity = (int)$_POST['quantity'];
         $price = (float)$_POST['price'];

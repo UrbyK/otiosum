@@ -22,12 +22,12 @@
                         <div class="card-body">
                             <div class="cp-img">
                             <?php if (!empty($discount)): ?>
-                            <div class="discount-tag position-absolute badge-lg rounded-circle badge-success p-2 m-2">
+                            <div class="discount-tag position-absolute badge bg-success rounded-circle p-2 m-2">
                                 <span>-<?=$discount['discount']?>%</span>
                             </div>
                             <?php endif; ?>
                                 <div class="hvrbox">
-                                    <a href="./product&pid=<?=$product['id']?>" target="_blank">
+                                    <a href="./product?pid=<?=$product['id']?>">
                                         <?php $images = productImages($product['id']);
                                         if ($images):?>
                                         <img src="<?=$images[0]['image']?>" alt="<?=$images[0]['caption']?>" class=" my-auto img-fluid img-thumbnail hvrbox-layer_bottom">
@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="rating small">
+                            <div class="cp-rating small">
                                 <?php for($i=0; $i<5; $i++):
                                     if($i<average_rating($product['id'])): ?>
                                         <span class="fa fa-star checked text-success"></span>
@@ -61,13 +61,14 @@
                             </div>
                             <div class="cp-details">
                                 <div class="cp-title">
-                                    <h5><a href="./product&pid=<?=$product['id']?>" target="_blank"><?php if(strlen($product['title']) > 65){ 
+                                    <h5><a href="./product?pid=<?=$product['id']?>"><?php if(strlen($product['title']) > 65){ 
                                                     echo substr($product['title'], 0, 65) . '...';
                                                 } else{
                                                     echo $product['title'];
                                                 } ?>
                                     </a></h5>
                                 </div>
+                                <span class="small">SKU: <?=$product['sku']?></span>
                                 <div class="cp-price d-flex justify-content-center">
                                     <div class="col-6 old-price"><?php if(!empty($discount)): ?><?=$product['price']?> €<?php endif; ?></div>
                                     <div class="col-6 new-price"><?=$price?> €</div>
