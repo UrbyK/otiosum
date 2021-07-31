@@ -222,3 +222,22 @@
 
 <!-- image preview script -->
 <script src="./src/js/image-upload-preview.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+            bkLib.onDomLoaded(function() {
+                new nicEditor({buttonList : ['bold',
+      'italic',
+      'underline',
+      'left',
+      'center',
+      'right',
+      'justify',
+      'ol',
+      'ul',
+      'strikethrough',
+      'removeformat',
+      'hr',
+      'forecolor',
+      'bgcolor']}).panelInstance('description')
+            });
+</script>
