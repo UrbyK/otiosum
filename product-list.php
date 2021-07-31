@@ -66,7 +66,7 @@
                                         <a href="./product-update.php?pid=<?=$product['id']?>" class="mx-1 btn btn-info">
                                             <i class="fas fa-wrench"></i>
                                         </a>
-                                        <button id="delete" class="btn btn-danger" value="<?=$product['id']?>" name="pid ">
+                                        <button id="delete" class="btn btn-danger" value="<?=$product['id']?>" name="pid">
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
@@ -106,8 +106,6 @@
                     }
                 }
             });
-        } else {
-
         }
     });
 </script>
