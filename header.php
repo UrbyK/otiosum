@@ -36,6 +36,8 @@
 
         <script src="./src/js/active-menu.js" crossorigin="anonymous"></script>
 
+        <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>				
+
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="./src/css/style.css">
 
