@@ -113,6 +113,23 @@
         return round($price - ($price*($discount/100)), 2);
     }
 
+    function measurement($pid) {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT * FROM measurement WHERE product_id = $pid";
+        return $pdo->query($query)->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function user($aid){
+        $pdo = pdo_connect_mysql();
+        return $pdo->query("SELECT * FROM account WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function productReviews($pid) {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT * FROM review WHERE product_id = $pid ORDER BY id DESC";
+        return $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /* Returns average rating for an item */
     function average_rating($pid) {
