@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="rating small">
+                            <div class="cp-rating small">
                                 <?php for($i=0; $i<5; $i++):
                                     if($i<average_rating($product['id'])): ?>
                                         <span class="fa fa-star checked text-success"></span>
