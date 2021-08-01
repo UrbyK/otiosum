@@ -20,7 +20,10 @@
     $images = productImages($pid);
     $len = count($images);
     $measurement = measurement($pid);
-    $aid = $_SESSION['id'];
+    if (isLogin()) {
+        $aid = $_SESSION['id'];
+    }
+
 ?>
 
 <div class="container">
