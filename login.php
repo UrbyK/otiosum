@@ -53,7 +53,8 @@
 
                 </div> <!-- card-body -->
                 <div class="card-footer"> <!-- card-footer -->
-                    Nimate računa? Ustvarite račun: <a href="./register.php">Registracija</a>
+                    <p>Nimate računa? Ustvarite račun: <a href="./register">Registracija</a></p>
+                    <p>Pozabili geslo? Ponastavitev gesla: <a href="./password-reset">Ponastavitev gesla</a></p>
                 </div> <!-- card-footer -->
             </div> <!-- card -->
         </div> <!-- col-lg-8 -->
