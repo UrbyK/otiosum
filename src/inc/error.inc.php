@@ -16,6 +16,10 @@
     "pass-special" => "Geslo mora vsebovati vsaj 1 posebni znak!",
     "pass-match" => "Gesla se ne ujemata!",
 
+    // reset password errorin
+    "email" => "Email ne obstaja!",
+    "err-token" => "Prišlo je do napake pri menjavi tokena!",
+
     // img/file error
     "file-type" => "Izbrani file ni slika!",
     "img-type" => "Slika ni shranjena v pravem formatu!",
