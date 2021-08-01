@@ -14,12 +14,13 @@
     "pass-upper" => "Geslo mora vsebovati vsaj 1 veliki znak!",
     "pass-digit" => "Geslo mora vsebovati vsaj 1 številko!",
     "pass-special" => "Geslo mora vsebovati vsaj 1 posebni znak!",
-    "pass-match" => "Gesla se ne ujemata!",
+    "pass-match" => "Gesli se ne ujemata!",
 
     // reset password errorin
     "email" => "Email ne obstaja!",
     "err-token" => "Prišlo je do napake pri menjavi tokena!",
-
+    "validation" => "Prišlo je do napake. Če napaka ostraja, ponovno zahtevajte ponastavitev gesala in poskusite. Če napaka še zmeraja ostraja nas prosim kontakirajte!",
+    
     // img/file error
     "file-type" => "Izbrani file ni slika!",
     "img-type" => "Slika ni shranjena v pravem formatu!",
