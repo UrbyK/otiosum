@@ -31,7 +31,12 @@
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
-                        
+
+                    <?php if (isset($_GET['status']) && $_GET['status'] == "pass-change"): ?>
+                        <div class="error w-100 text-center alert-success">
+                            <h3>Uspešno ste ponastavili geslo!</h3>
+                        </div>
+                        <?php endif; ?>
                     <form method="post" action="./src/inc/login.inc.php">
                         <!-- Email -->
                         <div class="form-group row">
