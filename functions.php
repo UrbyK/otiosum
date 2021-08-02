@@ -62,7 +62,15 @@
                 categoryTree($cid, $item['id'], $sub_mark.'-');
             }
         }
-    }    
+    }
+
+    // select all categories
+    function categories() {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT * FROM category ORDER BY parent_id";
+        $stmt = $pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     // select all data from brands
     function brands() {
@@ -157,6 +165,10 @@
         $query = "SELECT id FROM review WHERE product_id = $pid";
         $stmt = $pdo->query($query);
         return $stmt->rowCount();
+    }
+
+    function productCard($product) {
+        include './products-card.php';
     }
 
 ?>

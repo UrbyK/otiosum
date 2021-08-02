@@ -1,101 +1,104 @@
 <?php
     include_once './header.php';
-    
-    $products = products();
 ?>
-
-    <div class="container">
-        <div class="row clearfix justify-content-center">
-            <!-- iterate throu all products -->
-            <?php foreach($products as $product):
-                // get all discount data for product
-                $discount = discountData($product['id']);
-                if(!empty($discount)) {
-                    $price = retailPrice($product['price'], $discount['discount']);
-                } else {
-                    $price = $product['price'];
-                }
-                // check if product is supposed to be published
-                if ($product['date_published'] <= date('Y-m-d')): ?>
-                <div class="col-12 col-sm-6 col-md-5 col-lg-3 col-xl-3 my-2">
-                    <div class="card product-item">
-                        <div class="card-body">
-                            <div class="cp-img">
-                            <?php if (!empty($discount)): ?>
-                            <div class="discount-tag position-absolute badge bg-success rounded-circle p-2 m-2">
-                                <span>-<?=$discount['discount']?>%</span>
-                            </div>
-                            <?php endif; ?>
-                                <div class="hvrbox">
-                                    <a href="./product?pid=<?=$product['id']?>">
-                                        <?php $images = productImages($product['id']);
-                                        if ($images):?>
-                                        <img src="<?=$images[0]['image']?>" alt="<?=$images[0]['caption']?>" class=" my-auto img-fluid img-thumbnail hvrbox-layer_bottom">
-                                        <?php else: ?>
-                                            <img src="https://via.placeholder.com/180x250" alt="placeholder-image">
-                                        <?php endif; ?>
-                                        <div class="hvrbox-layer_top hvrbox-layer_slideup">
-                                            <p class="hvrbox-text">
-                                                <?php if(strlen($product['summary']) > 80){ 
-                                                    echo substr($product['summary'], 0, 80) . '...';
-                                                } else{
-                                                    echo $product['summary'];
-                                                } ?>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cp-rating small">
-                                <?php for($i=0; $i<5; $i++):
-                                    if($i<average_rating($product['id'])): ?>
-                                        <span class="fa fa-star checked text-success"></span>
-                                    <?php else: ?>
-                                        <span class="fa fa-star"></span>
-                                    <?php endif;
-                                endfor; ?>
-                                <?php $numRating = number_of_ratings($product['id']);
-                                if ($numRating > 0):?>
-                                <span class="small"><?=$numRating?>x</span>
-                                <?php endif; ?>
-                            </div>
-                            <div class="cp-details">
-                                <div class="cp-title">
-                                    <h5><a href="./product?pid=<?=$product['id']?>"><?php if(strlen($product['title']) > 65){ 
-                                                    echo substr($product['title'], 0, 65) . '...';
-                                                } else{
-                                                    echo $product['title'];
-                                                } ?>
-                                    </a></h5>
-                                </div>
-                                <span class="small">SKU: <?=$product['sku']?></span>
-                                <div class="cp-price d-flex justify-content-center">
-                                    <div class="col-6 old-price"><?php if(!empty($discount)): ?><?=$product['price']?> €<?php endif; ?></div>
-                                    <div class="col-6 new-price"><?=$price?> €</div>
-                                </div>
-                                <div class="sale-date">
-                                    <?php if(!empty($discount)): ?>
-                                        Razprodaja od <?=date('j.n', strtotime($discount['date_start']))?> do <?=date('j.n', strtotime($discount['date_end']))?>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="availability">
-                                    <?php if($product['quantity'] == 0): ?>
-                                        <span class="text-danger">Zmanjkalo zalog!</span>
-                                    <?php elseif($product['quantity'] <= 50): ?>
-                                        <span class="text-warning">Zadnji kosi!</span>
-                                    <?php else: ?>
-                                        <span class="text-success">Izdelek na zalogi!</span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary cp-btn" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>><b>Dodaj v košarico</b></button>
-                    </div>
+<!-- <script src="js/jquery-ui.js"></script> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 filter-wrapper">
+            <div class="list-group">
+                <h3>Iskanje</h3>
+                <input type="text" class="form-control" id="search" autocomplete="off" placeholder="Išči..."/>
+            </div>
+            <div class="list-group">
+                <h3>Cena</h3>	
+                <div class="list-group-item">
+                    <input id="priceSlider" data-slider-id='ex1Slider' type="range" data-slider-min="1" data-slider-max="1000" data-slider-step="200" data-slider-value="1"/>
+                    <div class="priceRange">1 - 1000</div>
+                    <input type="hidden" id="minPrice" value="1" />
+                    <input type="hidden" id="maxPrice" value="1000" />
                 </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div><!-- row -->
+            </div>
+            <div class="list-group list-group-flush">
+                <h3>Znamke</h3>
+                <div class="section">
+                    <?php
+                    $brands = brands();
+                    foreach($brands as $brand): ?>
+                    <div class="list-group-item checkbox">
+                        <label><input type="checkbox" class="common-selector brand"  value="<?=$brand['id']?>"><?=$brand['title']?></label>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row filter_data clearfix justify-content-center">
+
+            </div>
+        </div>
     </div>
+</div>
+
 <?php
     include_once './footer.php';
 ?>
+
+
+<script>
+$(document).ready(function(){
+
+    filter_data();
+
+    function filter_data()
+    {
+        $('.filter_data').html('<div id="loading" style="" ></div>');
+        var action = 'fetch_data';
+        var search = $('#search').val();
+        var minimum_price = $('#minPrice').val();
+        var maximum_price = $('#maxPrice').val();
+        var brand = get_filter('brand');
+        console.log(brand);
+        $.ajax({
+            url:"fetch_data.php",
+            method:"POST",
+            data:{action:action, search:search, brand:brand},
+            success:function(data){
+                $('.filter_data').html(data);
+            }
+        });
+    }
+
+    function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+    $('.common-selector').click(function(){
+        filter_data();
+    });
+
+    $('#search').keyup(function(){
+        filter_data();
+    })
+
+    // $('#priceRange').slider({
+    //     range:true,
+    //     min:1,
+    //     max:1000,
+    //     values:[1, 1000],
+    //     step:10,
+    //     stop:function(event, ui)
+    //     {
+    //         $('#priceRange').html(ui.values[0] + ' - ' + ui.values[1]);
+    //         $('#minPrice').val(ui.values[0]);
+    //         $('#maxPrice').val(ui.values[1]);
+    //         filter_data();
+    //     }
+    // });
+
+});
+</script>
