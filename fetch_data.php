@@ -3,27 +3,40 @@
     include_once './functions.php';
     if(isset($_POST['action'])) {
         $date = date('Y-m-d');
-        $query = "SELECT * FROM product WHERE date_published <= CURDATE()";
+        $select = "SELECT * FROM product ";
+        $where = " WHERE date_published <= CURDATE()";
+        $join = "";
+        $groupBy = "";
+        $orderBy = "";
         $data=[];
-        // if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"])) {
-        // $minPrice = $_POST['minimum_price'];
-        // $maxPrice = $_POST['maximum_price'];
-        //     $query .= "AND price BETWEEN $minPrice AND $maxPrice";
-        // }
 
-        if(isset($_POST['search'])) {
+        // join with categories
+        if(isset($_POST['category']) && !empty($_POST['category'])){
+            $join .= " INNER JOIN product_category ON product.id = product_category.product_id";
+            $category_filter = implode(",", $_POST["category"]);
+            $where .= " AND product_category.category_id IN ($category_filter)";
+            $groupBy .= " GROUP BY product.id";
+        }
+
+        // filter by in berween price
+        if(isset($_POST["minPrice"], $_POST["maxPrice"]) && !empty($_POST["minPrice"]) && !empty($_POST["maxPrice"])) {
+            $minPrice = $_POST['minPrice'];
+            $maxPrice = $_POST['maxPrice'];
+            $where .= " AND price BETWEEN $minPrice AND $maxPrice";
+        }
+
+        // filter by search input
+        if(isset($_POST['search']) && !empty($_POST['search'])) {
             $search = $_POST['search'];
-            $query .= "
-             AND title LIKE '%$search%'
-            ";
+            $where .= " AND title LIKE '%$search%'";
         }
 
-        if(isset($_POST['brand'])){
+        // filter by brands
+        if(isset($_POST['brand']) && !empty($_POST['brand'])){
             $brand_filter = implode(",", $_POST["brand"]);
-            $query .= "
-             AND brand_id IN ($brand_filter);
-            ";
+            $where .= " AND brand_id IN ($brand_filter)";
         }
+        $query = $select . $join . $where . $groupBy . $orderBy;
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare($query);
         $stmt->execute();
@@ -33,17 +46,7 @@
 
         if($totalRow > 0) {
             foreach($result as $product) {
-                // $output .= '
-                // <div class="col-md-3 col-lg-3 col-sm-4">
-                //     <div class="card">
-                //         <div class="card-body">
-                //             <h3>'.$product['title'].'</h3>
-                //         </div>
-                //     </div>
-                // </div>';
-
                 $output .= productCard($product);
-
             }
         } else {
             $output = "<h3>Nismo našli izdelka</h3>";
