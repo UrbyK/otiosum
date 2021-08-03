@@ -13,6 +13,13 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    function rootCategories(){
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->prepare("SELECT * FROM category WHERE parent_id IS NULL");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
     // Get all children of the navigation 
     function main_menu_navigation_sub($table, $parent){
@@ -79,6 +86,12 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // number of products per brand
+    function numItemsPerBrand($bid) {
+        $pdo = pdo_connect_mysql();
+        return $pdo->query("SELECT id FROM product WHERE brand_id = $bid")->rowCount();
+    }
+
     // select all data from sales
     function sales() {
         $pdo = pdo_connect_mysql();
@@ -92,7 +105,6 @@
     }
 
     //get all data from products
-
     function products() {
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->query("SELECT * FROM product");
@@ -116,22 +128,25 @@
 
         return $result;
     }
-
+    // calculates retail price if there are sales
     function retailPrice($price, $discount) {
         return round($price - ($price*($discount/100)), 2);
     }
 
+    // get all measurmetns for a product
     function measurement($pid) {
         $pdo = pdo_connect_mysql();
         $query = "SELECT * FROM measurement WHERE product_id = $pid";
         return $pdo->query($query)->fetch(PDO::FETCH_ASSOC);
     }
 
+    // get user data 
     function user($aid){
         $pdo = pdo_connect_mysql();
         return $pdo->query("SELECT * FROM account WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
     }
 
+    // get all reviews for a product newest to oldest
     function productReviews($pid) {
         $pdo = pdo_connect_mysql();
         $query = "SELECT * FROM review WHERE product_id = $pid ORDER BY id DESC";
@@ -160,15 +175,42 @@
         return $average;
     }
 
+    // number of ratings for a product
     function number_of_ratings($pid) {
         $pdo = pdo_connect_mysql();
-        $query = "SELECT id FROM review WHERE product_id = $pid";
+        $query = "SELECT rating FROM review WHERE product_id = $pid";
         $stmt = $pdo->query($query);
-        return $stmt->rowCount();
+        $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $i=0;
+        foreach($items as $item) {
+            if($item['rating'] > 0){
+                $i++;
+            }        
+        }
+
+        return $i;
     }
 
+    // products card file import
     function productCard($product) {
         include './products-card.php';
+    }
+
+    // retunrr 1D array of childs for a parent
+    function fetch_recursive($src_arr, $currentid, $parentfound = false, $cats = array()) {
+        foreach($src_arr as $row)
+        {
+            if((!$parentfound && $row['id'] == $currentid) || $row['parent_id'] == $currentid)
+            {
+                $rowdata = array();
+                foreach($row as $k => $v)
+                    $rowdata[$k] = $v;
+                $cats[] = $rowdata;
+                if($row['parent_id'] == $currentid)
+                    $cats = array_merge($cats, fetch_recursive($src_arr, $row['id'], true));
+            }
+        }
+        return $cats;
     }
 
 ?>
