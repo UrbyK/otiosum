@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   
 <div class="container-fluid">
-    <div class="row">
+    <div class="row min-vh-100">
         <div class="col-xl-2 col-md-3 filter-wrapper">
             <div class="filter sticky-top py-5">
                 <div class="list-group my-2">
