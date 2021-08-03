@@ -6,7 +6,7 @@
             $price = $product['price'];
         }
 ?>
-    <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 my-2">
+    <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-2 my-3">
         <div class="card product-item">
             <div class="card-body">
                 <div class="cp-img">
@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="cp-rating small">
+                <div class="cp-rating small my-2">
                     <?php for($i=0; $i<5; $i++):
                         if($i<average_rating($product['id'])): ?>
                             <span class="fa fa-star checked text-success"></span>
