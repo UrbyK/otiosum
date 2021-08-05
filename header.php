@@ -59,33 +59,27 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./index">Domov</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="./products" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Izdelki</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="./products">Vsi izdelki</a>
+                            </li>
+                            
+                            <?php foreach(rootCategories() as $category): ?>
+                                <!-- <a class="dropdown-item nav-link" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a> -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a>
+                                </li>
+                                <?php endforeach; ?>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle active" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelek</a>
+                                <div class="dropdown-menu" aria-labelledby="productsDropdown">
+                                    <a class="dropdown-item nav-link" href="./products">Vsi izdelki</a>
+                                    <div class="dropdown-divider"></div>
                                     <?php foreach(rootCategories() as $category): ?>
-                                        <a class="dropdown-item" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a>
+                                        <a class="dropdown-item nav-link" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a>
                                     <?php endforeach; ?>
                                 </div>
-                            </li>
-
-                            <?php foreach(main_menu_navigation("category") as $main_nav): ?>
-                                <?php if(has_children('category', $main_nav['id'])>=1): ?>                 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="./products?category=<?=$main_nav['id']?>" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$main_nav['category']?></a>
-                                        
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <?php foreach(main_menu_navigation_sub("category", $main_nav['id']) as $sub_nav): ?>
-                                                <a class="dropdown-item" href="./products?category=<?=$sub_nav['id']?>"><?=$sub_nav['category']?></a>
-                                            <?php endforeach; ?>
-                                        </div>
-
-                                    </li>
-                                <?php else: ?>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="./products?category=<?=$main_nav['id']?>"><?=$main_nav['category']?></a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            </li> -->
 
                             <!-- check login status, and change login/logout buttons -->
                             <?php if (!isLogin()): ?>
@@ -98,6 +92,12 @@
                             <?php else: ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="./logout">Izpis</a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if(isAdmin() && isMod()): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=""></a>
                                 </li>
                             <?php endif; ?>
 
@@ -136,4 +136,8 @@
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     }
+</script>
+
+<script>
+
 </script>
