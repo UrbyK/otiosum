@@ -7,7 +7,7 @@
     
     $pdo =pdo_connect_mysql();
     // number of list items per page
-    $num_of_product_per_page = 20;
+    $num_of_product_per_page = 5;
     // URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2 ...
     $current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
     // select products by latest
@@ -37,7 +37,7 @@
     </div> <!-- d-flex my-2 text-center -->
     <div class="card mb-3">
         <div class="card-header text-center">
-            <h2 class="subtitle">List izdelkov</h2>
+            <h2 class="subtitle">Seznam izdelkov</h2>
         </div>
         <div class="row mx-2">
             <div class="col-md-12">     
