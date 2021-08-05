@@ -63,7 +63,8 @@ html, body {
 
 /* HEADER */
 .navbar {
-    background-color: var(--navigation-bg);
+    /* background-color: var(--navigation-bg); */
+    background-color: rgb(43, 43, 43, 0.95);
     z-index: 99000;
 }
 
@@ -92,23 +93,27 @@ html, body {
 }
 
 .navbar-nav .nav-link:hover{
-    color: var(--link-color);
+    color: white;
+    background-color: var(--link-hover);
 }
 
     /* dropdown */
 .navbar-nav .dropdown-menu {
-    background-color: var(--dropdown-bg);
+    background-color: rgba(11, 98, 164, 0.82);
+    /* background-color: rgba(0, 130, 231, 0.82); */
     font-size: 20px;
+    min-width: 200px;
 }
 
 .navbar-nav .dropdown-menu .dropdown-item {
-    font-weight: 700;
-
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .navbar-nav .dropdown-menu .dropdown-item:hover {
-    color: var(--link-color);
-    background-color: transparent;
+    /* color: rgba(11,98,164, 0.82); */
+    color: rgba(0, 131, 231, 0.82);
+    background-color: rgba(43, 43, 43, 0.82);
 }
 
 .navbar .navbar-toggler {
@@ -129,10 +134,12 @@ html, body {
 
 
 /* ============ desktop view ============ */
-@media all and (min-width: 992px) {
+@media (min-width: 992px) {
 	.navbar .nav-item .dropdown-menu {
         display: none;
     }
+	/* .navbar .nav-item:hover .nav-link{ color: rgba(0, 131, 231, 0.82);
+        background-color: rgba(43, 43, 43, 0.82);  } */
 	.navbar .nav-item:hover .dropdown-menu{
         display: block;
     }
@@ -239,7 +246,7 @@ footer {
 /*LOGIN/REGISTER FORM*/
 
 .user-form {
-background-color:#cccccc33;
+    background-color:rgba(204, 204, 204, 0.2);
 }
 
 .user-form .card-header, .user-form .card-footer {
@@ -280,7 +287,7 @@ background-color:#cccccc33;
     right: 20px;
     display: none;
     z-index: 10000;
-    background-color:rgba(0, 0, 0, 0.75);
+    background-color:rgba(0, 0, 0, 0.82);
     color: var(--green-color-darker)
 }
 
@@ -478,7 +485,44 @@ background-color:#cccccc33;
 
 /* sidebar on products / filter*/
 .filter-wrapper {
-    background-color: #2b2b2bdc;
+    background-color: rgba(20, 20, 20, 0.82);
+}
+
+.filter {
+    color: var(--text-color);
+}
+.filter .filter-title {
+    color: rgba(0, 131, 231, 0.82);
+}
+
+.btn-filter {
+    background-color: rgba(11, 98, 164, 0.82);
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-color: rgba(11, 98, 164, 0.82);
+    color: white;
+}
+
+.btn-filter:hover {
+    /* background-color: rgba(11, 98, 164, 0.82); */
+    background-color: rgba(0, 131, 231, 0.82);
+    color: white;
+
+}
+
+#show-price {
+    color: white;
+    font-weight: 600;
+}
+
+/* price slider */
+#price-range {
+    border: none;
+    background-color:var(--green-color-darker);
+}
+
+#price-range .ui-widget-header {
+    background: #ececec;
 }
 
 
@@ -699,3 +743,4 @@ background-color:#cccccc33;
 .rating:hover>input:checked~label:before {
     opacity: 0.4;
 }
+
