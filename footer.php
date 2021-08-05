@@ -30,7 +30,7 @@
 
             <!-- Copyright -->
             <div class="text-center p-3 copyright">
-                © 2020 Copyright:
+                © <?php echo date("Y"); ?> Copyright:
                 <a href="#">Urban Klinc</a>
             </div>
             <!-- Copyright -->
