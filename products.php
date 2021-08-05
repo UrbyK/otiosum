@@ -2,7 +2,10 @@
     include_once './header.php';
     if(isset($_GET['cid']) && !empty($_GET['cid'])) {
         $cid = $_GET['cid'];
+    } else {
+        $cid = null;
     }
+    $prices = minMaxPrice($cid);
 ?>
 
 <!-- slider inport js and css -->
@@ -11,8 +14,10 @@
   
 <div class="container-fluid">
     <div class="row min-vh-100">
-        <div class="col-xl-2 col-md-3 filter-wrapper">
-            <div class="filter sticky-top py-5">
+        <div class="col-xl-2 col-md-3 filter-wrapper text-center">
+            
+            <button class="btn btn-filter w-100" type="button" data-toggle="collapse" data-target="#side-nav" aria-expanded="true" aria-controls="side-nav">Filtriranje</button>
+            <div class="filter sticky-top py-5 collapse show" id="side-nav">
                 <div class="list-group my-2">
                     <h3 class="filter-title">Iskanje</h3>
                     <input type="text" class="form-control" id="search" autocomplete="off" placeholder="Išči..."/>
@@ -20,20 +25,22 @@
 
                 <div class="list-group">
                     <h3 class="filter-title">Cena</h3>
-                    <input type="hidden" id="minPrice" value="0" />
-                    <input type="hidden" id="maxPrice" value="350" />
-                    <p id="show-price">0 - 350</p>
+                    <input type="hidden" id="minPrice" value="<?=$prices['minPrice']-0.01?>" />
+                    <input type="hidden" id="maxPrice" value="<?=$prices['maxPrice']+0.01?>" />
+                    <input type="hidden" id="originalMinPrice" value="<?=$prices['minPrice']-0.01?>" />
+                    <input type="hidden" id="originalMaxPrice" value="<?=$prices['maxPrice']+0.01?>" />
+                    <p id="show-price"><?=$prices['minPrice']-0.01?> € - <?=$prices['maxPrice']+0.01?> €</p>
                     <div id="price-range"></div>
                 </div>
 
                 <div class="list-group list-group-flush pt-4">
-                    <button class="btn btn-filter btn-secondary" type="button" data-toggle="collapse" data-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">Znamke</button>
-                    <div class="section collapse" id="collapseBrand">
+                    <button class="btn btn-filter btn-info" type="button" data-toggle="collapse" data-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">Znamke</button>
+                    <div class="section collapse show" id="collapseBrand">
                         <?php
-                        $brands = brands();
+                        $brands = validBrands($cid);
                         foreach($brands as $brand): ?>
                         <div class="list-group-item checkbox">
-                            <label class="w-100"><input type="checkbox" class="common-selector brand ml-2" value="<?=$brand['id']?>"><?=$brand['title']?> / <?=numItemsPerBrand($brand['id'])?></label>
+                            <label class="w-100"><input type="checkbox" class="common-selector brand ml-2" value="<?=$brand['id']?>"><?=$brand['title']?> <span class="badge badge-info badge-pill"><?=numItemsPerBrand($brand['id'], $cid)?></span></label>
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -41,8 +48,8 @@
 
                 <?php $src_arr = categories(); ?>
                 <div class="list-group list-group-flush pt-4">
-                    <button class="btn btn-filter btn-secondary" type="button" data-toggle="collapse" data-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">Kategorije</button>
-                    <div class="section collapse" id="collapseCategory">
+                    <button class="btn btn-filter btn-info" type="button" data-toggle="collapse" data-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">Kategorije</button>
+                    <div class="section collapse show" id="collapseCategory">
                         <?php if(!isset($cid) && empty($cid)): ?>
                             <?php foreach(rootCategories() as $root):
                                 $cid = $root['id'];
@@ -65,7 +72,7 @@
                                     <label class="w-100"><input type="checkbox" class="common-selector category ml-2" value="<?=$category['id']?>"><?=$category['category']?></label>
                                 </div>
                             <?php else: ?>
-                                <div class="list-group-item hidden">
+                                <div class="list-group-item" hidden>
                                     <h3><label class="w-100"><input type="checkbox" class="common-selector category ml-2 original" value="<?=$category['id']?>" checked hidden disabled><?=$category['category']?></label></h3>
                                 </div>
                             <?php endif; ?>
@@ -74,18 +81,18 @@
                     </div>
                 </div>
 
-            </div>
+            </div> <!-- filter -->
         </div>
         <div class="col-xl-10 col-md-9">
             <div class="row filter_data clearfix justify-content-center">
 
-            </div>
+            </div>  <!-- filter_data -->
             <div class="row filter_pagination justify-content-center text-center">
 
             </div>
-        </div>
-    </div>
-</div>
+        </div> <!-- first-column filter-wrapper -->
+    </div> <!-- row -->
+</div> <!-- container-fluid -->
 
 <?php
     include_once './footer.php';
@@ -100,17 +107,19 @@ $(document).ready(function() {
     function filter_data()
     {
         $('.filter_data').html('<div id="loading" style="" ></div>');
-        var action = 'fetch_data';
-        var search = $('#search').val();
-        var minPrice = $('#minPrice').val();
-        var maxPrice = $('#maxPrice').val();
-        var brand = get_filter('brand');
-        var category = checkHidden(get_filter('category'), 'original');
-        console.log(category);
+        var sendData = {
+            action: 'fetch_data',
+            search: $('#search').val(),
+            minPrice: $('#minPrice').val(),
+            maxPrice: $('#maxPrice').val(),
+            brand: get_filter('brand'),
+            category: checkHidden(get_filter('category'), 'original'),
+        }
+
         $.ajax({
             url:"fetch_data.php",
             method:"POST",
-            data:{"action":action, "search":search, "brand":brand, "minPrice":minPrice, "maxPrice":maxPrice, "category":category},
+            data: sendData,
             success:function(data) {
                 $('.filter_data').html(data);
             }
@@ -132,16 +141,19 @@ $(document).ready(function() {
     $('#search').keyup(function() {
         filter_data();
     })
+    var min = parseFloat($('#originalMinPrice').val()),
+        max = parseFloat($('#originalMaxPrice').val());
 
     $('#price-range').slider({
+
         range:true,
-        min:0,
-        max:350,
-        values:[0, 350],
-        step:5,
+        min: min,
+        max: max,
+        values:[min, max],
+        step:0.01,
         stop:function(event, ui)
         {
-            $('#show-price').html(ui.values[0] + ' - ' + ui.values[1]);
+            $('#show-price').html(ui.values[0] + ' € - ' + ui.values[1] +' €');
             $('#minPrice').val(ui.values[0]);
             $('#maxPrice').val(ui.values[1]);
             filter_data();
@@ -154,13 +166,11 @@ $(document).ready(function() {
 
     function checkHidden(filter, class_name) {
         if('.'+class_name+':checked' && filter.length > 1) {
-            console.log(filter);
             var removeItem = $('.'+class_name+':checked').val();
             filter = jQuery.grep(filter, function(value) {
                 return value != removeItem;
             })
         }
-        console.log(filter);
         return filter;
     }
 
