@@ -87,9 +87,13 @@
     }
 
     // number of products per brand
-    function numItemsPerBrand($bid) {
+    function numItemsPerBrand($bid, $cid=0) {
         $pdo = pdo_connect_mysql();
-        return $pdo->query("SELECT id FROM product WHERE brand_id = $bid")->rowCount();
+        if($cid==0) {
+            return $pdo->query("SELECT id FROM product WHERE brand_id = $bid")->rowCount();
+        } else {
+            return $pdo->query("SELECT id FROM product p INNER JOIN product_category pc ON p.id = pc.product_id WHERE brand_id = $bid AND pc.category_id = $cid")->rowCount();
+        }
     }
 
     // select all data from sales
@@ -211,6 +215,28 @@
             }
         }
         return $cats;
+    }
+
+    // check for valid brands for a category
+    function validBrands($cid=0) {
+        $pdo = pdo_connect_mysql();        
+        if($cid==0) {
+            $query = "SELECT distinct(b.id), b.title FROM brand b INNER JOIN product p ON b.id = p.brand_id INNER JOIN product_category pc ON p.id = pc.product_id";
+        } else {
+            $query = "SELECT distinct(b.id), b.title FROM brand b INNER JOIN product p ON b.id = p.brand_id INNER JOIN product_category pc ON p.id = pc.product_id WHERE pc.category_id = $cid";
+        }
+        return $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // returns min and max price for selected main category
+    function minMaxPrice($cid) {
+        $pdo = pdo_connect_mysql();        
+        if($cid==0) {
+            $query = "SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM product p INNER JOIN product_category pc ON p.id = pc.product_id WHERE p.date_published <= CURDATE()";
+        } else {
+            $query = "SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM product p INNER JOIN product_category pc ON p.id = pc.product_id WHERE p.date_published <= CURDATE() AND pc.category_id = $cid";
+        }
+        return $pdo->query($query)->fetch(PDO::FETCH_ASSOC);
     }
 
 ?>
