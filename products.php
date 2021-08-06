@@ -84,6 +84,13 @@
             </div> <!-- filter -->
         </div>
         <div class="col-xl-10 col-md-9">
+            <select name="numberOfItems" id="numberOfItems" class="btn ">
+                <option value="6">6</option>
+                <option value="12">12</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+                <option value="30">30</option>
+            </select>
             <div class="row filter_data clearfix justify-content-center">
 
             </div>  <!-- filter_data -->
@@ -102,11 +109,11 @@
 <script>
 $(document).ready(function() {
 
-    filter_data();
+    filter_data(1);
 
-    function filter_data()
+    function filter_data(page)
     {
-        $('.filter_data').html('<div id="loading" style="" ></div>');
+        $('.filter_data').html('<div id="loading" style=""></div>');
         var sendData = {
             action: 'fetch_data',
             search: $('#search').val(),
@@ -114,15 +121,22 @@ $(document).ready(function() {
             maxPrice: $('#maxPrice').val(),
             brand: get_filter('brand'),
             category: checkHidden(get_filter('category'), 'original'),
-        }
-
+            limit: $('#numberOfItems').val(),
+            page: page,
+        };
+        console.log(sendData);
         $.ajax({
-            url:"fetch_data.php",
-            method:"POST",
+            // contentType: "application/json",
+            url: "./fetch_data.php",
+            method: "POST",
             data: sendData,
-            success:function(data) {
-                $('.filter_data').html(data);
+            dataType: "JSON",
+            // cache: false,
+            success:function(response) {
+                $('.filter_data').html(response.output);
+                $('.filter_pagination').html(response.pagination);
             }
+            
         });
     }
 
@@ -135,11 +149,15 @@ $(document).ready(function() {
     }
 
     $('.common-selector').click(function() {
-        filter_data();
+        filter_data(1);
     });
 
+    $('#numberOfItems').change(function() {
+        filter_data(1);
+    })
+
     $('#search').keyup(function() {
-        filter_data();
+        filter_data(1);
     })
     var min = parseFloat($('#originalMinPrice').val()),
         max = parseFloat($('#originalMaxPrice').val());
@@ -156,12 +174,12 @@ $(document).ready(function() {
             $('#show-price').html(ui.values[0] + ' € - ' + ui.values[1] +' €');
             $('#minPrice').val(ui.values[0]);
             $('#maxPrice').val(ui.values[1]);
-            filter_data();
+            filter_data(1);
         }
     });
 
     $('.sort-selector').click(function() {
-        filter_data();
+        filter_data(1);
     });
 
     function checkHidden(filter, class_name) {
@@ -173,6 +191,12 @@ $(document).ready(function() {
         }
         return filter;
     }
+
+    $(document).on('click', '.page-link', function(){
+        var page = $(this).data('page_number');
+        // var query = $('#search_box').val();
+        filter_data(page);
+    });
 
 });
 </script>
