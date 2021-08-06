@@ -197,7 +197,21 @@
 
     // products card file import
     function productCard($product) {
-        include './products-card.php';
+        ob_start();
+            include './products-card.php';
+        return ob_get_clean();
+    }
+
+    function ajaxPagination($page, $totalPages) {
+        ob_start();
+            include './products-card-pagination.php';
+        return ob_get_clean();
+    }
+
+    function reviewThemplate($review, $user) {
+        ob_start();
+            include './review.php';
+        return ob_get_clean();
     }
 
     // retunrr 1D array of childs for a parent
