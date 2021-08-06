@@ -204,7 +204,7 @@
 
     function ajaxPagination($page, $totalPages) {
         ob_start();
-            include './products-card-pagination.php';
+            include './ajax-pagination.php';
         return ob_get_clean();
     }
 
