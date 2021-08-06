@@ -109,7 +109,7 @@
                 </div>
                 <div class="card-btn d-flex text-center mb-2 text-center">
                         <input type="number" class=" form-control hide-arrow text-center mx-3 rounded border-1" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" required style="max-width: 3rem">
-                        <input type="hidden" name="pid" value="<?=$pid?>">
+                        <input type="hidden" name="pid"id="pid" value="<?=$pid?>">
                         <button type="submit" class="insert-cart btn btn-primary" <?php if($product['quantity'] == 0){?> disabled <?php }?> style="width:225px;"><i class="fas fa-shopping-cart"></i> V košarico</button>
                 </div><!-- card-btn -->
             </div>
@@ -182,31 +182,11 @@
                                 <?php endif; ?>
                                 </div>
                             </div>
-                            <?php foreach(productReviews($pid) as $review): 
-                                $user = user($review['account_id']); ?>
-                            <div class="review">
-                                <div class="review-body">
-                                    <p class="text-right"><small><?=date('j.n.Y', strtotime($review['date_created']))?></small></p>
-                                    <?php for($i=0; $i<5; $i++):
-                                        if($i<$review['rating']): ?>
-                                            <span class="fa fa-star checked text-success"></span>
-                                        <?php else: ?>
-                                            <span class="fa fa-star"></span>
-                                        <?php endif;
-                                    endfor; ?>
-                                    <h4 class="review-heading user-name"><?=$user['username']?></h4>
-                                    <?=$review['comment']?>
-                                </div>
-                                <?php if(isLogin() && isAdmin() || isMod()): ?>
-                                <!-- put buttons in line -->
-                                <div class="text-right">
-                                    <button id="delete" class="btn btn-danger" value="<?=$review['id']?>" name="rid">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <?php endif; ?>
+                            <div class="comment">
                             </div>
-                            <?php endforeach; ?>
+                            <div class="row review-pagination justify-content-center text-center mt-3">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,9 +211,8 @@
                 data: {'rid':rid},
                 url: './src/inc/review-delete.inc.php',
                 success: function(data) {
-                    console.log(data);
                     if(data == "OK") {
-                        ele.fadeOut().remove();
+                        fetchReview(1);
                         alert("Komantar uspešno odstranjen!");
                     } else {
                         alert("Zgodila se je napaka pri odstranjevanju!");
@@ -245,29 +224,50 @@
 </script>
 
 <script>
+    
+    fetchReview(1);
+
     $(document).on('click', '#review-ins', function() {
             var pid = $(this).val();
             var rating= $("input:checked").val();
             var aid = $("#aid").val();
             var comment = $("#comment").val();
-            console.log(rating, pid, aid, comment);
             $.ajax({
                 type:'POST',
                 data: {'pid':pid, 'aid':aid, 'rating':rating, 'comment':comment},
                 url: './src/inc/review-insert.inc.php',
                 success: function(data) {
-                    console.log(data);
                     if(data == "OK") {
-                        location.reload();
-                        // $("#p-description").removeClass("show active");
-                        // $("#p-description-tab").removeClass("active");
-                        // $("#review").addClass("show active");
-                        // $("#review-tab").addClass("active")
-                        document.getElementById("review").scrollIntoView();
+                        fetchReview(1);
+                        $('.rating').prop("checked", false);
+                        $('#comment').val("");
                     } else {
                         alert("Zgodila se je napaka pri dodajanju komentarja!");
                     }
                 }
             });
     });
+
+    function fetchReview(page) {
+        var action = 'fetchReview';
+        var pid = $('#pid').val();
+        var page = page;
+        $.ajax({
+            type: 'POST',
+            data: {'action':action, 'pid':pid, 'page':page},
+            url: "./fetch-review.inc.php",
+            dataType: 'json',
+            success: function(response) {
+                $('.comment').html(response.output);
+                $('.review-pagination').html(response.pagination);
+            }
+
+        });
+    }
+
+    $(document).on('click', '.page-link', function(){
+        var page = $(this).data('page_number');
+        fetchReview(page);
+    });
+
 </script>
