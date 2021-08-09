@@ -1,10 +1,15 @@
 <?php
-    include './src/inc/dbh.inc.php';
-    include './src/inc/xss_cleaner.inc.php';
-
-    // pagination script
-    include './pagination.php';
+    if(file_exists("./src/inc/dbh.inc.php")) {
+        include './src/inc/dbh.inc.php';
+    } else {
+        include './dbh.inc.php';
+    }
     
+    if(file_exists('./pagination.php')) {
+        // pagination script
+        include './pagination.php';
+    }
+
     // Get all main menu navigation items 
     function main_menu_navigation($table){
         $pdo = pdo_connect_mysql();
@@ -113,6 +118,12 @@
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->query("SELECT * FROM product");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function product($pid) {
+        $pdo = pdo_connect_mysql();
+        $stmt = $pdo->query("SELECT * FROM product WHERE id = $pid");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // get all images by given product id
@@ -252,5 +263,4 @@
         }
         return $pdo->query($query)->fetch(PDO::FETCH_ASSOC);
     }
-
 ?>
