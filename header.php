@@ -44,12 +44,8 @@
         <title>Otiosum</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <!-- <header>
-            <div class="banner"><img src="https://via.placeholder.com/1900x250" alt="banner"></div>
-        </header> -->
-
             <nav class="navbar navbar-expand-lg sticky-stop w-100">
-                <div class="container-fluid">
+                <!-- <div class="container-fluid"> -->
                     <a class="navbar-brand" href="./index">Otiosum</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -82,28 +78,42 @@
                             </li> -->
 
                             <!-- check login status, and change login/logout buttons -->
-                            <?php if (!isLogin()): ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="./login">Prijava</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="./register">Registracija</a>
-                                </li>
-                            <?php else: ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="./logout">Izpis</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+                                <div class="dropdown-menu">
+                                    <?php if(!isLogin()): ?>
+                                    <a class="dropdown-item" href="./login"><i class="fas fa-sign-in-alt"></i> Vpis</a>
+                                    <a class="dropdown-item" href="./register"><i class="far fa-address-card"></i> Registracija</a>
+                                    <?php else: ?>
+                                        <a class="dropdown-item" href="./logout.php"><i class="fas fa-sign-out-alt"></i> Izpis</a>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+
+                            <?php if(isAdmin() || isMod()): ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs"></i></a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="./product-add">Dodaj izdelek</a>
+                                        <a class="dropdown-item" href="./product-list">Seznam izdelkov</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./sale">Razprodaje</a>
+                                        <a class="dropdown-item" href="./sale?option=modify">Seznam razprodaj</a>
+                                        <a class="dropdown-item" href="./sale?option=add">Dodaj razprodaje</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./category-add">Dodaj kategorije</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./brand-add">Dodaj znamko</a>
+                                    </div>
                                 </li>
                             <?php endif; ?>
-
-                            <?php if(isAdmin() && isMod()): ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=""></a>
-                                </li>
-                            <?php endif; ?>
-
                         </ul>
+
+                        <div class="link-icons tab">
+                            <a href="./cart"><i class="fa fa-shopping-cart"></i> <span class="cartItemCount">0</span></a>
+                        </div>
                     </div>
-                </div>
+                <!-- </div> -->
             </nav>
 
 <!-- Back to top button -->
@@ -138,6 +148,4 @@
     }
 </script>
 
-<script>
-
-</script>
+<script src="./src/js/ajax-cart.js" crossorigin="anonymous"></script>

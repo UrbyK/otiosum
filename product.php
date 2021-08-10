@@ -77,7 +77,7 @@
             <div class="card p-card">
                 <div class="card-body">
                     <div class="small mb-1">
-                        SKU: <?=$product['sku']?>
+                        SKU: <?=strtoupper($product['sku'])?>
                     </div>
                     <div class="p-header">
                         <h3><?=$product['title']?></h3>
@@ -108,9 +108,8 @@
                     <?php endif; ?>
                 </div>
                 <div class="card-btn d-flex text-center mb-2 text-center">
-                        <input type="number" class=" form-control hide-arrow text-center mx-3 rounded border-1" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" required style="max-width: 3rem">
-                        <input type="hidden" name="pid"id="pid" value="<?=$pid?>">
-                        <button type="submit" class="insert-cart btn btn-primary" <?php if($product['quantity'] == 0){?> disabled <?php }?> style="width:225px;"><i class="fas fa-shopping-cart"></i> V košarico</button>
+                        <input type="number" class="form-control hide-arrow text-center mx-3 rounded border-1" id="quantity" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" required style="max-width: 3rem" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>>
+                        <button type="submit" class="btn btn-primary cp-btn" id="addToCart" name="addToCart" value="<?=$pid?>" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?> style="width:225px;"><i class="fas fa-shopping-cart"></i> <b>Dodaj v košarico</b></button>
                 </div><!-- card-btn -->
             </div>
         </div>

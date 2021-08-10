@@ -1,37 +1,51 @@
 <?php
     include_once './header.php';
-
-    $images = productImages(221);
-    echo "<pre>";
-    print_r($images);
-    echo "</pre>";
-    $len = count($images);
+    $pdo = pdo_connect_mysql();
 ?>
-<div class="container">
-    <div id="carouselControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <?php for ($i=0; $i < $len; $i++):?>
-            <?php if($i==0): ?>
-            <div class="carousel-item active">
-                <img src="<?=$images[$i]["image"]?>" class="d-block w-100" alt="...">
-            </div>
-            <?php else: ?>
-            <div class="carousel-item">
-                <img src="<?=$images[$i]["image"]?>" class="d-block w-100" alt="...">
-            </div>
-            <?php endif; ?>
-        <?php endfor; ?>
+
+<div class="container-fluid">
+    <?php
+        $query = "SELECT * FROM product WHERE date_published <= CURDATE() ORDER BY date_published DESC LIMIT 6";
+        $newProducts = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <div class="product-group card my-3">
+        <h2 class="align-items-center mx-3 border-bottom">Novi izdelki</h2>
+        <div class="row">
+            <?php foreach($newProducts as $product) {
+                echo productCard($product);
+            } ?>
+        </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+
+    <?php
+        $query = "SELECT p.*, AVG(r.rating) AS ratings FROM product p INNER JOIN review r ON p.id = r.product_id GROUP BY p.id ORDER BY ratings DESC LIMIT 6";
+        $bestRated = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <div class="product-group card my-3">
+        <h2 class="align-items-center mx-3 border-bottom">Najbolje ocenjeni</h2>
+        <div class="row">
+            <?php foreach($bestRated as $product) {
+                echo productCard($product);
+            } ?>
+        </div>
     </div>
+
+    <?php
+        $query = "SELECT p.* FROM product p INNER JOIN product_sale ps ON p.id = ps.product_id INNER JOIN sale s ON ps.sale_id = s.id WHERE s.date_start <= CURDATE() AND s.date_end >= CURDATE() ORDER BY s.date_start DESC LIMIT 6";
+        $productsOnSale = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <div class="product-group card my-3">
+        <h2 class="align-items-center mx-3 border-bottom">Novo na razprodaji</h2>
+        <div class="row">
+            <?php foreach($productsOnSale as $product) {
+                echo productCard($product);
+            } ?>
+        </div>
+    </div>
+
+
 </div>
+
 <?php
     include_once './footer.php';
 ?>

@@ -6,7 +6,7 @@
             $price = $product['price'];
         }
 ?>
-    <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-2 my-3">
+    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-2 my-3">
         <div class="card product-item">
             <div class="card-body">
                 <div class="cp-img">
@@ -57,7 +57,7 @@
                                     } ?>
                         </a></h5>
                     </div>
-                    <span class="small">SKU: <?=$product['sku']?></span>
+                    <span class="small">SKU: <?=strtoupper($product['sku'])?></span>
                     <div class="cp-price d-flex justify-content-center">
                         <div class="col-6 old-price"><?php if(!empty($discount)): ?><?=$product['price']?> €<?php endif; ?></div>
                         <div class="col-6 new-price"><?=$price?> €</div>
@@ -78,6 +78,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary cp-btn" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>><b>Dodaj v košarico</b></button>
+            <input type="number" class="form-control hide-arrow text-center mx-3 rounded border-1" id="quantity" name="quantity" value="1" required hidden>
+            <button type="submit" class="btn btn-primary cp-btn" id="addToCart" name="addToCart" value="<?=$product['id']?>" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>><i class="fas fa-shopping-cart"></i> <b>Dodaj v košarico</b></button>
         </div>
     </div>

@@ -57,7 +57,7 @@
         if (!empty($title)) {
             // check if SKU is given
             if (!empty($sku)) {
-                $stmt = $pdo->prepare("SELECT * FROM product WHERE sku LIKE ?");
+                $stmt = $pdo->prepare("SELECT * FROM product WHERE UPPER(sku) LIKE UPPER(?)");
                 $stmt->execute([$sku]);
             // check if SKU is unique
                 if ($stmt->rowCount() == 0) {
@@ -74,7 +74,7 @@
                                     try {
                                         $pdo->beginTransaction();
                                         // insert into product
-                                        $stmt = $pdo->prepare("INSERT INTO product (title, summary, description, sku, quantity, price, date_published, brand_id) VALUES(?,?,?,?,?,?,?,?)");
+                                        $stmt = $pdo->prepare("INSERT INTO product (title, summary, description, sku, quantity, price, date_published, brand_id) VALUES(?,?,?,UPPER(?),?,?,?,?)");
                                         $stmt->execute([$title, $summary, $description, $sku, $quantity, $price, $publishDate, $brand]);
                                         $stmtErr = $stmt->errorInfo();
                                         if ($stmtErr[0] != 0) {

@@ -160,27 +160,20 @@
         $pdo = pdo_connect_mysql();
         // number of list items per page
         $num_of_product_per_page = 10;
-        // URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2 ...
+        // URL this will appear as ./sale?p=1, ./sale?p=2
         $current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
         // select products by latest
-        $stmt = $pdo->prepare('SELECT * FROM sale LIMIT ?,?');
+        $stmt = $pdo->prepare('SELECT * FROM sale ORDER BY date_start ASC, date_end ASC, discount ASC LIMIT ?,? ');
         // bindValue allows us to use integer in SQL, need it for LIMIT
         $stmt->bindValue(1, ($current_page - 1) * $num_of_product_per_page, PDO::PARAM_INT);
         $stmt->bindValue(2, $num_of_product_per_page, PDO::PARAM_INT);
         $stmt->execute();
         // fetch and return products as ARRAY
         $sales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         // total amount of products
-        $total_sales = $pdo->query('SELECT * FROM sale')->rowCount();
-    
-        #$starts_from = ($current_page-1)*$num_of_product_per_page;
-    
+        $total_sales = $pdo->query('SELECT * FROM sale')->rowCount();    
         $total_pages = ceil($total_sales/$num_of_product_per_page);
-
-        // $pdo = pdo_connect_mysql();
-        // $query = "SELECT * FROM sale ORDER BY discount ASC, date_start ASC, date_end ASC";
-        // $stmt = $pdo->query($query);
-        // $sales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
     <div class="d-flex my-2 text-center">
         <!-- update next / previous product -->
@@ -202,7 +195,7 @@
                     <div class="mt-3">
                         <ul class="list list-inline">
                         <?php foreach ($sales as $sale): ?>
-                            <li class="d-flex justify-content-between border rounded mt-2">
+                            <li class="d-flex justify-content-between border rounded mt-2 sale-item">
     
                                 <div class="d-flex flex-row align-items-center col-4">
                                     <div class="form-group col">
@@ -295,11 +288,11 @@
 <script>
     $(document).on('click', '#update', function() {
             // enable input fields
-            $( "#discount" ).prop( "disabled", false );
-            $( "#startDate" ).prop( "disabled", false );
-            $( "#endDate" ).prop( "disabled", false );
-            $( "#save" ).prop({"disabled": false, "hidden":false});
-            $( "#update" ).prop({"disabled": true, "hidden":true});
+            $(this).closest('.sale-item').find('#discount').prop( "disabled", false );
+            $(this).closest('.sale-item').find('#startDate').prop( "disabled", false );
+            $(this).closest('.sale-item').find('#endDate').prop( "disabled", false );
+            $(this).closest('.sale-item').find("#save").prop({"disabled": false, "hidden":false});
+            $(this).prop({"disabled": true, "hidden":true});
     });
 
     $(document).on('click', '#save', function() {
@@ -307,9 +300,9 @@
             // get current input fields values
             
             var sid = $(this).val();
-            var discount = $("#discount").val();
-            var startDate = $("#startDate").val();
-            var endDate = $("#endDate").val();
+            var discount =  $(this).closest('.sale-item').find('#discount').val();
+            var startDate =  $(this).closest('.sale-item').find('#startDate').val();
+            var endDate =  $(this).closest('.sale-item').find('#endDate').val();
             console.log(sid, discount, startDate, endDate);
 
             $.ajax({
@@ -327,16 +320,16 @@
             });
             
         } else {
-            $("#discount").val($("#discount").data("original-value"));
-            $("#startDate").val($("#startDate").data("original-value"));
-            $("#endDate").val($("#endDate").data("original-value"));
+            $(this).closest('.sale-item').find('#discount').val($(this).closest('.sale-item').find('#discount').data("original-value"));
+            $(this).closest('.sale-item').find('#startDate').val($(this).closest('.sale-item').find('#startDate').data("original-value"));
+            $(this).closest('.sale-item').find('#endDate').val($(this).closest('.sale-item').find('#endDate').data("original-value"));
         }
         // disable input fields
-        $( "#discount" ).prop( "disabled", true );
-        $( "#startDate" ).prop( "disabled", true );
-        $( "#endDate" ).prop( "disabled", true );
-        $( "#save" ).prop({"disabled":true, "hidden":true});
-        $( "#update" ).prop({"disabled":false, "hidden":false});
+        $(this).closest('.sale-item').find('#discount').prop( "disabled", true );
+        $(this).closest('.sale-item').find('#startDate').prop( "disabled", true );
+        $(this).closest('.sale-item').find('#endDate').prop( "disabled", true );
+        $(this).prop({"disabled":true, "hidden":true});
+        $(this).closest('.sale-item').find('#update').prop({"disabled":false, "hidden":false});
     });
 </script>
 
