@@ -23,7 +23,7 @@
             if (isset($data['title']) && !empty($data['title'])) {
                 if (isset($data['sku']) && !empty($data['sku'])) {
                     // checks if there already exists a differante product with this SKU
-                    $query = "SELECT * FROM product WHERE sku = :sku AND id NOT IN (:pid)";
+                    $query = "SELECT * FROM product WHERE UPPER(sku) = UPPER(:sku) AND id NOT IN (:pid)";
                     $stmt = $pdo->prepare($query);
                     $stmt->execute(['sku'=>$data['sku'], "pid"=>$data['pid']]);
                     if ($stmt->rowCount() == 0) {
@@ -116,7 +116,7 @@
                                 $stmt->execute(["height"=>$data['height'], "width"=>$data['width'], "length"=>$data['length'], "weight"=>$data['weight'], "pid"=>$data['pid']]);
 
                                 // update product data
-                                $sql = "UPDATE product SET title = :title, summary = :summary, description = :description, sku = :sku, quantity = :quantity, price = :price, date_published = :publishDate, brand_id = :bid WHERE id = :pid";
+                                $sql = "UPDATE product SET title = :title, summary = :summary, description = :description, sku = UPPER(:sku), quantity = :quantity, price = :price, date_published = :publishDate, brand_id = :bid WHERE id = :pid";
                                 $stmt = $pdo->prepare($sql);
                                 $stmt->execute(["title"=>$data['title'], "summary"=>$data['summary'], "description"=>$data['description'], "sku"=>$data['sku'], "quantity"=>$data['quantity'], "price"=>$data['price'], "publishDate"=>$data['publishDate'], "bid"=>$data['brand'], "pid"=>$data['pid']]); 
 
