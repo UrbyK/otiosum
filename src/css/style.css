@@ -60,6 +60,9 @@ a:hover {
 html, body {
     height: 100%;
 }
+.error {
+    color: red;
+}
 
 /* HEADER */
 .navbar {
@@ -744,3 +747,45 @@ footer {
     opacity: 0.4;
 }
 
+/*CART*/
+/* display a product in card */
+
+.cart {
+    box-shadow: 5px 2px 7px #212529;
+}
+
+.item {
+    box-shadow: 5px 2px 7px #212529;
+}
+
+/* price for product in card */
+.price {
+    font-weight: 700;
+}
+
+/* remove product from cart button */
+.close:hover {
+    color:red;
+    font-weight: 900;
+}
+
+/* total sum of price */
+.total {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.num-cart-items {
+    font-weight: 600;
+}
+
+.cart .title .row .col h1 {
+    font-family: 'Cabin Sketch';
+    font-size: 48px;
+    border-bottom: 1px dashed;
+}
+
+.btn-next {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
