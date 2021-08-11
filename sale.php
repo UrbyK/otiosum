@@ -11,19 +11,19 @@
         if (isset($_GET['error'])):
             include_once './src/inc/error.inc.php';
             if (array_key_exists($_GET['error'], $errorList)): ?>
-                <div class="error w-100 mt-3 text-center alert-danger rounded">
+                <div class="alert w-100 mt-3 text-center alert-danger rounded">
                     <h3><?=$errorList[$_GET['error']]?></h3>
                 </div>
             <?php endif; 
         endif;    
         ?>
         <?php if (isset($_GET['status']) && isset($_GET['status']) == "success"):?>
-            <div class="error w-100 mt-3 text-center alert-success rounded">
+            <div class="alert w-100 mt-3 text-center alert-success rounded">
                 <h3>Popust uspešno vnesen!</h3>
             </div>        
         <?php endif;    
         if (isset($_GET['warning'])): ?>
-            <div class="error w-100 mt-3 text-center alert-warning rounded">
+            <div class="alert w-100 mt-3 text-center alert-warning rounded">
                 <p><?=$_GET['warning']?> popustov ni bilo možno vnesti!</p>
             </div>
         <?php endif;

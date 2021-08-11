@@ -18,22 +18,22 @@
 
                     <?php if (isset($_GET['error'])):
                         if (isset($_GET['error']) && $_GET['error'] == "pass"): ?>
-                            <div class="error w-100 mt-2 text-center alert-danger rounded">
-                                <p>Napačno geslo!</p>
+                            <div class="alert w-100 mt-2 text-center alert-danger rounded">
+                                <h4></h4>Napačno geslo!</h4>
                             </div>
                         <?php elseif (isset($_GET['error']) && $_GET['error'] == "user"): ?>
-                            <div class="error w-100 mt-2 text-center alert-danger rounded">
-                                <p>Uporabnik ne obstaja!</p>
+                            <div class="alert w-100 mt-2 text-center alert-danger rounded">
+                                <h4>Uporabnik ne obstaja!</h4>
                             </div>
                         <?php elseif (isset($_GET['error']) && $_GET['error'] == "err"): ?>
-                            <div class="error w-100 mt-2 text-center alert-danger rounded">
-                                <p>Prišlo je do napake, prosim preverite vnašene podatke. Če še zmeraj prihaja do napake prosimo, da počakate ali pa kontaktirate podporo!</p>
+                            <div class="alert w-100 mt-2 text-center alert-danger rounded">
+                                <h4>Prišlo je do napake, prosim preverite vnašene podatke. Če še zmeraj prihaja do napake prosimo, da počakate ali pa kontaktirate podporo!</h4>
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
 
                     <?php if (isset($_GET['status']) && $_GET['status'] == "pass-change"): ?>
-                        <div class="error w-100 text-center alert-success">
+                        <div class="alert w-100 text-center alert-success">
                             <h3>Uspešno ste ponastavili geslo!</h3>
                         </div>
                         <?php endif; ?>

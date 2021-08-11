@@ -16,19 +16,19 @@
                 include_once './src/inc/error.inc.php';
                 // check if given error exists as key in error array
                 if (array_key_exists($_GET['error'], $errorList)): ?>
-                    <div class="error w-100 mt-2 text-center alert-danger rounded">
+                    <div class="alert w-100 mt-2 text-center alert-danger rounded">
                         <h3><?=$errorList[$_GET['error']]?></h3>
                     </div>
                 <!-- if error key does not exist in error array display uknown erro -->
                 <?php else: ?>
-                    <div class="error w-100 mt-2 text-center alert-danger rounded">
+                    <div class="alert w-100 mt-2 text-center alert-danger rounded">
                         <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
                     </div>
                 <?php endif; ?>
             <?php endif;
             // check if status is set and contains
             if (isset($_GET['status']) && isset($_GET['status']) == "success"):?>
-                <div class="error w-100 mt-2 text-center alert-success rounded">
+                <div class="alert w-100 mt-2 text-center alert-success rounded">
                     <h3>Znamka uspešno vnesena!</h3>
                 </div>
             <?php endif; ?>

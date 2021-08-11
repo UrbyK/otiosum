@@ -29,13 +29,13 @@
 
         // check if given error exists in the error array  
         if (array_key_exists($_GET['error'], $errorList)): ?>
-            <div class="error w-100 mt-2 text-center alert-danger">
+            <div class="alert w-100 mt-2 text-center alert-danger">
                 <h3><?=$errorList[$_GET['error']]?></h3>
             </div>
 
         <!-- if given error does not exist in the error array  -->
         <?php else: ?>
-            <div class="error w-100 mt-2 text-center alert-danger">
+            <div class="alert w-100 mt-2 text-center alert-danger">
                 <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
             </div>
         <?php endif; ?>
@@ -43,7 +43,7 @@
 
     // check if status is given in URL and if the status is success
     if (isset($_GET['status']) && isset($_GET['status']) == "success"):?>
-        <div class="error w-100 mt-2 text-center alert-success ">
+        <div class="alert w-100 mt-2 text-center alert-success ">
             <h3>Izdelek uspešno vnesen!</h3>
         </div>
     <?php endif; ?>
