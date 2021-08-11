@@ -10,7 +10,7 @@
 
                 // check if given error exists in the error array  
                 if (array_key_exists($_GET['error'], $errorList)): ?>
-                    <div class="error w-100 text-center alert-danger">
+                    <div class="alert w-100 text-center alert-danger">
                         <h3><?=$errorList[$_GET['error']]?></h3>
                     </div>
                 <?php endif; ?>
