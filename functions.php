@@ -143,6 +143,15 @@
 
         return $result;
     }
+
+    // get all payment types
+    function paymentMethod() {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT * FROM payment_type";
+        $stmt = $pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // calculates retail price if there are sales
     function retailPrice($price, $discount) {
         return round($price - ($price*($discount/100)), 2);
@@ -159,6 +168,12 @@
     function user($aid){
         $pdo = pdo_connect_mysql();
         return $pdo->query("SELECT * FROM account WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // get city based on IDs
+    function city($cid) {
+        $pdo = pdo_connect_mysql();
+        return $pdo->query("SELECT * FROM city WHERE id = $cid")->fetch(PDO::FETCH_ASSOC);
     }
 
     // get all reviews for a product newest to oldest
@@ -225,6 +240,17 @@
         return ob_get_clean();
     }
 
+    function accountThemplate($user, $city, $countries) {
+        ob_start();
+        if(file_exists("./user-data-card.php")) {
+            include_once './user-data-card.php';
+
+        } else {
+            include_once './src/inc/user-data-card.php';           
+        }
+        return ob_get_clean();
+    }
+
     // retunrr 1D array of childs for a parent
     function fetch_recursive($src_arr, $currentid, $parentfound = false, $cats = array()) {
         foreach($src_arr as $row)
@@ -262,5 +288,12 @@
             $query = "SELECT MIN(price) as minPrice, MAX(price) as maxPrice FROM product p INNER JOIN product_category pc ON p.id = pc.product_id WHERE p.date_published <= CURDATE() AND pc.category_id = $cid";
         }
         return $pdo->query($query)->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // get all delivery types
+    function getDeliveryType() {
+        $pdo = pdo_connect_mysql();
+        $query = "SELECT * FROM delivery_type";
+        return $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     }
 ?>
