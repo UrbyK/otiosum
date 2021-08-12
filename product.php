@@ -11,18 +11,21 @@
 
     $stmt = $pdo->query("SELECT * FROM product WHERE id = $pid");
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
-    $discount = discountData($pid);
-    if(!empty($discount)) {
-        $price = retailPrice($product['price'], $discount['discount']);
-    } else {
-        $price = $product['price'];
-    }
-    $images = productImages($pid);
-    $len = count($images);
-    $measurement = measurement($pid);
-    if (isLogin()) {
-        $aid = $_SESSION['id'];
-    }
+    // check if product exists/isset
+    if ($product):
+        $discount = discountData($pid);
+        if(!empty($discount)) {
+            $price = retailPrice($product['price'], $discount['discount']);
+        } else {
+            $price = $product['price'];
+        }
+        $images = productImages($pid);
+        $len = count($images);
+        $measurement = measurement($pid);
+        if (isLogin()) {
+            $aid = $_SESSION['id'];
+        }
+
 
 ?>
 
@@ -193,6 +196,17 @@
         </div>
     </div>
 </div>
+<?php else: ?>
+    <div class="container h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="alert w-100 my-3 text-center alert-info rounded">
+                <h2>Izdelek ne obstaja!</h2>
+                <br>
+                <h2>Ali pa je bil odstranjen!</h2>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 
 <?php
     include_once './footer.php';
