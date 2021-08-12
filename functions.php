@@ -154,7 +154,7 @@
 
     // calculates retail price if there are sales
     function retailPrice($price, $discount) {
-        return round($price - ($price*($discount/100)), 2);
+        return round($price - ($price*($discount/100)), 2, PHP_ROUND_HALF_DOWN);
     }
 
     // get all measurmetns for a product
