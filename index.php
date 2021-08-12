@@ -31,7 +31,7 @@
     </div>
 
     <?php
-        $query = "SELECT p.* FROM product p INNER JOIN product_sale ps ON p.id = ps.product_id INNER JOIN sale s ON ps.sale_id = s.id WHERE s.date_start <= CURDATE() AND s.date_end >= CURDATE() ORDER BY s.date_start DESC LIMIT 6";
+        $query = "SELECT  DISTINCT p.* FROM product p INNER JOIN product_sale ps ON p.id = ps.product_id INNER JOIN sale s ON ps.sale_id = s.id WHERE s.date_start <= CURDATE() AND s.date_end >= CURDATE() ORDER BY s.date_start DESC LIMIT 6";
         $productsOnSale = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <div class="product-group card my-3">
