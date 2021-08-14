@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
     <?php
-        $query = "SELECT * FROM product WHERE date_published <= CURDATE() ORDER BY date_published DESC LIMIT 6";
+        $query = "SELECT * FROM product WHERE date_published <= CURDATE() ORDER BY date_published DESC, id DESC LIMIT 6";
         $newProducts = $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <div class="product-group card my-3">
