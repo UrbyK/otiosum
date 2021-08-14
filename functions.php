@@ -1,10 +1,12 @@
 <?php
+    // db connection
     if(file_exists("./src/inc/dbh.inc.php")) {
         include './src/inc/dbh.inc.php';
     } else {
         include './dbh.inc.php';
     }
     
+    // pagination
     if(file_exists('./pagination.php')) {
         // pagination script
         include './pagination.php';
@@ -18,6 +20,7 @@
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    // all main categories
     function rootCategories(){
         $pdo = pdo_connect_mysql();
         $stmt = $pdo->prepare("SELECT * FROM category WHERE parent_id IS NULL");
@@ -295,5 +298,11 @@
         $pdo = pdo_connect_mysql();
         $query = "SELECT * FROM delivery_type";
         return $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function orderList($orders, $isPrivlage, $pdo) {
+        ob_start();
+            include './order-card.php';
+        return ob_get_clean();
     }
 ?>
