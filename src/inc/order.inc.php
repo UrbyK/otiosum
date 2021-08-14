@@ -45,9 +45,19 @@
                                 $newQuantity = $product['quantity'] - $quantity;
                                 $sql = "UPDATE product SET quantity = :quantity WHERE id = :pid";
                                 $stmt = $pdo->prepare($sql);
-                                $stmt->execute(['quantity'=>$newQuantity, 'pid'=>$pdi]);
-
+                                $stmt->execute(['quantity'=>$newQuantity, 'pid'=>$pid]);
                             }
+
+                            // send order email confirmation
+                            include_once './order-email.inc.php';
+                            $to_email = $pdo->query("SELECT email FROM account WHERE id = $aid")->fetch(PDO::FETCH_COLUMN);
+                            $orderItems = $pdo->query("SELECT * FROM order_item WHERE order_id = $oid")->fetchAll(PDO::FETCH_ASSOC);
+                            $message = "Prejeli smo vaše naročilo! Hvala za nakup.";
+                            $orderStatus = $pdo->query("SELECT status FROM order_status WHERE id = 1")->fetch(PDO::FETCH_COLUMN);
+                            $order = $pdo->query("SELECT * FROM otiosum.order WHERE id = $oid")->fetch(PDO::FETCH_ASSOC);
+                            send_order_email($to_email,$message, $orderStatus, $order, $oid);
+
+
                             $pdo->commit();
                             unset($_SESSION['cart']);
                             header("Location: ../../cart?c=success&oid=$oid");
