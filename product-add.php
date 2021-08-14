@@ -176,22 +176,18 @@
                             </div>
                         </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="col-12 col-form-label text-left" for="sale">Popusti:</label>
-                            <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="width:100%" multiple>
-                                <?php foreach(sales() as $sale):?>
-                                    <option value="<?=$sale['id']?>"><?=format_date("d.m.Y", $sale['date_start'])?> / <?=format_date("d.m.Y", $sale['date_end'])?> | <?=$sale['discount']?>%</option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div> <!-- form-row -->
-                    <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Dodaj</button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="col-12 col-form-label text-left" for="sale">Popusti:</label>
+                                <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="width:100%" multiple>
+                                    <?php foreach(sales() as $sale):?>
+                                        <option value="<?=$sale['id']?>"><?=format_date("d.m.Y", $sale['date_start'])?> / <?=format_date("d.m.Y", $sale['date_end'])?> | <?=$sale['discount']?>%</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div> <!-- form-row -->
+                        <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right" style="width: 250px;">Dodaj</button>
                     </form>
-                </div>
-
-                <div class="card-footer">
-                    <p>FOOTER</p>
                 </div>
             </div>
         </div>

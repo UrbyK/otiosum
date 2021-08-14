@@ -272,7 +272,7 @@
                                 </div>
                             </div>
                         </div> <!-- form-row -->
-                        <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right">Posodobi</button>
+                        <button id="submit-btn" type="submit" name="submit" class="btn btn-primary float-right" style="width: 250px;">Posodobi</button>
                         <!-- <input type="button" id="submit-btn" name="update" class="btn btn-primary float-right" value="Posodobi">                         -->
                     </form>
                 </div>
