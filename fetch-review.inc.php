@@ -3,7 +3,7 @@
     include_once './src/inc/session.php';
 
     if (isset($_POST['action'])) {
-        $limit = 10;
+        $limit = 6;
         $output = "";
         $pagintion = "";
 

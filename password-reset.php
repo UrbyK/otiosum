@@ -22,7 +22,7 @@
                         <!-- display email form if the status is not to check email -->
                         <?php if(!isset($_GET['status'])): ?>
                         <h4>Ste pozabili geslo?</h4>
-                        <p>Tu lahko ponastavite vaše geslo.</p>
+                        <p>Tu lahko ponastavite svoje geslo.</p>
                         <form autocomplete="off" method="POST" action="./src/inc/password-reset.inc.php">
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -39,7 +39,7 @@
                         </form>
                         <?php elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == "check"): ?>
                             <div class="message">
-                                Prosim preverite svoj email za ponastavitev gesla!
+                                Prosim, preverite svoj e-poštni predal za ponastavitev gesla!
                             </div>
                         <?php elseif (isset($_GET['status']) && $_GET['status'] == "verify" && isset($_GET['email']) && isset($_GET['token'])): 
                             $email = $_GET['email'];

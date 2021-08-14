@@ -24,12 +24,12 @@
                             </div>
                         <?php else: ?>
                             <div class="alert w-100 text-center alert-danger rounded">
-                                Zgodila se je neznana napaka. Prosim poskusite kasneje!
+                                Zgodila se je neznana napaka. Prosim, poskusite kasneje!
                             </div>
                         <?php endif; ?>
                 <?php else: ?>
                     <div class="alert text-center alert-info">
-                        Geslo mora vsebovati eno veliko črko, eno malo črko, številko in znak!
+                        Geslo mora vsebovati vsaj eno veliko črko, eno malo črko, številko in znak!
                     </div>
                 <?php endif; ?>
                 <form id="password-update" name="password-update" method="POST" action="./account.inc.php">

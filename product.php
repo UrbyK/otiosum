@@ -111,8 +111,9 @@
                     <?php endif; ?>
                 </div>
                 <div class="card-btn d-flex text-center mb-2 text-center">
-                        <input type="number" class="form-control hide-arrow text-center mx-3 rounded border-1" id="quantity" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" required style="max-width: 3rem" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>>
-                        <button type="submit" class="btn btn-primary cp-btn" id="addToCart" name="addToCart" value="<?=$pid?>" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?> style="width:225px;"><i class="fas fa-shopping-cart"></i> <b>Dodaj v košarico</b></button>
+                    <input type="hidden" name="pid"id="pid" value="<?=$pid?>">
+                    <input type="number" class="form-control hide-arrow text-center mx-3 rounded border-1" id="quantity" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" required style="max-width: 3rem" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?>>
+                    <button type="submit" class="btn btn-primary cp-btn" id="addToCart" name="addToCart" value="<?=$pid?>" <?php if($product['quantity'] == 0): ?>disabled<?php endif; ?> style="width:225px;"><i class="fas fa-shopping-cart"></i> <b>Dodaj v košarico</b></button>
                 </div><!-- card-btn -->
             </div>
         </div>
@@ -180,7 +181,7 @@
                                         <button class="btn btn-primary send" id="review-ins" value="<?=$pid?>">Komentiraj <i class="fa fa-arrow-right"></i></button>
                                     </div>
                                 <?php else: ?>
-                                    Če želite napisati komentar, se prosim prijavite v svoj račun!
+                                    Če želite napisati komentar, se prijavite v svoj račun!
                                 <?php endif; ?>
                                 </div>
                             </div>
@@ -200,9 +201,8 @@
     <div class="container h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="alert w-100 my-3 text-center alert-info rounded">
-                <h2>Izdelek ne obstaja!</h2>
-                <br>
-                <h2>Ali pa je bil odstranjen!</h2>
+                <h2>Izdelek ne obstaja</h2>
+                <h2>ali pa je bil odstranjen!</h2>
             </div>
         </div>
     </div>

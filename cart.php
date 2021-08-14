@@ -200,7 +200,7 @@
             <div class="container h-100">
                 <div class="row justify-content-center align-items-center h-100">
                     <div class="alert w-100 my-3 text-center alert-info rounded">
-                        <h2>Za nadaljevanje vas prosimo da se vpišete v svoj račun!</h2>
+                        <h2>Prosimo, da se za nadaljevanje vpišete v svoj račun!</h2>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
             <div class="alert w-100 my-3 text-center alert-info rounded">
                 <h2><b>Hvala za nakup!</b></h2>
                 <br>
-                <h2>Vaše naročilo <b><?=$_GET['oid']?></b> smo uspešno prejeli! Poslali smo vam email s potrditvijo naročila. Ko bomo naročilo odposlali vas bomo obvestili preko email-a!</h2>
+                <h2>Vaše naročilo <b><?=$_GET['oid']?></b> smo uspešno prejeli! Poslali smo vam e-poštno sporočilo s potrditvijo naročila. Ko bomo naročilo odposlali, vas bomo obvestili preko e-pošte!</h2>
             </div>
         </div>
     </div>

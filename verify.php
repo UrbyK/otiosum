@@ -57,7 +57,7 @@
                 } ?>
 
                 <?php if (isset($_GET['status']) && $_GET['status'] == "error"): ?> 
-                    <h2 class="alert alert-danger rounded">Zgodila se je napaka, pri validaciji računa prosimo, da poskusite kasneje ali pa kontakirajte podporo!</h2>
+                    <h2 class="alert alert-danger rounded">Zgodila se je napaka, pri validaciji računa prosimo, da poskusite kasneje ali pa kontakirate podporo!</h2>
                 <?php elseif (isset($_GET['status']) && $_GET['status'] == "verify-email"): ?>
                     <h2 class="alert alert-primary rounded">Na vaš elektronski naslov smo poslali pošto za potrditev računa!</h2>
                 <!-- Check if verification is successful and redirect to login after 'X' amount of time -->

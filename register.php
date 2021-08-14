@@ -23,7 +23,7 @@
                             </div>
                         <?php else: ?>
                             <div class="alert w-100 text-center alert-danger rounded">
-                                <h4>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h4>
+                                <h4>Zgodila se je neznana napaka. Prosim, poskusite kasneje!</h4>
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>

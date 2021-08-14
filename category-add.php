@@ -52,7 +52,7 @@
                         <input type="text" class="form-control" name="category[]" id=category placeholder="Kategorija..." required>
                     </div>
                     <div class="form-group col-md-5">            
-                        <label class="col-form-label" for="parent_category">Nad kategorija</label>
+                        <label class="col-form-label" for="parent_category">Nadkategorija</label>
                         <select class="form-control" id="parent_category" name="parent_category[]">
                             <option selected value=""> ---N/A--- </option>
                             <?=categoryTree()?>
@@ -88,7 +88,7 @@
                                         <input type="text" class="form-control" name="category[]" id=category placeholder="Kategorija..." required>\
                                     </div>\
                                     <div class="form-group col-md-5">\
-                                        <label class="col-form-label" for="parent_category">Nad kategorija</label>\
+                                        <label class="col-form-label" for="parent_category">Nadkategorija</label>\
                                         <select class="form-control" id="parent_category" name="parent_category[]">\
                                             <option selected value="0"> ---N/A--- </option>\
                                             <?=categoryTree()?>\

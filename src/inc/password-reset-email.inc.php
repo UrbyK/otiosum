@@ -32,7 +32,7 @@
         <div class="wrapper">
             <p>Pritisnite na spodnjo povezavo, da boste lahko ponastavili geslo:</p>
             <a href="'.$host.'/password-reset?status=verify&token='.$token.'&email='. $to_email .'" style="color:white;font-weight:600;};">Ponastavitev gesla!</a>
-            <p>Če povezava ne deluje prosim kopirajte povezavo v naslovno vrstico.</p>
+            <p>Če povezava ne deluje, kopirajte povezavo v naslovno vrstico.</p>
         </div>
         </body>
 

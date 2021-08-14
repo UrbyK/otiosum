@@ -65,12 +65,12 @@
                 }
             },
             messages: {
-                fname: "Prosim izpolnite polje!",
-                lname: "Prosim izpolnite polje!",
-                address: "Prosim izpolnite polje!",
-                city: "Prosim izpolnite polje!",
+                fname: "Prosim, izpolnite polje!",
+                lname: "Prosim, izpolnite polje!",
+                address: "Prosim, izpolnite polje!",
+                city: "Prosim, izpolnite polje!",
                 postalCode: {
-                    required: "Prosim izpolnite polje!",
+                    required: "Prosim, izpolnite polje!",
                     minlength: "Poštna številka mora biti dolga vsaj 4 znake!"
                 }
             }

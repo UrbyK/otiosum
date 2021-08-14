@@ -22,7 +22,7 @@
         <!-- if given error does not exist in the error array  -->
         <?php else: ?>
             <div class="alert w-100 mt-2 text-center alert-danger">
-                <h3>Zgodila se je neznana napaka. Prosim poskusite kasneje!</h3>
+                <h3>Zgodila se je neznana napaka. Prosim, poskusite kasneje!</h3>
             </div>
         <?php endif; ?>
     <?php endif;

@@ -24,7 +24,7 @@
         <?php endif;    
         if (isset($_GET['warning'])): ?>
             <div class="alert w-100 mt-3 text-center alert-warning rounded">
-                <p><?=$_GET['warning']?> popustov ni bilo možno vnesti!</p>
+                <p><?=$_GET['warning']?> Popustov ni bilo možno vnesti!</p>
             </div>
         <?php endif;
     ?>
@@ -32,7 +32,7 @@
         if (!isset($_GET['option']) || $_GET['option'] != "add" && $_GET['option'] != "modify" || empty($_GET['option'])):
     ?>
         <div class="text-center">
-            <h2>Izberite kaj želite storiti:</h2>
+            <h2>Izberite, kaj želite storiti:</h2>
             <div class="btn-group mb-2" style="width:180px">
                 <a type="button" class="btn btn-info" href="./sale?option=add"><i class="fas fa-plus"></i> Dodaj popuste</a>
             </div>

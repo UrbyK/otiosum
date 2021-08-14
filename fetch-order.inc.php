@@ -77,7 +77,7 @@
                 'Naročeno'=>"Prejeli smo vaše naročilo! Hvala za nakup!",
                 'Odposlano'=>"Obdelali smo vaše naročilo in ga odposlali!",
                 'Dostavljeno'=>"Naročilo smo dostavili k vam!",
-                'Nemoremo dostaviti'=>"Naročila nemoremo dostaviti!",
+                'Ne moremo dostaviti'=>"Naročila ne moremo dostaviti!",
                 'Preklicano'=>"Naročilo je bilo preklicano!"
             ];
             $status = $pdo->query("SELECT * FROM order_status WHERE id = $osID")->fetch(PDO::FETCH_ASSOC);

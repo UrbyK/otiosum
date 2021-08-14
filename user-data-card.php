@@ -29,7 +29,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    <label for="city">City<span class="asterisk">*</span></label>
+                    <label for="city">Kraj<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="city" name="city" value="<?=$city['city']?>" data-original-value="<?=$city['city']?>" disabled required>
                 </div>
                 <div class="form-group col-md-4">

@@ -27,7 +27,7 @@
                             </div>
                         <?php elseif (isset($_GET['error']) && $_GET['error'] == "err"): ?>
                             <div class="alert w-100 mt-2 text-center alert-danger rounded">
-                                <h4>Prišlo je do napake, prosim preverite vnašene podatke. Če še zmeraj prihaja do napake prosimo, da počakate ali pa kontaktirate podporo!</h4>
+                                <h4>Prišlo je do napake, prosim, preverite vnesene podatke. Če še zmeraj prihaja do napake, prosimo, da počakate ali pa kontaktirate podporo!</h4>
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
