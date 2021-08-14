@@ -789,3 +789,9 @@ footer {
     font-size: 1.15rem;
     font-weight: 600;
 }
+
+.asterisk {
+    color: red;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
