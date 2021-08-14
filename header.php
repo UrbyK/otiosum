@@ -65,17 +65,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a>
                                 </li>
-                                <?php endforeach; ?>
-                            <!-- <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle active" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelek</a>
-                                <div class="dropdown-menu" aria-labelledby="productsDropdown">
-                                    <a class="dropdown-item nav-link" href="./products">Vsi izdelki</a>
-                                    <div class="dropdown-divider"></div>
-                                    <?php foreach(rootCategories() as $category): ?>
-                                        <a class="dropdown-item nav-link" href="./products?cid=<?=$category['id']?>"><?=$category['category']?></a>
-                                    <?php endforeach; ?>
-                                </div>
-                            </li> -->
+                            <?php endforeach; ?>
 
                             <!-- check login status, and change login/logout buttons -->
                             <li class="nav-item dropdown">
@@ -85,6 +75,9 @@
                                     <a class="dropdown-item" href="./login"><i class="fas fa-sign-in-alt"></i> Vpis</a>
                                     <a class="dropdown-item" href="./register"><i class="far fa-address-card"></i> Registracija</a>
                                     <?php else: ?>
+                                        <a class="dropdown-item" href="./profile"><i class="fas fa-id-card"></i> Profil</a>
+                                        <a class="dropdown-item" href="./order"><i class="fas fa-list"></i> Naročila</a>
+                                        <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="./logout.php"><i class="fas fa-sign-out-alt"></i> Izpis</a>
                                     <?php endif; ?>
                                 </div>
@@ -104,6 +97,8 @@
                                         <a class="dropdown-item" href="./category-add">Dodaj kategorije</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="./brand-add">Dodaj znamko</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./order?o=list">Administracija Naročil</a>
                                     </div>
                                 </li>
                             <?php endif; ?>
