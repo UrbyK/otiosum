@@ -40,19 +40,19 @@
                                 <div class="step">
                                     <!-- Credentils information -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="username">Uporabniško ime:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="username">Uporabniško ime:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="username" id="username" placeholder="Uporabniško ime..." minlenght="4" autocomplete="off" required data-bs-toggle="tooltip" data-placement="top" title="Uporabniško ime mora biti dolgo vsaj 4 znake!" <?php if (isset($_GET['error'], $_GET['user'])): ?> value="<?=$_GET['user']?>" <?php endif; ?>>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="email">Elektronska pošta:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="email">Elektronska pošta:<span class="asterisk">*</span></label>
                                         <input type="email" class="form-control col-md-6" name="email" id="email" placeholder="Elektronska pošta..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['email'])): ?> value="<?=$_GET['email']?>" <?php endif; ?>>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="password">Geslo:<span class="asterisk">*</span></label>
                                         <input type="password" class="form-control col-md-6" name="password" id="password" placeholder="Geslo..." minlenght="8" autocomplete="off" required data-bs-toggle="tooltip" data-placement="top" title="Vsebovati mora eno veliko črko, eno malo črko, številko in znak!">
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="confirmPassword">Potrdite geslo:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="confirmPassword">Potrdite geslo:<span class="asterisk">*</span></label>
                                         <input type="password" class="form-control col-md-6" name="confirmPassword" id="confirmPassword" placeholder="Potrdite geslo..." autocomplete="off" required>
                                     </div>
                                 </div> <!-- step -->
@@ -60,11 +60,11 @@
                                 <div class="step">
                                     <!-- Firstname/Lastname -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="firstName">Ime:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="firstName">Ime:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="firstName" id="firstName" placeholder="Ime..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['fname'])): ?> value="<?=$_GET['fname']?>" <?php endif; ?>>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="lastName">Priimek:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="lastName">Priimek:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="lastName" id="lastName" placeholder="Priimek..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['lname'])): ?> value="<?=$_GET['lname']?>" <?php endif; ?>>
                                     </div>
                                 
@@ -78,7 +78,7 @@
                                 <div class="step">
                                     <!-- Address -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="addressOne">Naslov 1:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="addressOne">Naslov 1:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="addressOne" id="addressOne" placeholder="Naslov..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['addr'])): ?> value="<?=$_GET['addr']?>" <?php endif; ?>>
                                     </div>
                                     <div class="form-group row">
@@ -87,17 +87,17 @@
                                     </div>
                                     <!-- Postal code -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="postalCode">Poštna številka:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="postalCode">Poštna številka:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="postalCode" id="postalCode" placeholder="Postna stevilka..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['postalCode'])): ?> value="<?=$_GET['postalCode']?>" <?php endif; ?>>
                                     </div>
                                     <!-- City -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="city">Mesto:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="city">Mesto:<span class="asterisk">*</span></label>
                                         <input type="text" class="form-control col-md-6" name="city" id="city" placeholder="Mesto..." autocomplete="off" required <?php if (isset($_GET['error'], $_GET['city'])): ?> value="<?=$_GET['city']?>" <?php endif; ?>>
                                     </div>
                                     <!-- Country -->
                                     <div class="form-group row">
-                                        <label class="col-md-4 col-form-label text-md-right" for="country">Država:*</label>
+                                        <label class="col-md-4 col-form-label text-md-right" for="country">Država:<span class="asterisk">*</span></label>
                                             <select name="country" id="country" class="form-control col-md-6" required>
                                                 <?php if (!isset($_GET['error'], $_GET['country'])): ?>
                                                     <option hidden disabled selected value>--N/A--</option>

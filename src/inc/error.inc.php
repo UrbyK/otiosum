@@ -15,6 +15,7 @@
     "pass-digit" => "Geslo mora vsebovati vsaj 1 številko!",
     "pass-special" => "Geslo mora vsebovati vsaj 1 posebni znak!",
     "pass-match" => "Gesli se ne ujemata!",
+    "wrong" => "Geslo je napačno!",
 
     // reset password errorin
     "email" => "Email ne obstaja!",

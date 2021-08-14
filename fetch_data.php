@@ -2,7 +2,7 @@
     //include_once './src/inc/dbh.inc.php';
     include_once './functions.php';
 
-    if (isset($_POST['action'])) {
+    if (isset($_POST['action']) && $_POST['action'] == "fetch_data") {
         $select = "SELECT * FROM product ";
         $where = " WHERE date_published <= CURDATE()";
         $join = "";

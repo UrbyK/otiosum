@@ -7,7 +7,7 @@
         }
 ?>
     <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-2 my-3">
-        <div class="card product-item">
+        <div class="card product-item mx-auto">
             <div class="card-body">
                 <div class="cp-img">
                 <?php if (!empty($discount)): ?>
