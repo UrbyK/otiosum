@@ -3,11 +3,11 @@
         <form id="account-form" name="account-form">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="fname">Ime*</label>
+                    <label for="fname">Ime<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="fname" name="fname" value="<?=$user['first_name']?>" data-original-value="<?=$user['first_name']?>" disabled required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="lname">Priimek*</label>
+                    <label for="lname">Priimek<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="lname" name="lname" value="<?=$user['last_name']?>" data-original-value="<?=$user['last_name']?>" disabled required>
                 </div>
             </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="address">Naslov*</label>
+                    <label for="address">Naslov<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="address" name="address" value="<?=$user['address']?>" data-original-value="<?=$user['address']?>" disabled required>
                 </div>
                 <div class="form-group col-md-6">
@@ -29,15 +29,15 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    <label for="city">City*</label>
+                    <label for="city">City<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="city" name="city" value="<?=$city['city']?>" data-original-value="<?=$city['city']?>" disabled required>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="postalCode">Poštna številka*</label>
+                    <label for="postalCode">Poštna številka<span class="asterisk">*</span></label>
                     <input type="text" class="form-control" id="postalCode" name="postalCode" maxlength="10" value="<?=$city['postal_code']?>" minlength="4" data-original-value="<?=$city['postal_code']?>" disabled required>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="country">Država*</label>
+                    <label for="country">Država<span class="asterisk">*</span></label>
                     <select id="country" class="form-control" name="country" disabled required>
                         <?php foreach($countries as $country): ?>
                             <?php if($country['id'] == $city['country_id']): ?>
