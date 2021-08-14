@@ -76,4 +76,89 @@
         }
     }
 
+    if(isset($_POST['updatePass']) && !empty($_POST['updatePass']) && $_POST['updatePass'] == "updatePassword") {
+        if(isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+            $aid = $_SESSION['id'];
+
+            include_once './src/inc/xss_cleaner.inc.php';
+            if(isset($_POST['password']) && !empty($_POST['password'])) {
+                $password = xss_cleaner($_POST['password']);
+                $pdo = pdo_connect_mysql();
+                
+                $acc = $pdo->query("SELECT * FROM account WHERE id = $aid")->fetch(PDO::FETCH_ASSOC);
+                if(password_verify($password, $acc['password'])) {
+                    if(isset($_POST['newPassword'], $_POST['confirmNewPassword']) && !empty($_POST['newPassword']) && !empty($_POST['confirmNewPassword'])) {
+                        $newPassword = xss_cleaner($_POST['newPassword']);
+                        $confirmPassword = xss_cleaner($_POST['newPassword']);
+
+                        // check if password is longer then 8 chars
+                        if (strlen($newPassword) >= 8) {
+                            // check if password has a lowercase
+                            if (preg_match('/[a-z]/', $newPassword)) {
+                                // check if password has uppercase
+                                if (preg_match('/[A-Z]/', $newPassword)) {
+                                    // check if password contains a digit/number
+                                    if (preg_match('/\d/', $newPassword)) {
+                                        // check if password contains a special character
+                                        if (preg_match('/[^a-zA-Z\d]/', $newPassword)) {
+                                            if($newPassword == $confirmPassword) {
+                                                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                                                try {
+                                                    $pdo->beginTransaction();
+                                                    $sql = "UPDATE account SET password = :newPassword WHERE id = :aid";
+                                                    $stmt = $pdo->prepare($sql);
+                                                    $stmt->execute(['newPassword'=>$newPassword, 'aid'=>$aid]);
+                                                    $stmtErr = $stmt->errorInfo();
+                                                    if ($stmtErr[0] != 0) {
+                                                        throw new PDOException("error=err");
+                                                    }
+                                                    $pdo->commit();
+                                                    header("Location: ./profile?status=success");
+                                                    exit();
+                                                } catch (PDOException $e) {
+                                                    $error = $e->getMessage();
+                                                    header("Location: ./profile?$error");
+                                                    exit();
+                                                }
+
+                                            } else {
+                                                header("Location: ./profile?error=pass-match");
+                                                exit();
+                                            }
+                                        } else {
+                                            header("Location: ./profile?error=pass-special");
+                                            exit();
+                                        }
+                                    } else {
+                                        header("Location: ./profile?error=pass-digit");
+                                        exit();
+                                    }
+                                } else {
+                                    header("Location: ./profile?error=pass-upper");
+                                    exit();
+                                }
+                            } else {
+                                header("Location: ./profile?error=pass-lower");
+                                exit();
+                            }
+                        } else {
+                            header("Location: ./profile?error=pass-length");
+                            exit();
+                        }
+                    } else {
+                        header("Location: ./profile?error=empty");
+                        exit();
+                    }
+                } else {
+                    header("Location: ./profile?error=wrong");
+                    exit();
+                }
+            } else {
+                header("Location: ./profile?error=empty");
+                exit();
+            }
+        }
+    }
+
 ?>
