@@ -91,10 +91,10 @@
                 <option value="24">24</option>
                 <option value="30">30</option>
             </select>
-            <div class="row filter_data clearfix justify-content-center">
+            <div class="row filter-data clearfix justify-content-center">
 
             </div>  <!-- filter_data -->
-            <div class="row filter_pagination justify-content-center text-center">
+            <div class="row filter-pagination justify-content-center text-center">
 
             </div>
         </div> <!-- first-column filter-wrapper -->
@@ -113,7 +113,7 @@ $(document).ready(function() {
 
     function filter_data(page)
     {
-        $('.filter_data').html('<div id="loading" style=""></div>');
+        $('.filter-data').html('<div id="loading" style=""></div>');
         var sendData = {
             action: 'fetch_data',
             search: $('#search').val(),
@@ -133,8 +133,8 @@ $(document).ready(function() {
             dataType: "JSON",
             // cache: false,
             success:function(response) {
-                $('.filter_data').html(response.output);
-                $('.filter_pagination').html(response.pagination);
+                $('.filter-data').html(response.output);
+                $('.filter-pagination').html(response.pagination);
             }
             
         });
