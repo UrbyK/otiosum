@@ -133,7 +133,10 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="detailTabContent">
-                    <div class="tab-pane fade show active whitespace " id="p-description" role="tabpanel" aria-labelledby="p-description-tab"><h2 class="tab-content-header text-center">Opis</h2><?=$product['description']?></div>
+                    <div class="tab-pane fade show active" id="p-description" role="tabpanel" aria-labelledby="p-description-tab">
+                        <h2 class="tab-content-header text-center">Opis</h2>
+                        <?=$product['description']?>
+                    </div>
                     <div class="tab-pane fade" id="measurement" role="tabpanel" aria-labelledby="measurement-tab">
                         <h2 class="tab-content-header text-center">Mere</h2>
                             <table class="w-75">
