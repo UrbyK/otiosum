@@ -91,6 +91,11 @@
                 <option value="24">24</option>
                 <option value="30">30</option>
             </select>
+            <select name="sortBy" id="sortBy" class="btn ">
+                <option value="minPrice">Najnižja cena</option>
+                <option value="maxPrice">Najvišja cena</option>
+                <option value="rating">Popularnost</option>
+            </select>
             <div class="row filter-data clearfix justify-content-center">
 
             </div>  <!-- filter_data -->
@@ -122,6 +127,7 @@ $(document).ready(function() {
             brand: get_filter('brand'),
             category: checkHidden(get_filter('category'), 'original'),
             limit: $('#numberOfItems').val(),
+            sortBy: $('#sortBy').val(),
             page: page,
         };
         console.log(sendData);
@@ -153,6 +159,10 @@ $(document).ready(function() {
     });
 
     $('#numberOfItems').change(function() {
+        filter_data(1);
+    })
+
+    $('#sortBy').change(function() {
         filter_data(1);
     })
 

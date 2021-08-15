@@ -3,19 +3,18 @@
     include_once './functions.php';
 
     if (isset($_POST['action']) && $_POST['action'] == "fetch_data") {
-        $select = "SELECT * FROM product ";
+        $select = "SELECT p.* FROM product p ";
         $where = " WHERE date_published <= CURDATE()";
         $join = "";
-        $groupBy = "";
+        $groupBy = " GROUP BY p.id";
         $orderBy = "";
         $limit ="";
 
         // join with categories
         if (isset($_POST['category']) && !empty($_POST['category'])){
-            $join .= " INNER JOIN product_category ON product.id = product_category.product_id";
+            $join .= " INNER JOIN product_category ON p.id = product_category.product_id";
             $category_filter = implode(",", $_POST["category"]);
             $where .= " AND product_category.category_id IN ($category_filter)";
-            $groupBy .= " GROUP BY product.id";
         }
 
         // filter by in berween price
@@ -48,6 +47,20 @@
             }
             $limit = " LIMIT $start, $lim";
 
+        }
+
+        // sort order
+        if (isset($_POST['sortBy']) && !empty($_POST['sortBy'])) {
+            $sort = $_POST['sortBy'];
+            if ($sort == "minPrice") {
+                $orderBy .= " ORDER BY price ASC";
+            } elseif ($sort == "maxPrice") {
+                $orderBy .= " ORDER BY price DESC";
+            } elseif ($sort == "rating") {
+                $join.= " LEFT JOIN review r ON p.id = r.product_id";
+                $orderBy .= " ORDER BY avg(rating) DESC";
+
+            }
         }
 
         // get all data
