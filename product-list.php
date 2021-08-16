@@ -63,7 +63,7 @@
                                 <div class="d-flex flex-column mr-2">
                                     <!-- put buttons in line -->
                                     <div class="btn_group edit-button">
-                                        <a href="./product-update.php?pid=<?=$product['id']?>" class="mx-1 btn btn-info">
+                                        <a href="./product-update?pid=<?=$product['id']?>" class="mx-1 btn btn-info">
                                             <i class="fas fa-wrench"></i>
                                         </a>
                                         <button id="delete" class="btn btn-danger" value="<?=$product['id']?>" name="pid">
