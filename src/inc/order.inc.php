@@ -8,8 +8,7 @@
                 if(isset($_POST['deliveryMethod']) && !empty($_POST['deliveryMethod'])) {
                     $pmID = $_POST['paymentMethod'];
                     $dmID = $_POST['deliveryMethod'];
-                    print_r($_POST);
-                    var_dump($_SESSION);
+                    
                     if(isset($_POST['totalSum']) && !empty($_POST['totalSum'])) {
                         $cartItems = $_SESSION['cart'];
                         $totalSum = $_POST['totalSum'];
