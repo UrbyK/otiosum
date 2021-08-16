@@ -19,7 +19,7 @@
                     <?php if (isset($_GET['error'])):
                         if (isset($_GET['error']) && $_GET['error'] == "pass"): ?>
                             <div class="alert w-100 mt-2 text-center alert-danger rounded">
-                                <h4></h4>Napačno geslo!</h4>
+                                <h4>Napačno geslo!</h4>
                             </div>
                         <?php elseif (isset($_GET['error']) && $_GET['error'] == "user"): ?>
                             <div class="alert w-100 mt-2 text-center alert-danger rounded">

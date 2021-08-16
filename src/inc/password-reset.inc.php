@@ -9,7 +9,7 @@
         header("Location: ../../password-reset");
         exit();
     }
-
+    include_once './xss_cleaner.inc.php';
     include_once './dbh.inc.php';
     $pdo = pdo_connect_mysql();
     // check if reset is set to save new password or to send the reset email
@@ -67,9 +67,9 @@
     
     if (isset($_POST['reset']) && !empty($_POST['reset']) && $_POST['reset'] == 1) {
         if (isset($_POST['password']) && !empty($_POST['password'])) {
-            $password = $_POST['password'];
+            $password = xss_cleaner($_POST['password']);
             if (isset($_POST['confirmPassword']) && !empty($_POST['confirmPassword'])) {
-                $confirmPassword = $_POST['confirmPassword'];
+                $confirmPassword = xss_cleaner($_POST['confirmPassword']);
                 if (isset($_POST['email']) && !empty($_POST['email'])) {
                     $email = htmlspecialchars($_POST['email']);
                     if (isset($_POST['token']) && !empty($_POST['token'])) {

@@ -89,7 +89,7 @@
                 if(password_verify($password, $acc['password'])) {
                     if(isset($_POST['newPassword'], $_POST['confirmNewPassword']) && !empty($_POST['newPassword']) && !empty($_POST['confirmNewPassword'])) {
                         $newPassword = xss_cleaner($_POST['newPassword']);
-                        $confirmPassword = xss_cleaner($_POST['newPassword']);
+                        $confirmPassword = xss_cleaner($_POST['confirmNewPassword']);
 
                         // check if password is longer then 8 chars
                         if (strlen($newPassword) >= 8) {

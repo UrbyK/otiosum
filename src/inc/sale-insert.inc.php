@@ -1,5 +1,14 @@
 <?php
 
+    require_once './session.php';
+    if (!isLogin()) {
+        header("Location: ../../index");
+        exit();
+    } elseif (!isAdmin() && !isMod()) {
+        header("Location: ../../index");
+        exit();
+    }
+
     if(!isset($_POST['submit'])) {
         header("Location: ../../sale.php");
         exit();
@@ -9,7 +18,7 @@
 
         $startDates = $_POST['start_date'];
         $endDates = $_POST['end_date'];
-        $discounts = $_POST['discount'];
+        $discounts = xss_cleaner($_POST['discount']);
 
         // number of failed inserts
         $fails = 0;
