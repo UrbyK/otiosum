@@ -1,5 +1,8 @@
 <?php
     include_once './header.php';
+    if (!isLogin()) {
+        exit("<script>window.location.href='login'</script>");
+    }
     $o = "";
     if(isset($_GET['o']) && $_GET['o'] == "list") {
         $o = $_GET['o'];
