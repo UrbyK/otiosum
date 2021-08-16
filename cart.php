@@ -62,7 +62,7 @@
                                 <div class="row cart-title"><a href="./product?pid=<?=$pid?>"><?=substr($product['title'], 0, 65).'...'?></a></div>
                             </div>
                             <div class="col values">
-                                <input type="number" name="quantity" id="quantity" class="form-control hide-arrow text-center quanity" min="1" step="1" value="<?=$quantity?>" style="max-width:4rem;">
+                                <input type="number" name="quantity" id="quantity" class="form-control hide-arrow text-center quanity" min="1" step="1" value="<?=$quantity?>" max="<?=$product['quantity']?>" style="max-width:4rem;">
                                 <input type="hidden" name="pid" id="pid" value="<?=$pid?>">
                             </div>
                             <div class="col"><span class="price" id="<?=$pid?>"> <?=$price*$quantity?></span><b> &euro;</b> <button class="close" value="<?=$pid?>">&#10005;</button></div>
