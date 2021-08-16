@@ -94,7 +94,7 @@
                         <hr>
                         <!-- product table -->
                         <div class="form-group">
-                            <label class="col-md-4 col-form-label text-left" for="title">Naslov izdelka:</label>
+                            <label class="col-md-4 col-form-label text-left" for="title">Naslov izdelka:<span class="asterisk">*</span></label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Izdelek..." maxlength="150" required value="<?=$product['title']?>">
                             <input type="text" name="pid" id="pid" value="<?=$pid?>" hidden>
                         </div>
@@ -131,12 +131,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 col-form-label text-left" for="quantity">Količina:</label>
+                            <label class="col-md-4 col-form-label text-left" for="quantity">Količina:<span class="asterisk">*</span></label>
                             <input type="number" class="form-control hide-arrow" name="quantity" id="quantity" placeholder="Količina..." min="0" required value="<?=$product['quantity']?>">
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 col-form-label text-left" for="price">Cena:</label>
+                            <label class="col-md-4 col-form-label text-left" for="price">Cena:<span class="asterisk">*</span></label>
                             <div class="input-group">
                                 <input type="number" class="form-control hide-arrow" name="price" id="price" placeholder="Cena..." step="0.01" min="0" required value="<?=$product['price']?>">
                                 <div class="input-group-append">
@@ -158,7 +158,7 @@
                         <h3 class="subtitle">Šifra izdelka</h6>
                         <hr>
                         <div class="form-group">
-                            <label class="col-md-4 col-form-label text-left" for="sku">SKU:</label>
+                            <label class="col-md-4 col-form-label text-left" for="sku">SKU:<span class="asterisk">*</span></label>
                             <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU..." maxlength="8" pattern="[A-z0-9]{1,}" required value="<?=$product['sku']?>">
                         </div>
 
@@ -233,7 +233,7 @@
                         <div class="form-row col-4">
                             <div class="form-group">
                                 <label class="col-md-4 col-form-label text-left" for="brand">Znamka:</label>
-                                <select class="form-select" id="brand" name="brand" size="5" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
+                                <select class="form-select" id="brand" name="brand" size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;">
                                     <?php foreach(brands() as $brand):
                                         if ($brand['id'] == $product['brand_id']): ?>
                                             <option value="<?=$brand['id']?>" selected><?=$brand['title']?></option>
@@ -258,7 +258,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="col-12 col-form-label text-left" for="sale">Popusti:</label>
-                                <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="width:100%" multiple>
+                                <select class="form-select" id="sale" name="sale[]" size="8" aria-label="multiple select size 3" style="min-width:300px;width:100%;" multiple>
                                     <?php foreach(sales() as $sale): ?>
                                         <?php if(in_array($sale['id'], $discounts)): ?> 
                                             <option value="<?=$sale['id']?>" selected><?=format_date("d.m.Y",$sale['date_start'])?> / <?=format_date("d.m.Y",$sale['date_end'])?> | <?=$sale['discount']?>%</option> 
